@@ -1,0 +1,2 @@
+This is where the binaries are stored when they are built, before you
+do a 'make install'.

@@ -1,0 +1,67 @@
+[?include templates/header.lsc]
+
+<font face="Verdana,Arial,Helvetica,Sans-Serif">
+<center>
+<font size=+3><b>
+Users on [$list]
+</b></font>
+</center>
+<HR>
+
+<table border=1 align=center>
+ <tr>
+   <th>User</th>
+   <th>Flags</th>
+   <th>Posts</th>
+   <th>Traffic</th>
+ </tr>
+[@USERLIST:<tr><td>%n &lt;%u&gt;</td><td>%a %m %d %v %h&nbsp;</td><td align=right>&nbsp;%P</td><td align=right>&nbsp;%t</td></tr>]
+</table>
+<P>
+
+
+<table border=0 align=right>
+ <tr>
+   <td colspan=4><font size=+1><b>List Summary</b></font></td>
+ </tr>
+ <tr>
+   <td><b>Admins</b></td>
+   <td align=right>[@LISCRIPT:{$tlcgi-users-admins}]</td>
+   <td rowspan=6>&nbsp;&nbsp;</td><td></td>
+ </tr>
+ <tr>
+   <td><b>Moderators</b></td>
+   <td align=right>[@LISCRIPT:{$tlcgi-users-moderators}]</td>
+   <td></td>
+ </tr>
+ <tr>
+   <td><b>Digest</b></td>
+   <td align=right>[@LISCRIPT:{$tlcgi-users-digest}]</td>
+   <td></td>
+ </tr>
+ <tr>
+   <td><b>Vacation</b></td>
+   <td align=right>[@LISCRIPT:{$tlcgi-users-vacation}]</td>
+   <td></td>
+ </tr>
+ <tr>
+   <td valign=top><b>Hidden</b></td>
+   <td align=right valign=top>[@LISCRIPT:{$tlcgi-users-hidden}]</td>
+   <td><i>Only admins can see HIDDEN users.</i></td>
+ </tr>
+ <tr>
+   <td><b>TOTAL</b></td>
+   <td align=right>[@LISCRIPT:{$tlcgi-users-total}]</td>
+   <td></td>
+ </tr>
+</table>
+<P>
+This is not a full representation of all flags a user can have set,
+merely of the ones that are most common.  Administrative flags, such
+as NOPOST, are represented under the administrative statistics section.
+<P>
+[@MODEHEADEX:listmenu]
+[@SUBMIT:Back to List Menu]
+[@MODEEND]
+
+[?include templates/footer.lsc]

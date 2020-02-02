@@ -1,0 +1,9 @@
+LIBRARY      "antispam"
+DESCRIPTION  'Ecartis antispam plugin'
+EXPORTS
+antispam_load
+antispam_switch_context
+antispam_upgradelist
+antispam_upgrade
+antispam_init
+antispam_unload

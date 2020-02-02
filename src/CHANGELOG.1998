@@ -1,0 +1,1066 @@
+[12/31/1998] -- RCB
+  -- Finished module API rewrite.  Phew!  On the plus side, you now only
+     need a few include files to write a Listar module, instead of the
+     entire source distribution.  Additionally, Listar modules are now
+     denoted by a '.lpm' extension instead of the standard '.so', since
+     they now have a specialized format.
+
+[12/30/1998] -- RCB
+  -- Begun rewrite of entire module API.  Aaaugh!  But this will allow us
+     a much cleaner module API (allowing ports to Win32, and to systems
+     which don't implicitly resolve symbols from a dynamic binary back
+     into the calling binary).
+  -- File API and locking API abstracted further.  Still more work to do
+     here, but this is another place that is good to do this.  Not all
+     systems can do blocking locking from fd or FILE *... having the
+     stream type obscured from the user is a GOOD thing.
+
+[12/28/1998] -- RCB
+  -- Hope everyone had a good holiday season.
+  -- Disabled digesting for megalists.  It created too many problems.
+
+[12/23/1998] -- RCB
+  -- Cleaned up after JT's changes of yesterday so that Listar compiles
+     -Wall -Werror again. :)
+  -- Added two new variables, 'header-max-size' and 'body-max-size'.
+     If they aren't set, there are no size limits.  If they are set,
+     posts are rejected.  This needs to be altered to send a message 
+     to the user, and I will do so later today.
+
+[12/22/1998] -- JLT
+  -- Changed Received headers to be RFC 822 compliant.
+
+[12/18/1998] -- RCB
+  -- Added a 'megalist' variable.  Setting this on a list cripples some
+     Listar functionality to a small degree, and will be less efficient on
+     small lists.  However, for lists in the range of 45,000 users, it
+     works a hell of a lot better.  Setting 'megalist' to true for a list
+     implies 'sort-tolist = no'.
+  -- Added an 'always-unsub' variable which causes Bouncer to unsubscribe
+     on maximum transient bounces, instead of just setting the user
+     vacation.
+
+[12/17/1998] -- RCB
+  -- Thanks to Jeff Johnson (trn@trn.nu), Listar now compiles under 
+     OpenBSD, too!
+
+[12/16/1998] -- RCB
+  -- Added a 'sort-tolist' variable.  If this is present, the tolist
+     will be sorted using the Listar sorting logic.  If this is NOT
+     present or set to false, no sorting of the tolist will be performed.
+     For base sendmail installations, this is useful.  But for huge lists,
+     (40,000+ users) the delay in sorting MIGHT outweigh the benefits.
+     Also, it's less necessary on qmail or Postfix installations, and so
+     you save time by not having it sort.  Previous versions of Listar
+     always sorted.
+
+[12/13/1998] -- RCB
+  -- Another minor fix to bouncer, to set the first error time
+     CORRECTLY.  Oops.
+  -- Fix to nodupes.
+
+[12/11/1998] -- RCB
+  -- Fix to Bouncer, where in a certain situation, admins could be
+     unsubscribed.  Gyack.
+
+[12/10/1998] -- RCB
+  -- Simple Listar WWW interface ('Listargate') added.  This needs a LOT
+     of work before I'll consider it production-level.
+
+[12/07/1998] -- RCB
+  -- Added an 'antispam' module for blocking spam mail.  Really
+     preliminary little thing, but I wanted it.
+
+[12/01/1998] -- RCB
+  -- Created 'predigest' command in digest.  This sends a copy of the
+     latest digest issue as-is (e.g. whatever is currently in the digest
+     buffer).  Hey, it was requested.
+
+[11/23/1998] -- RCB
+  -- Bug fixed in Digest; if transient-digest was false but no one was set
+     digest, it would still nuke the digests. :(
+
+[11/17/1998] -- RCB
+  -- I should mention that with forking digests, it is NORMAL to see a
+     second 'zombie' Listar process if the forked process finishes before
+     Listar's primary process.  This is because Listar doesn't care about
+     the exit code of the child process, but the child sits there after
+     execution as a 'zombie' until Listar either exits, or if I write
+     something to eat the pid.  I'm looking into the best way to handle
+     this overall (since I also want to catch SIGCHLD)... it has no real
+     negative effects at the moment, BUT if it makes you nervous, just set
+     'digest-no-fork = yes' in your lists. :)
+  -- Added 'default-flags' string variable.  DO NOT USE THIS UNLESS YOU
+     ARE *SURE* YOU KNOW WHAT YOU ARE DOING.  This sets the default flags
+     for when a user subscribes.  For example, if you wanted them to
+     default to receiving a little acknowledgement when they post, and to
+     being in digest mode, it would be:
+       default-flags = |DIGEST|ACKPOST|
+     The leading and trailing pipes are VERY IMPORTANT to Listar's
+     internal parser.  If you forget them, you WILL quite possibly hose
+     your list until you fix them and all users added with mangled flags.
+  -- Fixed a bug where 'end' didn't work in static linked situations.
+     Ooops.
+  -- Decided it was time for a full release.
+     Released 0.114a
+  -- Updated CVS version to 0.115a
+  -- Added new config variable, 'owner-fallback'.  If this is true, 
+     and 'administrivia-address' is not set for a list, then the 
+     'list-owner' address will be sent the administrivia notes instead.
+     If it is false (or not set), and the administrivia-address is not
+     set, then no administrivia note will be sent.  It will still fall
+     back to the list-owner address for administrivia needing confirmation
+     such as subscribe requests to a closed list.
+
+[11/16/1998] -- RCB
+  -- admin, admin2, and getconf changed to use job/eoj blocks.  This means
+     you can literally just forward them back and not worry about
+     formatting. :)
+  -- Added 'nopost' as a file for getconf.  Oops!
+  -- Removed Makefile from CVS tree, added it as Makefile.dist (to avoid
+     overwriting copies on sandboxes).  Removed -Wall -Werror and -g from
+     Makefile.dist.
+  -- Replaced listar.cfg.dist with Mark Scudder's replacement for it,
+     with the additional variables (reply-expires-time and nopost-file)
+     added.
+  -- Added fixlist.pl.dist to the scripts directory.  Fixlist is something
+     I wrote after I accidentally blew away my listar.aliases file; it
+     is newlist.pl stripped down to just the portion that builds the
+     aliases, so it allows you to just run fixlist.pl for a given list
+     and rebuild the aliases if you lost them. :)
+  -- Nuked old TODO list - half of it was done anyway - and wrote a
+     new (very short) one.
+  -- Minor fix to digest name system (it was 00-11 on month before, now
+     it's 01-12)
+  -- Added a function to prevent duplicate messages.  Sometimes if a 
+     mailserver spazzes out, it'll try to send multiple copies of a 
+     given message.  Listar now tracks the Message-ID of each message it
+     receives for a list in a given day, and will reject duplicated
+     messages.  It nukes this after a 24 hour period and starts over.
+     If you wish to use this, set the config variable 'no-dupes' to 
+     true.
+  -- Digest had a formatting bug when the subject line got clipped.  This
+     has been fixed.
+  -- If you set the config variable 'digest-no-toc' to true in a list
+     config, then you will not have the table of contents in the digests.
+     THIS BREAKS RFC1153.  But since we already allow it to be broken
+     with digest-header and digest-footer, I don't consider this a huge
+     issue.  And JT wanted it.
+
+[11/15/1998] -- RCB
+  -- Added a new admin flag, NOPOST.  This needs to be set/unset from
+     within an admin wrapper if you wish to set it on users.  It causes
+     the user in question to be unable to post to the list until you unset
+     the flag - useful for disciplinary action.  With this, of course,
+     comes another config variable - this one for listar.cfg.  nopost-file
+     should be a string set to the filename to use.  There is, as always,
+     a default text that will be used if you do not provide one.
+  -- Parser changed, it no longer silently eats errors anymore.  Mail sent
+     to listar can contain '#' as the first character of a line, or
+     '//' as the first two characters, and the line will not be processed.
+  -- Admin stuff changed so you don't have to cut/paste.
+  -- Added 'Expiry-Date' header to normal responses.  Admin stuff and
+     files sent to the user will not be expired, but normal command texts
+     will be automatically removed by mailer software that understands the
+     expires headers.  Of course, another listar.cfg variable has been
+     added; 'reply-expires-time'.  It's a duration, and defaults to 1 day
+     if not set.
+  -- Added new command, 'admin2'.  Works like the 'admin' command, but
+     everything between 'admin2' and 'adminend2' will be recorded and
+     placed into the wrapper that is sent to you.  Allows you to compose
+     your admin commands when requesting the wrapper. :)
+  -- Listserv style //job and //eoj commands added.  Putting these into
+     a message will cause Listar to only parse what is between them.
+     There can be multiple //job | //eoj blocks in a single message.
+  -- Beta 4 of 0.114a released.  I think I'll just go release on Monday,
+     since there have been no bug reports for b2 or b3.
+
+[11/14/1998] -- JLT
+  -- Fixed a couple of small bugs in the digest naming code.
+  -- Fixed a small bug in chmoding the listar executable in the src Makefile
+     (This really only affects BSDI)
+
+[11/14/1998] -- RCB
+  -- Finally made a change to have '<user> subscribed to <list>'/
+     '<user> unsubscribed from <list>' as subject for administrivia.
+  -- subscribe/unsubscribe now set list context.  Oops!
+  -- Added a strreplace to mystring.c
+  -- Fixed mkdirs() so it worked. :)
+  -- Added a new per-list config parameter, 'digest-name'.  This
+     determines how digests are done.  Basically, it's a special string
+     where certain tokens are replaced.  The tokens are:
+       %l - List name
+       %v - Volume (no field width)
+       %V - Volume (minimum 2 digits)
+       %i - Issue (no field width)
+       %I - Issue (minimum 5 digits)
+       %m - Month (minimum 2 digits)
+       %d - Day of month (minimum 2 digits)
+       %y - Year (final 2 digits)
+       %Y - Year (including century)
+     If not provided, it defaults to 'lists/%l/digest/V%V/%I', which was
+     the old digest filename format for the initial release of Digest 3.0
+     along with Listar 0.114a.
+  -- Built 0.114a beta 3 for the testers.  I think we're pretty close to
+     final.
+  -- Added two tokens to digest-name for JT
+       %n - Issue formatted to 3 digits (think 'number' to remember it)
+       %M - Three-letter month name ('Oct', 'Dec', etc.)
+
+[11/13/1998] -- JLT
+  -- Added a function mkdirs to fileapi.c.  It takes a path, and creates
+     all the directories along that path if needed.  If the trailing
+     char on the path is not '/', it assumes the final element is a file
+     name and doesn't try and create it.   If the first character of the
+     path isn't /, it is relative to the LISTAR executable.  Thus, this
+     is a general purpose function.
+
+[11/13/1998] -- RCB
+  -- Fixed a nasty bug in digest; didn't affect anything else, but made
+     digest do effectively nothing if you had 'moderated' defined
+     (regardless of value).
+  -- Addition of digest-max-time, a duration variable which defines the
+     maximum amount of time digests are allowed to sit unsent.  This
+     allows you also to not have to put -procdigest in crontab as long
+     as you define a value for all lists. :)
+  -- Addition of digest-no-fork, a boolean variable which determines
+     whether or not digests should be processed in a subprocess.  This
+     is more useful for me for debugging than end-users, but if you have
+     some ethical objection to fork(), you can use this. :)
+  -- Subject tag is removed from subject lines in digests.
+  -- Fixed a bug in get_seconds() that caused it to have issues on parsing
+     some duration strings.
+  -- Fixed a bug in mystring.c for strcasestr()
+  -- Added 'digest-strip-tags' to determine if subject tag should be 
+     stripped or not.  (JT wanted the tags to remain in on his lists.)
+  -- Added 'digest-send-mode' to determine what logic should be used
+     for sending the list when listar is called with -procdigest.  If
+     'digest-send-mode' is 'time', it will ONLY check the time and will
+     not mail the digest if less than the digest-max-time has passed.
+     If it is 'size', it will ONLY check the size and will not mail the
+     digest if the digest is not larger than the given size.  If it is
+     'procdigest', then it will just mail the digest regardless.  Defaults
+     to 'procdigest' if not set.  As a result, you can now do something
+     like 'digest-max-time = 7d' and 'digest-send-mode = time', and the
+     digests will be weekly. :)
+  -- Added 'digest-no-unmime', a boolean variable.  If set to true, 
+     posts to digests will be left unaltered, MIME encoding-wise.  If
+     false, then even if the list is set to humanize-mime, the digest
+     will contain de-MIME'd versions.
+  -- Released beta2 of 0.114a to the testers.
+  -- Another minor RFC822 hack fix.
+
+[11/12/1998] -- RCB
+  -- COMPLETE rewrite of digest, because of the level of functionality
+     people wanted.  I was feeling inspired, and this time, digest should
+     actually work fairly nicely.  It also complies to RFC1153 (the RFC
+     that specifies a standardized digest format for mailing lists) now.
+     This is so extensive a rewrite that I will make a separate digest
+     administration readme.
+  -- Rewrote a chunk of fileapi.c to add some new functionality.  Also
+     made sure that it handles trying to close a NULL stream gracefully.
+     Admittedly, this should never happen, but it's still better to 
+     log it and try to recover than to just plain segfault.
+  -- Changed makefile back to using WFLAGS=-Wall -Werror, and did a LOT
+     of cleanup to ensure that everything compiles -Wall -Werror again.
+  -- Added list headers files.  Hey, we've had footer files for a while,
+     why not?  :)  You need to add 'header-file = text/header.txt' to
+     listar.cfg to use this.  (Or whatever you want the header path to
+     be instead of text/header.txt - remember that it's under the list.)
+  -- Lots of other minor distribution cleanup.
+  -- Upped version number to 0.114a, since 0.113a was in limited release
+     (to the FFML and some other folks).  I think I'll have a few people
+     test this, and then I'll be ready to do a new release.
+  -- Added 'admin-approvepost'; for moderated lists, this means that
+     admins' posts will be automatically approved.
+  -- Redid the website!  Added a 'variables cheat sheet'.  Feedback is
+     welcomed. :)
+
+[11/11/1998] -- RCB
+  -- New variable added, 'max-rcpt-tries'.  Sometimes, sendmail will take
+     a little too long replying.  This determines the number of times that
+     Listar attempts to get a status from sendmail before giving up.
+     Defaults to '5'.  This only determines the number of times the IO
+     buffer is queried for a 25x acknowledgement of receipient ok, NOT
+     a number of times to try redoing the RCPT TO.
+  -- Archive functionality altered to avoid using unmime if humanize-mime
+     is set to false.  Oops.
+  -- Moved digest updating to AFTER hook instead of SEND.  This should
+     fix the 'messages being eaten' error.
+
+[11/09/1998] -- RCB
+  -- Added a new variable, 'sendmail-sleep'.  If this is set to 'yes',
+     there is a 5 millisecond 'sleep' between acknowledgement of an RCPT
+     TO line and continuing on to the next RCPT TO.  On some sendmails, it
+     puked if you sent too many RCPT TO lines too quickly.
+  -- Tweaked memory handling in tolist, to avoid problems on concurrent
+     copies of Listar running with lists of 1000+ users.
+
+[11/08/1998] -- RCB
+  -- Ack!  Fixed RFC822 From: bug.  This had been fixed once before, but
+     the fix was somehow lost in the CVS rebuild. :(
+
+[11/08/1998] -- JLT
+  -- Fixed a bug in digest where global listar.cfg variables were getting
+     wiped as it went from list to list.
+  -- Fixed a bug in digest where mode wasn't being reset correctly when
+     it did the digest send check.
+  -- Fixed a bug in mystring.c where it broke on BSDI
+  -- Added a compile time define of whether GNU's version of strftime
+     is to be used.  See comments in the makefile
+
+[11/07/1998] -- JLT
+  -- Added the ability to the digest module to send the digest if it
+     exceeded a certain size (set by digest-file-size in the config file).
+  -- Found a bug in set_var where if you reset a var with a value generated
+     by a get_var() to that same variable you clobbered the variable.  Odd
+     case but fixed now.
+  -- Multiple digests for the same day are NOT versioned differently yet.
+     I will probably do this soon.
+
+[11/07/1998] -- RCB
+  -- Added 'setaddy' command.  'setaddy <address>' is used for those 
+     who can't alter their mail from and whose ISP is messed up about
+     how it addresses mail (ix.netcom.com shell accounts, for example).
+     'setaddy' only succeeds if the username matches the existing from,
+     the username is NOT root, AND the domain is a valid higher-level of
+     the current one.  sparks@ikkoku.maison-otaku.net can setaddy to
+     sparks@maison-otaku.net, but not to sparks@dragoncat.net.  This
+     functionality can be disabled by 'allow-setaddy = no' in the
+     listar.cfg file.
+  -- Added user_find_loose() and user_find_list_loose(), versions
+     of the normal commands which will match on the second-level domain.
+     (e.g. 'sparks@ikkoku.maison-otaku.net' and 'sparks@maison-otaku.net'
+     are equivalent).  Right now, only the closed-post check uses
+     this, but if it proves to be useful, it'll get used elsewhere.
+
+[11/06/1998] -- RCB
+  -- Added a hook to add 'X-list: <listname>' to the headers.  Hey, it
+     makes procmail sorting easier.
+  -- Fixed typo bug introduced by JT's last alteration.  For shame, JT.
+     And listar even whined about this one and told you where it was when
+     you ran it.
+  -- Finally changed it so if there's no 'subject' line and the list has
+     a subject tag, it'll be added - allowing sorting on subject tags
+     even when people omit a subject line. :)
+  -- Temporarily moved the 'procmail' stuff to a back burner; it didn't
+     work too well.  If anyone out there wants to rewrite a better
+     procmailrc and newlist procmail generator, be my guest, I'd love to
+     get one!
+  -- And since digest works nicely, and everything else is pretty cool,
+     I'd say it's time for... *gasp* ...a release!
+     Released v0.112a
+  -- Updated CVS version.h to 0.113a
+  -- Change to tolist.c; users flagged ADMIN are always sorted to top
+     of tolist, ensuring that admins receive mail first.
+  -- Timestamps altered so that pine can sort on them without puking.
+
+[11/05/1998] -- JLT
+  -- Added a -priv flag (in the send module) which controls whether that
+     invocation of the list obeys the reply-to setting.  It's useful for
+     me in a very specific case.  But rather than put it into my list-specific
+     module, I placed it here to prevent adding the reply-to header and then
+     removing it again in my module.  This seemed a more elegant solution.
+     Basically it allows a list to operate in normal mode, and (assuming
+     the sysadmin or whomever has set it up, a private mode).   All message
+     sent to either list are archived with the normal list, and digested
+     with it.  All messages sent to the private list, when replied to will
+     go to the author of the message instead of the normal list reply-to.
+     
+[11/04/1998] -- RCB
+  -- CVS is back online (Nausicaa.net had been cracked), and the Listar
+     project is back in business!  Got 0.112a into CVS, and we have a 
+     clean distribution image again.  A couple more tweaks and I'm going
+     to re-release.
+  -- The mailing lists are back online as well, but we've semi-obviously
+     lost all of the subscribers who were previously on the lists.  If you
+     were a subscriber in the past, you will want to resubscribe.
+
+[11/03/1998] -- JLT
+  -- Fixed a bug in tolist that only occured when one flag
+     contained another.  ('DIGEST' and 'DIGEST2')
+
+[11/03/1998] -- RCB
+  -- Added DIGEST2 flag for JT's Acka lists.  This should probably get
+     split off into an Acka module, considering the amount of custom stuff
+     for these lists.
+     (as a comment to defend this belonging in the main dist, DIGEST2 allows
+     a user to receive the normal list mail and the digest instead of only
+     one or another.  I've seen other lists where this is useful other than
+     just Acka --JT)
+
+[11/01/1998] -- RCB
+  -- Re-versioned to 0.112a, since 0.111a had been distributed to a few
+     people for testing.
+
+[10/30/1998] -- RCB
+  -- Fixed digest.  Oops.  I think this module is cursed.
+  -- Finally(!!) tracked down the elusive tolist bug that has been
+     appearing on and off since about 0.107a... and squashed it!
+     No more occasional puking of 'No response from server' and such. :)
+
+[10/28/1998] -- RCB
+  -- Rewrote digest.
+     It now happens nightly; you should add a 'listar -procdigest' to
+     Listar's nightly crontab.  The DIGEST flag makes people receive
+     digested versions of a list.  If a list has no posts for a given
+     day (hence, no digest), it sends a note to that effect to digested
+     users (so they know they didn't get dropped from the list or
+     something).  This can be prevented by setting the NODACK (No Digest
+     ACK) flag on a subscription.
+  -- Fixed something with RFC822 From: headers and older e-mail software.
+
+[ --- During this time period, Nausicaa.net, the main dev box that the
+      Listar project uses, was cracked and destroyed.  The project got
+      disorganized as the central CVS repository was gone, as were the
+      mailing lists and FTP site.  Slowly, things began to rebuild. 
+  --- ]
+
+[09/15/1998] -- RCB
+  -- Added a newlist-pm.pl.dist default script which handles setting up
+     lists for use with a single user, using procmail, and user-filters.
+  -- Added a default 'listar.procmailrc' file.
+
+[09/14/1998] -- RCB
+  -- Remembered to update the version.h in CVS archive.  Whups!
+
+[09/13/1998] -- RCB
+  -- Added 'SUPERADMIN' flag.  NOT CURRENTLY SETTABLE BY CODE.  This flag
+     is currently only set on the address added when a list is created.
+     To upgrade old lists, go through and manually add the flag.  Users
+     with SUPERADMIN set on a list can unsubscribe other admins, or set
+     flags on other admins.  OR OTHER SUPERADMINS.  'SUPERADMIN' only
+     allows that override functionality, it does NOT duplicate the ADMIN
+     flag; both are required for SUPERADMIN to work.
+  -- Minor changes to newlist scripts to account for the SUPERADMIN flag.
+  -- Released v0.110a
+
+[08/23/1998] -- RCB
+  -- Added sys/types.h to filearchive.c to prevent compile errors on
+     FreeBSD.
+
+[08/20/1998] -- RCB
+  -- If administrivia-address is not provided, defaults to list-owner.
+     (It should have done this before, but those fun code errors sneak in
+     when you least expect 'em...)
+
+[08/11/1998] -- JLT
+  -- Fixed a small bug in the 'deny-rfc822' code where it didn't skip over
+     spaces between the colon and the address, causing closed-post lists to
+     not work in some cases.
+
+[07/29/1998] -- JLT
+  -- Changed the 'commands' and 'flags' command to always list ADMIN only
+     commands or flags only settable by ADMIN.
+  -- Changed set/unset commands to use nosuch() to report list non-existance
+  -- Changed nosuch() to no longer report that lists are case sensitive
+  -- Fixed a small bug that Rachel introduced in the pointer bug fix.
+  -- Made sure that default new list scripts set the CCERRORS and REPORTS
+     flags on the initial admin
+  -- Updated all commands to use nosuch() if it was relevant.
+
+[07/29/1998] -- RCB
+  -- set_context_list() is now case-insensitive.
+  -- Fixed a parse bug on ASCII art in people's signatures. :P
+     Guess I can't complain, since I have a little Kilroy in my
+     sig file...
+  -- Fixed a nasty pointer bug.
+
+[07/25/1998] -- JLT
+  -- Bug where two adminvfy commands for different lists didn't work correctly
+     even though they should have.  The problem was del_var("adminmode").
+     Since adminmode was a protected variable (which it needs to be), it
+     wasn't legal to delete it.  I created a new function destroy_var which
+     deletes a var regardless of protection.  This is *DANGEROUS* in that it
+     means that *ANY* module can now trash any config variable.  However, it
+     was the only solution to the problem that I could find.  Rach, if you can
+     fix it better, do so and remove the irrelevant parts of this comment
+ 
+[07/22/1998] -- RCB
+  -- Changed formatting for MAIL FROM and RCPT TO to comply with qmail
+     1.01 and 1.02.
+
+[07/21/1998] -- RCB
+  -- Fixed two egcs warnings, one in variables.c, one in regexp.c.
+     Thanks to Christian Vogel for finding 'em. :)
+  -- One more qmail fix, this time to send.c... can I get access to a 
+     qmail server out there, somewhere?  It'd make my life a lot easier
+     for testing...
+  -- Updated the heavily out-of-date TODO list.
+  -- Added support for RFC822 From: headers, to make things a little
+     friendlier for some mailers.
+  -- Moved 'Processing error watches...' message in Bouncer to debug
+     level 5 instead of 0.  Should get rid of some really nasty log-bloat.
+
+[07/20/1998] -- RCB
+  -- One more 822bis change for oLa... we're almost there.
+
+[07/19/1998] -- RCB
+  -- We seem to still be having 822bis compliance issues.  I wish I had
+     a qmail server to try this on. :P
+  -- I'm going to release a special copy of 0.110a-development to oLa to
+     test.
+
+[07/18/1998] -- RCB
+  -- Fixed to be 822bis compliant.
+  -- Decided it was about time to release 0.109a...
+  -- Upped CVS version to 0.110a
+
+[07/11/1998] -- RCB
+  -- Fixed some minor set.c compile quirks.
+
+[07/11/1998] -- JLT
+  -- Fixed a bug where unsubscribe under admin mode allowed a list context
+     switch.
+  -- Fixed a bug under unsubscribe and subscribe while in admin mode that
+     left the list name pointer uninitialized.
+  -- If a list context switch under admin mode is attempted, only error if
+     it's too a list other than the current admin mode list.
+
+[07/01/1998] -- RCB
+  -- Added new debug level, '10', will dump all IO to listar.log
+
+[06/30/1998] -- RCB
+  -- Happy 30th Birthday, JT.
+
+[06/24/1998] -- JLT
+  -- Subject tag is now case insensitive
+
+[06/01/1998] -- RCB
+  -- Found more time to work on Listar.
+  -- Fixed problem in CCERRORS.
+  -- Added stuff to TODO list.
+  -- Gave up on digest, will rip out and rewrite for next release.  *sigh*
+
+[05/17/1998] -- RCB
+  -- Whee, I'm finally 21.  No, I don't know why I put this in here.
+
+[05/08/1998] -- RCB
+  -- Fixed possible buffer overflow in set_var().
+  -- Fixed minor quirk in digesting where a post was doubled.
+
+[05/06/1998] -- RCB
+  -- VERY sorry things have taken this long, but work stuff took over
+     my life for a little while.  Anyway, Listar's back on track. :)
+  -- Digest module is done!  'digest-file' must be set for digesting to
+     work, and it's in the same format as the mbox archive file/path.
+     E.g. if you set 'digest-file = digests/mylist', it will make
+     'digests/mylist.1', and 'digests/mylist.2', etc.  'digest-from'
+     will override the Listar 'from' line.  And, of course, the
+     'DIGEST' flag makes a user use digested mode instead of normal
+     individual posts. :)  'digest-days' is the number of days that
+     must elapse before a digest is sent.  Defaults to 1.  If a
+     day has passed and there are no posts to trigger it, the digest
+     will not be sent until the next post.  I know, I know, this isn't
+     the best way to do it, and in the next version it'll handle
+     cron-style as well, just like the bounce processing.
+  -- A few other minor twiddles and fixes.
+  -- v0.108a released!
+  -- Version in CVS updated to 0.109a.
+
+[04/27/1998] -- RCB
+  -- Whee!  Found some time to work on Listar again!
+  -- Fixed moderation to work with mailers that alter forwarding format
+     by putting spaces at the beginning of all lines.  This will STILL
+     not work with all mailers.  The problem is that mailers that alter
+     the message formatting in forwarding will not only destroy commands,
+     but also the message body. :(  Hence, I recommend 'mail' or 'pine'
+     or 'elm' or Eudora or whatever.  Outlook alters the forwarding
+     format, as do some others.  Sorry.
+
+[04/06/1998] -- RCB
+  -- Corrected 'unresolved symbol' error in send module introduced by
+     JT's change.
+  -- Fixed crash bug in nosuch, yikes!
+
+[04/03/1998] -- JLT
+  -- Added code so that hook types were dynamically defined.  Currently
+     defined are "AFTER", "SEND", "SUB", "UNSUB", and "FINAL" hooks.
+  -- Moved tolist handling functions onto their own hook "TOLIST" which is
+     called from the top of final_send.  Digest and other modules can now
+     add a TOLIST hook to get a chance to manipulate the TOLIST to their
+     hearts content.
+
+[04/03/1998] -- RCB
+  -- Fixed a bug in getconf where it tried to close nonexistant files.
+     Eeep!
+  -- Fixed a signed/unsigned bug under FreeBSD.
+  -- Tinkered with cookies so <user>+<filter>@<host> filtering, which is
+     sendmail standard, would work for subscribes.
+  -- If a valid command is found in subject, listar won't parse body
+     for further commands.
+  -- Version 0.107a released.
+  -- Version in CVS updated to 0.108a.
+  -- Quick change (and fix for change) to acctmgr, sanity check in
+     set_context_list().
+
+[04/02/1998] -- RCB
+  -- Changed bouncer (again) to write out a variation on the new watch
+     format.  Now it also stores the first time an error occured.  This
+     allows the error watch report to tell you the range of errors (e.g.
+     the person has bounced 14 messages, but it's been in 20 days) as 
+     well as the error message ('Deferred: connection timed out' or
+     similar).
+  -- Fixed the obnoxious seg fault error Sean reported.  Finally.
+     It involved the new '> ' reply method (which only Sean had 
+     installed, hence why only his installation saw this error) and
+     a reply line that was otherwise blank.  Feh.  Fixed now.
+
+[04/01/1998] -- RCB
+  -- Changed the bouncer module to write out a new watch format (it still
+     supports the old one for reading) which contains the error text.
+     Also altered the actual Error Watch report format to list the error
+     text, if present.  Useful if you don't have CCERRORS on and want to
+     know why someone's in the watchlog. :)
+
+[03/31/1998] -- RCB
+  -- Fixed behavior for cc-lists.  *sigh*
+  -- Added two new functions to tolist module to allow better behavior for
+     cc-list situations.
+
+[03/30/1998] -- RCB
+  -- Fixed busted behavior in tolist module.
+  -- Re-implemented 'send' as a set of lower-level hooks instead of
+     one giant mess.  Send also now uses 'tolist'.  (send_flagged will
+     be updated to do so later.)  Upshot of this; one connection to 
+     a mailserver if multiple users are on it, since it will sort the
+     users by domain name. :)  Big plus for heavy-traffic lists with
+     lots of people on, say, aol.com or another large provider.
+  -- Rewrote moderator mode to use cookies, so two moderators don't
+     accidentally 'approve' the same message.  Still works by forwarding
+     to the repost address, it just has an additional 'modpost' line
+     containing the cookie now. :)
+  -- Removed a duplicate code problem that only appeared when using
+     static modules.
+  -- Changed default cookie expiration time from 3 hours to 24 hours.
+     Let's be nice on the folks with slow mail spoolers. :)
+  -- Made a fix to be friendly to outdated VM/VMS systems that didn't
+     really speak 100% fluent SMTP, but instead sent '<blah>:<address>'
+     for originator.
+  -- ANOTHER fix for non-100% fluent SMTP servers.  Whee!
+
+[03/29/1998] -- JLT
+  -- Created a 'tolist' set of functionality to allow modules to add people
+     to the send-to-list, remove people based on certain criteria and sort it.
+     It's not currently *used* by the sending code, but will be once it's
+     split up.  This will also enable us to do things like allow other modules
+     to munge the to-list based on criteria of their own choosing and such-not
+
+[03/29/1998] -- RCB
+  -- Minor fix to 'base' module.
+  -- Fix to top-level makefile to ensure all of WFLAGS field is passed
+     to secondary makefiles.
+
+[03/28/1998] -- RCB
+  -- Split the core module up into a lot of little modules.  Finally.
+
+[03/27/1998] -- RCB
+  -- Removed Makefile.SunOS5.  Painful process of making it compile
+     100% clean - even using dynamic modules! - on SunOS 5.  BE SURE,
+     IF YOU RUN SOLARIS: /usr/ucblib _MUST_ be in your LD_LIBRARY_PATH.
+     It doesn't seem to be by default on most Solaris systems.  It must
+     also be in the LD_LIBRARY_PATH when Listar is called from sendmail...
+  -- Various additions to compat.h to make it work under, you guessed
+     it, SunOS 5.x...
+  -- A lot of Makefile changes for...drumroll please...SunOS 5.x.
+     (But I'm now 100% positive it'll work under SunOS 5, as long as
+      your Solaris system isn't even more busted than mine.)
+  -- Fixed minor bug in bouncer.
+  -- Renamed 'listar.cfg', 'newlist.pl' and 'newlist.sh' to have .dist
+     extensions in the default package.  This way, unpacking over an
+     existing installation will not accidentally destroy your config
+     files or customized newlist scripts. :)
+  -- Because of the cookie fix, 0.106a released.  Ricardo should also
+     be glad of the SunOS fixes. :)
+  -- Version in CVS updated to 0.107a.
+  -- After rethinking things a bit, modified a LOT of build settings
+     to make a cleaner build under SunOS 4/5.  Still works in earlier
+     build, but this way compiles cleaner for that system instead of
+     trying to force it into ANSI compliance.
+  
+
+[03/27/1998] -- JLT
+  -- Merged Makefile.SunOS5 back into the standard Makefile.
+
+[03/25/1998] -- RCB
+  -- Change to parse.c so that doing a 'reply' in a mailer for things like
+     the appsub command should work.
+  -- Fix to the 'commands' call so it would display non-admin commands
+     in normal mode, and admin commands + normal in admin mode again.  Oops!
+  -- Removed 'FULLBOUNCE' flag - it hasn't done anything since 0.103a when
+     Bouncer was added, and we might as well get rid of it now. :)
+  -- Added 'DIAGNOSTIC' flag; acts like VACATION as regards normal list
+     traffic, but not flagged sends.  E.g. setting an admin user to be
+     DIAGNOSTIC means they'll only get administrivia notes, not normal
+     list traffic.  REPORTS and CCERRORS (from Bouncer) and any other
+     such flags - including MODERATOR - will not be affected by it.
+
+[03/23/1998] -- RCB
+  -- Fixed a bug in cookie.c that broke admin-mode cookies.  Bleh.
+     (Hey, they still worked for subscriber tickets, though!)
+
+[03/19/1998] -- RCB
+  -- SunOS is really evil.  I've now got a SunOS 5.5 makefile.
+     To compile under SunOS 5.5 (don't use dynamic modules, they seem
+     quirky), copy Makefile.SunOS5 over Makefile and compile. *sigh*
+
+[03/18/1998] -- RCB
+  -- Change to unmime.c to allow for Netscape/Outlook style forwarded
+     messages, where the message is a MIME attachment of type
+     message/rfc822.
+  -- Painful port to SunOS.  Whose brilliant idea was it to have the
+     SunOS vsprintf() return a pointer, anyway?  :P
+     At any rate, to compile under SunOS 4.1.4 (the version under
+     which Listar was ported), you'll probably have to remove the
+     -Wall -Werror flags from the CFLAGS in all the Makefiles.  Other
+     than that, it should compile clean the rest of the way.
+  -- 0.105a released to get SunOS portability changes out for user.
+  -- Version upped to 0.106a
+
+[03/14/1998] -- RCB
+  -- Fix in changed bouncer.  watches.newproc wasn't being unlinked,
+     d'oh!
+
+[03/12/1998] -- JLT
+  -- Changed the variable and list code in such a way that variables should
+     *NOT* be preserved across list context switches.  (IE, a variable in
+     one config file that wasn't in another would have stayed set).
+  -- In response to user comments, I will not be changing the way Listar
+     reads and rewrites files.  It might get cleaned up in the future, but
+     the per-command atomicity will be retained instead of a per-list or
+     per-mail message atomicity which I proposed.  Removed this item from
+     the todo list.
+  -- Added a per-list variable of cc-lists.  This variable can be set to
+     a colon (:) seperated list of other locally maintained listar lists
+     which will get echos of all message posted to the initial list.  This
+     is useful for instance for an announcment list and a talk list where
+     everyone who is on the talk list is implicitly on the announce list.
+
+[03/12/1998] -- RCB
+  -- A few more incidences of index() changed to strchr().  Wow, there
+     were a lot.
+
+[03/11/1998] -- RCB
+  -- Fixed bugs in moderated mode that cropped up when it was rewritten
+     into internal.c; moderated-approved-by was typo'd in one place, and
+     it was calling HOOK_SEND which duplicated all the message headers!
+     (Since hook-send has already been called when something is poste
+     to a mailing list, it's not needed.)
+  -- Fixed bug in cookie.c where <queuefile>.changecookie never got
+     deleted. :P
+
+[03/09/1998] -- JLT
+  -- Added a quickie way to make expiration of cookies configurable.  The
+     variable is called 'cookie-expiration-time' and has a format like
+     ' ZZ d XX h YY m' meaning ZZ days, XX hours and YY minutes.  Any of
+     those can be skipped (although the number and the letter both need to
+     be skipped).  Added a new variable get routine called get_seconds() which
+     takes a variable string of the above form and returns the number of
+     seconds.  This will be useful for other time-based things as well. The
+     default time returned by get_seconds() is 0.  Default expiration time
+     for cookies is still 3 hours if this variable is unset.
+  -- Did a small bit of code cleanup and commenting, still more to do.
+  -- Replaced a few uses of index/rindex with the posix-compliant
+     strchr/strrchr (better portability)
+
+[03/09/1998] -- RCB
+  -- Fixed bug in sub.c that caused problems on oLa's requested subscribe
+     mode.  Whups. :/
+  -- Added open-auto mode for subscribe, on oLa's request.
+
+[03/08/1998] -- RCB
+  -- Fixed major bug in cookie and user code which caused it to never 
+     be updated.
+  -- Added 'subscribe <list> <address>' mode as requested by users, which
+     causes a confirmation ticket to be sent to the person who's being
+     subscribed (to prevent forcing a person to be subscribed when they
+     don't want to).
+  -- Version 0.104a released to fix above errors, version
+     incremented to 0.105a
+
+[03/08/1998] -- JLT
+  -- Version 0.103a released
+  -- Version incremented to 0.104a
+
+[03/07/1998] -- JLT
+  -- Added priority system to hooks.  Priorities are an unsigned int.  Thus
+     the lowest priority is gaurenteed to be a priority of 0.  We might put
+     further limits (or pre-define other priority classes later).  Hooks with
+     the same priority (of the same type) can be triggered in an arbitrary
+     order.
+  -- Changed some of the file read/write code to fix a bug where certain
+     files could be overwritten if two processes accessed them at once.
+
+[03/07/1998] -- RCB
+  -- The fileapi.c code has been cleaned up to work on Linux and BSD
+     cleanly, minor additional changes to dynmod.c for same reason.
+  -- Added confirm and closed subscription modes, which relies on the
+     cookie code.
+
+[03/06/1998] -- RCB
+  -- Expanded unmime functionality to also handle multipart/alternative.
+     (This is when a mailer sends multiple formats of a single message,
+     such as a plaintext and HTML and RTF version all as separate MIME
+     fragments.)  Listar will take the plaintext version and strip the
+     others silently.  (Except for placing a note in the header.)
+  -- Fixed a bug where unmime was often not returning correctly when
+     in 'eatlines' mode.
+  -- Added new module 'Bouncer', handles non-local bounce/error messages
+     for a list.  To use bouncer on an existing list, add an alias to
+     <list>-bounce that points to 'listar -bounce <list>', then add
+     'send-as' (or change it) in the list config as
+     '<list>-bounce@<site>'.  Viola, listar will track and deal with
+     bounces, and report on them to you every so often (never more
+     than once a day).  :)
+  -- flagged_send duplicated and altered as flagged_send_textfile
+     (compliment to send_textfile).
+  -- Added 'REPORTS' and 'CCERRORS' flags to Bouncer, as per Mike
+     Johnson's suggestion, along with many new config variables.
+  -- Added new flag permissions, so some flags can be set by admins
+     outside the admin wrapper (things like 'REPORTS' and 'CCERRORS').
+     These flags could be forged by a mail-hacker, but do not affect
+     the list as a whole.  Things like 'ADMIN' and 'MODERATOR' must still
+     be set from in the security wrapper.
+  -- Fixed a bug in flagged_send (and thus in flagged_send_textfile) which
+     caused infinite looping if no users had the flag being keyed on.
+  -- Altered Makefiles, dynmod.c, etc to allow Listar to compile under
+     FreeBSD (and theoretically SunOS).
+
+[03/05/1998] -- JLT
+  -- Variable code modified to be a hash table instead of a straight linked
+     list.  Should improve speed somewhat.
+  -- Cleaned up the codes.c module so that it compiled with -Wall -Werr
+  -- Separated hooks and commands.  All commands return either
+     CMD_RESULT_CONTINUE (if processing of commands can continue) or
+     CMD_RESULT_END (if processing should stop).
+  -- Commands now take flags specifying where they can be found so there
+     is only one add_command() for any command.
+
+[03/05/1998] -- RCB
+  -- Fixed a minor bug in SMTP code, final terminator wasn't necessarily
+     being sent on a newline.  It took some hackery to achieve this case,
+     but best to avoid it in the first place.
+  -- Added 'unmime.c', which will take a mail message and turn all the
+     MIME attachment gobbledegook into human-readable stuff.  Anything
+     of type plain/text will be decoded (if encoded) and put in the
+     message, while anything of a different content-type will be removed.
+     (And a message placed there stating that it has been nuked.)
+     Any file altered by unmime will have an X-Listar-MIME-Decode header.
+     Unmime will not be called multiple times.  Unmime will be called from
+     archive, and from digest, to ensure not having messed-up data.
+     Unmiming on ANY post to a list is optional, however.
+  -- Added 'humanize-mime' configuration variable to cause unmiming to be
+     done on messages sent to a list.
+
+[03/04/1998] -- JLT
+  -- Two more places in the SMTP code weren't setting socket to -1 after
+     close which could have resulted in multiple closes of a socket.  Not
+     an ultra serious error depending on your OS, but needed fixing.
+  -- Changed modules/listarchive/archive.c to use the CMD_HANDLER()
+     macro to gaurentee that the function declaration is correct.
+
+[03/04/1998] -- RCB
+  -- Version 0.102a released
+  -- Version increased to 0.103a
+
+[03/04/1998] -- RCB
+  -- Fixed major problem in admin handler.  Gotta love them typos.
+  -- Brought CMD_RESULT_FAIL in line with new behavior in preparation
+     for cleaning up result set in particular and API in general.
+  -- Fixed a few things where SMTP error handling was not as it should be.
+     (WHY were there returns BEFORE the error handler, JT?)
+  -- Fixed a bug where some debug messages would never print.
+  -- Fixed a nasty bug in the 'become' command.  Not a security problem,
+     but made it impossible to ever return to your own identity after a
+     'become'...
+  -- Fixed a potentially horrific bug that caused total lockup when
+     the SMTP client misguidedly closed stdin... *sigh*
+
+[03/03/1998] -- RCB
+  -- archive_mh and archive_mbox superceded by listarchive.
+
+[03/01/1998] -- JLT
+  -- Version 0.101a released
+  -- Version increased to 0.102a
+
+[03/01/1998] -- JLT
+  -- Lots of assorted code cleanup.
+  -- Modules can now register new command line switches and processing modes
+  -- Old modes converted to this new model
+
+[02/26/1998] -- JLT
+  -- Fixed bug where userfile and cookie file could be trashed by multiple
+     processes changing things at the same time.
+  -- Fixed bug in SMTP code whereby the server would always be waiting the
+     maximum timeout (due to the way that the ESMTP headers were being
+     read).  Checking the RFC yielded a shortcut which told us the last
+     response line so the read loop could be shortcircuited.
+  -- Fixed another bug whereby we couldn't talk to a server that didn't
+     support ESMTP.  While most servers do support it, the change to support
+     the older SMTP protocal as well was simple and so was added.
+
+[02/25/1998] -- RCB
+  -- Fixed the SMTP timeout error!  Whee!  No more nasty errors like
+     that, hopefully. :)
+
+[02/24/1998] -- JLT
+  -- Initial version of filearchiving module added.  File archive is
+     configurable on a per list basis via the file-archive-dir config
+     paramater.  This value of this variable is (currently) assumed to
+     be relative to the lists/<listname> directory.
+  -- 'files' command added similar to 'modules' or 'flags' to enable a
+     user to discover the names of the configuration files which are
+     registered.  This command is *NOT* an admin only command as merely
+     knowing the name of the file provides no benefit to the user.
+  -- Bug fix to the filearchive module to not allow '.' or '..'  or a
+     leading '/' in the filepath of the 'get' command (otherwise list configs
+     (and other system files) COULD be requested via this mechanism.
+  -- Preliminary code for cookie expiration.  This code will expire all
+     cookies more than 3 hours old at the end of each invocation of listar.
+     It should be a configurable timeout per list (or global?)  However, that
+     can be done in the future.
+
+[02/23/1998] -- RCB
+  -- Altered SMTP error handling to be a little more verbose and useful.
+  -- Added Precedence: to mail headers.  Default is 'bulk', overridable
+     by setting the desired value as 'precedence' in the list config.
+
+[02/22/1998] -- JLT
+  -- Code to clean up handling of command parameter passing.  Useful for
+     some modules (like the file sending module)
+
+[02/22/1998] -- JLT
+  -- Version 0.100a released
+  -- Version number incremented to 0.101a
+
+[02/22/1998] -- JLT
+  -- All uses of open_file() now have matching calls to close_file().
+  -- user_open() function removed since all it was was a wrapper to
+     open_file().  open_file() now used directly in it's stead.
+
+[02/21/1998] -- JLT
+  -- Added code to main core and modules to handle bounces from the local
+     SMTP server correct (ie at all :).  Care must be taken to close whatever
+     file is being used to garner error reports from the SMTP server before
+     calling bounce_message() otherwise you will end up in a deadlock on the
+     file locking code (I believe).  The errors file by default is the
+     queuefile with .serr appened.  It will be unlinked if it exists at
+     program termination.
+  -- BIG fix in the fact that in case of an error, listar could be invoked
+     recursively which could result in blockage on the log file (since the
+     parent listar would have this locked).  The solution was to change the
+     logfile handling so that each log line opened the logfile, printed the
+     line and then released the log file.  This solves the problem
+
+[02/20/1998] -- RCB
+  -- Changed to put original sender in X-original-sender header field.
+
+[02/19/1998] -- JLT
+  -- Conditioned most debug output on get_bool("debug") which should be
+     set per list (or globally if you really want the spam).  Useful for
+     debugging problems in a production list
+  -- Tracked down and fixed the problem with the send-as/sender.  The
+     MAIL FROM: smtp header needed to be the same as sender in order for
+     sendmail to handle the bouncing correctly.  From: header is still the
+     actual sender.  Sender: Header is the send-as or list-owner header.
+  -- Upped the version to 0.100a
+
+[02/18/1998] -- JLT
+  -- Cleaned up the variable handling code slightly, pulling it out into
+     a seperate C file.  Added additional checked accessor functions for
+     bool values (true if variables value is not null and is either the
+     string 'true', 'yes', 'on' or some number other than 0 (case
+     insensitive);  string values (return "" if variable isn't set);
+     and int values (return atio(string) or 0 if not set).  get_var() is
+     still useful to provide an existance check for a variable, but it
+     shouldn't be needed in most cases.
+    
+[02/17/1998] -- RCB
+  -- 'send-as' behavior changed.  'send-as' sets the SMTP 'Sender' field,
+     while the originator remains as the real sender.  This differs from
+     the majordomo method, but is in line with the old Bitnet LISTSERV
+     method.  Listar owes far more conceptually to LISTSERV than to
+     majordomo anyway. ;)
+
+[02/16/1998] -- RCB
+  -- Added 'send-as' configuration variable.  If set, instead of
+     sending with an authenticated sender of the original sender,
+     will send with this address instead.  (E.g. will cause
+     bounced messages to go here.)  Otherwise, bounces will
+     still go to original sender and the FULLBOUNCE flag will be
+     used.  ('fullbounce' configuration variable also added to
+     apply to 'send-as' mode.)
+
+[02/15/1998] -- JLT
+  -- Makefiles can now build dynamic and non-dynamic code, selectable by
+     a parameter in the toplevel makefile
+  -- Small bug with duplicate code for send_textfile function cleaned up.
+
+[02/15/1998] -- RCB
+  -- Minor fix to unsubscribe command, aesthetic only.
+
+[02/13/1998] -- JLT
+  -- Small changes to the makefiles to support recursive building of all
+     defined modules.  This is work necessary prior to enabling a non-dynamic
+     build mode which builds each module as a library and then links the
+     executable against all the defined modules.  Eventually we should
+     generate a configure script with gnu autoconf or something similar as
+     well.  However, that's not of great necessity, just merely useful
+
+[02/13/1998] -- RCB
+  -- Added 'MODERATOR' flag and associated functionality.
+  -- Two new operating modes, -admins and -moderators.  Will forward
+     the message to subscribers with ADMIN or MODERATOR flag,
+     respectively.
+  -- newlist.pl altered for this new data.
+  -- Fixed a crash bug in subscribe/unsubscribe commands.
+  -- Found problem where 'who' command didn't release lock!  Ack!
+     Fixed problem.
+
+[02/10/1998] -- RCB
+  -- Minor change to io.c to allow clean compile under BeOS and 
+     a few other non-Linux systems.
+
+[02/05/1998] -- RCB
+  -- MAJOR changes to modules, reworked way status is returned,
+     reworked all command return results...
+  -- Fixed fatal error in fileapi.c
+  -- All results from a query occur in one result set now.
+
+[02/04/1998] -- JLT
+  -- Added a file open/file close API that includes locking semantics.
+     All locks will block when they are created if they need to, so all
+     file access should now be correctly serialized.
+  -- Reversed the orders of entries in this file.
+
+[01/28/1998] -- RCB
+  -- MAJOR fix to Dynamic modules, to make sure they get freed after
+     a run. :/
+
+[01/22/1998] -- RCB
+  -- Minor fix to archive_mh Makefile.
+  -- Addition of archive_mbox (uses 'mbox-archive-path' configuration
+     setting) to create Berkeley mbox-style archives.
+  -- Changes so main project and all modules compile -Wall -Werror
+     under glibc.
+  -- 'lists' command will only display lists with 'advertise' set to
+     'yes'.
+
+[01/15/1998] -- RCB
+  -- Minor cleanup in module Makefiles.
+
+[01/14/1998] -- RCB
+  -- Core and archive functions moved into dynamic modules.
+  -- MH Archive rewritten to fix incrementing even on reject of post.
+  -- Module registry added, modules can add themselves to list.  'modules'
+     command added to display list of installed modules.
+  -- Fix to parse.c to fix conflict with CMD_HOOKAFTER and moderated
+     lists.
+  -- Two fixes to archive_mh after initial checkin, both minor.
+
+[01/12/1998] -- JLT
+  -- Preliminary support added for Dynamic Link Libraries/Shared Libraries
+
+[01/12/1998] -- RCB
+  -- Various small bugfixes.
+  -- CHANGELOG created, since JT's going to start helping me with this.

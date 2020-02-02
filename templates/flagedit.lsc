@@ -1,0 +1,36 @@
+[?include templates/header.lsc]
+<HR>
+<font face="Verdana,Arial,Sans Serif">
+<center>
+<font size=+1><b>Account Settings for [$lcgi-user] on
+[$lcgi-list]</b></font>
+<P>
+[@MODEHEADEX:setname]
+</b>Full Name:</b> [@SETNAME]
+[@SUBMIT:Set Full Name]
+[@MODEEND]
+</P>
+<font size=+1>Flags for [$lcgi-user] on [$lcgi-list]</font>
+</center>
+<P>
+[?if hasflag($lcgi-user,ADMIN)]
+<b>Note:</b> These are only the flags which admins are allowed to set on
+themselves through the 'set' command.  Flags which require the 'setfor'
+command in the e-mail interface are only available under the admin
+menu.
+[?else]
+<b>Note:</b> These are only the flags which users can set on themselves.
+Administrator-only flags are not available to end-users.
+[?endif]
+
+[@MODEHEADEX:setflags]
+[@FLAGLIST]
+<center>
+[@SUBMIT:Set Flags]
+</center>
+[@MODEEND]
+[@MODEHEADEX:listmenu]
+[@SUBMIT:Back to List Menu]
+[@MODEEND]
+</font>
+[?include templates/footer.lsc]

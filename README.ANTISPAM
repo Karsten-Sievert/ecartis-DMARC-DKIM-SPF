@@ -1,0 +1,10 @@
+The Antispam module uses a file called 'spam-regexp' in each list's home
+directory.  If you wish to maintain a 'global' spamfile (as I do on
+ecartis.org), simply put spam-regexp in the ecartis root, and make
+'spam-regexp' in each list directory a symlink to it.
+
+The spam-regexp file is fairly straightforward, it's a one-per-line list
+of regexp patterns.  If one is matched, it's logged to 'spammers.log' in
+that list directory, and the message is discarded.  I've included my
+ecartis.org spamfile as an example, spam-regexp.sample
+

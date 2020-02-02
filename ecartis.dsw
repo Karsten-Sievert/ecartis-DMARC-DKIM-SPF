@@ -1,0 +1,337 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "acctmgr"=.\src\modules\acctmgr\acctmgr.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .\src\modules\acctmgr
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "admin"=.\src\modules\admin\admin.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .\src\modules\admin
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "administrivia"=.\src\modules\administrivia\administrivia.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .\src\modules\administrivia
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "antispam"=.\src\modules\antispam\antispam.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .\src\modules\antispam
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "base"=.\src\modules\base\base.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .\src\modules\base
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "bouncer"=.\src\modules\bouncer\bouncer.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .\src\modules\bouncer
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "digest"=.\src\modules\digest\digest.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .\src\modules\digest
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "ecartis"=.\ecartis.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .
+    end source code control
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name acctmgr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name admin
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name administrivia
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name antispam
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name base
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name bouncer
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name digest
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name filearchive
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name listarchive
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name lsg2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name pantomime
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name password
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name peruser
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name send
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name stat
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name toolbox
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "filearchive"=.\src\modules\filearchive\filearchive.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .\src\modules\filearchive
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "listarchive"=.\src\modules\listarchive\listarchive.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .\src\modules\listarchive
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "lsg2"=.\src\modules\lsg2\lsg2.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .\src\modules\lsg2
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "pantomime"=.\src\modules\pantomime\pantomime.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .\src\modules\pantomime
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "password"=.\src\modules\password\password.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .\src\modules\password
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "peruser"=.\src\modules\peruser\peruser.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .\src\modules\peruser
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "send"=.\src\modules\send\send.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .\src\modules\send
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "stat"=.\src\modules\stat\stat.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .\src\modules\stat
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "toolbox"=.\src\modules\toolbox\toolbox.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    Perforce Project
+    .\src\modules\toolbox
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+

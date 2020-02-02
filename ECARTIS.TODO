@@ -1,0 +1,14 @@
+[X] Change readmes and default config files
+[X] Change over code references to Listar to Ecartis
+[X] Change LSG/2 templates
+[X] Add new bouncer parsers
+[ ] Add new LSG/2 sorting behavior
+[ ] Integrate new MIME library
+[ ] Fix all sprintf()'s 
+  [X] In main code
+  [ ] In module code
+[ ] Fix all strcpy() and strcat()'s
+  [X] In main code
+  [ ] In module code
+[ ] Change/finish documentation
+[ ] RELEASE Ecartis 1.0.0!

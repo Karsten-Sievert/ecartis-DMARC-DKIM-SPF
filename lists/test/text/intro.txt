@@ -1,0 +1,8 @@
+Welcome to the Test Ecartis mailing list.
+
+This list only exists to test various functions of the Ecartis mailing list
+sofware as it is in development. :)
+
+Eventually, a real 'ecartis-users' or 'ecartis-dev' or something list will
+be created.  That will be nice. :)
+

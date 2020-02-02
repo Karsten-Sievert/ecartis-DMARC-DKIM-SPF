@@ -1,0 +1,11 @@
+[?include templates/header.lsc]
+<HR>
+<font face="Verdana,Arial,Sans Serif">
+<center>
+<font size=+1>You have unsubscribed from [$lcgi-list].</font>
+</center>
+[@MODEHEADEX:listmenu]
+[@SUBMIT:Return to List Menu]
+[@MODEEND]
+</font>
+[?include templates/footer.lsc]

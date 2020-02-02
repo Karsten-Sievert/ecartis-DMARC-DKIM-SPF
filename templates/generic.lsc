@@ -1,0 +1,17 @@
+[?include templates/header.lsc]
+<HR>
+<font face="Verdana,Arial,Sans Serif">
+<center>
+<font size=+1>[$tlcgi-generic-text]</font>
+<P>
+[?if varset(lcgi-lastmode)]
+[@MODEHEADEX:[$lcgi-lastmode]]
+[?else]
+[@MODEHEADEX:listmenu]
+[?endif]
+[@SUBMIT:Back]
+[@MODEEND]
+</center>
+
+</font>
+[?include templates/footer.lsc]

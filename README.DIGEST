@@ -1,0 +1,90 @@
+This is a sort of rambling file, but it should get the point across.
+
+First, you want to add the following to your ecartis.cfg:
+
+digest-header-file = text/digest-header.txt
+digest-footer-file = text/digest-footer.txt
+digest-administrivia-file = digest/administrivia
+
+These are associated with several files in the 'files' list:
+
+>> files
+
+[...]
+digest-administrivia
+          File to put in RFC1153 'Administrivia' section of digest.
+
+digest-footer
+          File to append to digest when sending it out.
+
+digest-header
+          File to prepend to digest when sending it out.
+
+[...]
+
+You can do 'getconf digest-footer' from within an admin wrapper to
+retrieve the digest-footer file for editing, for example.
+
+The 'NODACK' flag that was present in previous versions is no longer
+present, as empty digest acking is no longer present.  Both DIGEST and
+DIGEST2 still work as they did before, though.
+
+The digest module now creates digests in a format compliant with RFC1153
+specification, which means that you can create an 'adminstrivia' entry
+which will be placed into the digest.  Technically, this should be used
+over the digest-header and digest-footer commands, as the header and
+footer are not technically allowed in RFC1153 spec.
+
+The following new configuration variables are available for lists:
+
+digest-transient = [yes|no]
+  
+   This means that no 'back digests' will be kept around.  Defaults to no.
+   If digests are being kept around, they'll be in 
+   lists/<list>/digest/V<volume>/<issue>, for example:
+   lists/ecartis-dev/digest/V01/0001
+
+digest-file-size = [number]
+
+   If this is zero, digests are handled nightly.  Otherwise, when a digest
+   gets larger than this size, it's sent and a new one is started... 
+
+digest-transient-administrivia = [yes|no]
+
+   Should the 'administrivia' file for the RFC1153 administrivia section
+   be deleted after a single use?  If so, you can just use the
+   administrivia file for daily announcements to your digest users.
+   Otherwise, it remains there indefinitely and is reused.
+
+digest-strip-tags = [yes|no]
+
+   Should subject tags (if present) be stripped from the subject line of
+   the digest?
+
+digest-no-unmime = [yes|no]
+
+   If humanize-mime is false for a given list, should the digest also
+   prevent unmiming of files?  By default, if humanize-mime is off, digest
+   will still unmime files.
+
+digest-send-mode = [time|size|procdigest]
+
+   What logic should be used when Ecartis is invoked with the -procdigest
+   cmdarg?  If it is 'time', then the digest will not be sent unless 
+   digest-max-time has been exceeded.  If it is 'size', digests will not
+   be sent unless the size has been exceeded.  If it is 'procdigest', then
+   as long as there is digest data to be sent, it'll be sent.
+
+It's worth noting that Ecartis will create a 'digest' directory under the
+lists automatically, where it works with the current digest versions.
+(And keeps back issues, if needed.)
+
+Don't delete 'preamble.<x>.work' or 'digest.<x>.work', those are the work
+files for the current issue. :)
+
+You can, however, delete 'digestinfo' and 'digestinfo2' - which were from
+Digest 1.0 and Digest 2.0 respectively - from the list's main directory.
+
+Questions?  Feel free to ask! :)
+
+

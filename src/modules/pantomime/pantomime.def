@@ -1,0 +1,9 @@
+LIBRARY      "pantomime"
+DESCRIPTION  'Ecartis pantomime plugin'
+EXPORTS
+pantomime_load
+pantomime_switch_context
+pantomime_upgradelist
+pantomime_upgrade
+pantomime_init
+pantomime_unload

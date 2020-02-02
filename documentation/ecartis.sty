@@ -1,0 +1,60 @@
+\ProvidesPackage{ecartis}
+
+\newcommand{\argument}[1]{\textit{#1}}
+
+%% A bunch of stuff to try to format commands, paths, sample emails, etc...
+%% all of which failed when converted to HTML.  Until we figure out how to deal
+%% with this stuff, leave it alone.
+
+% Original `command' environment from lshort.sty
+%
+%\newenvironment{command}%
+%    {\nopagebreak\par\small\addvspace{3.2ex plus 0.8ex minus 0.2ex}%
+%     \vskip -\parskip
+%     \noindent%
+%     \begin{tabular}{|l|}\hline\rule{0pt}{1em}\ignorespaces}%
+%    {\\\hline\end{tabular}\par\nopagebreak\addvspace{3.2ex plus 0.8ex
+%        minus 0.2ex}%
+%     \vskip -\parskip}
+
+% Variation on 'command' that prints a pair of rules at the top and bottom of
+% the environment.  Doesn't convert to HTML nicely at all.
+%
+%% a minipage of \textwidth limits the contents to about a 72 character width.
+%% We should wrap at 70 just to be safe.
+%%
+%\newenvironment{file}%
+%    {\nopagebreak\par\small\addvspace{3.2ex plus 0.8ex minus 0.2ex}%
+%     \noindent\minipage{\textwidth}%
+%	 \rule{\textwidth}{0.5pt}%
+%	 \ignorespaces\small\verbatim}%
+%	 %
+%	{\endverbatim\rule{\textwidth}{0.5pt}\endminipage%
+%	 \par\addvspace{3.2ex plus 0.8ex minus 0.2ex}}
+
+
+%\newenvironment{command}%
+%    {\nopagebreak\par\small\addvspace{3.2ex plus 0.8ex minus 0.2ex}%
+%     \vskip -\parskip
+%     \noindent%
+%     \begin{tabular}{|l|}\hline\rule{0pt}{1em}\ignorespaces}%
+%    {\\\hline\end{tabular}\par\nopagebreak\addvspace{3.2ex plus 0.8ex
+%        minus 0.2ex}%
+%     \vskip -\parskip}
+
+%\newenvironment{command}%
+%	{\nopagebreak\par\small\addvspace{3.2ex plus 0.8ex minus 0.2ex}%
+%	 \vskip -\parskip
+%	 \noindent%
+%	 \tabular{|l|}\hline\ignorespaces}%
+%	{\\\hline\endtabular\par\nopagebreak\addvspace{3.2ex plus 0.8ex
+%		minus 0.2ex}%
+%	 \vskip -\parskip}
+%
+%\newcommand{\ci}[1]%
+%	{#1\\}
+%\newcommand{\ci}[1]{%
+%	\verb+#1+%
+%	}
+
+% \newcommand{\path}[1]{\verb+#1+}

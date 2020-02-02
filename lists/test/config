@@ -1,0 +1,1041 @@
+#################
+# LIST-SPECIFIC #
+#################
+
+# tolist-send-pause
+# How long (in milliseconds) do we sleep between SMTP chunks.
+# Example: tolist-send-pause = 30
+#
+# tolist-send-pause = 0
+
+# quoting-max-lines
+# If greater than 0 and quoting-limits is true, this is the maximum
+# number of lines allowed to be quoted from a previous message.
+# Example: quoting-max-lines = 10
+#
+# quoting-max-lines = 10
+
+# subscription-acl
+# If 'true' and the file given in 'subscribe-acl-file' exists, a subscription
+# access list check will be performed when users attempt to subscribe
+# to the list.
+# Example: subscription-acl = true
+#
+# subscription-acl = true
+
+# force-from-address
+# If specified, this will be used as the RFC 822 From: address.
+# Example: force-from-address = list-admins@myhost.dom
+#
+# force-from-address = 
+
+# header-max-size
+# Posts with headers larger than this in bytes will be moderated.
+# Example: header-max-size = 2000
+#
+# header-max-size = 
+
+# union-lists
+# A colon seperated list of local lists whose members can post to this
+# list even if it is closed.
+# Example: union-lists = mylist1:mylist2
+#
+# union-lists = 
+
+# faq-file
+# File on disk containing the list's FAQ file.
+# Example: faq-file = text/faq.txt
+#
+# faq-file = text/faq.txt
+
+# quoting-limits
+# If true, posts to the list will be checked for overquoting.
+# Example: quoting-limits = yes
+#
+# quoting-limits = false
+
+# cookie-expiration-time
+# How long until a generated cookie expires.
+# Example: cookie-expiration-time = 3 d 6 h
+#
+# cookie-expiration-time = 1 d
+
+# closed-file
+# File sent to message author when the post is rejected because the
+# list is closed.
+# Example: closed-file = text/closed-post.txt
+#
+# closed-file = text/closed-post.txt
+
+# advertise
+# Does this list show up as being available.
+# Example: advertise = false
+#
+# advertise = true
+
+# administrivia-address
+# Address to which subscription/unsubscription attempt notifications
+# should be sent.
+# Example: administrivia-address = mylist-admins@host.dom
+#
+# administrivia-address = 
+
+# owner-fallback
+# Should the list-owner be used if administrivia-address is not defined
+# when notifying of (un)subscribes.
+# Example: owner-fallback = true
+#
+# owner-fallback = false
+
+# body-max-size
+# Posts with a body larger than this in bytes will be moderated.
+# Example: body-max-size = 10000
+#
+# body-max-size = 
+
+# per-user-modifications
+# Do we do per-user processing for list members.
+# Example: per-user-modifications = false
+#
+# per-user-modifications = false
+
+# outside-file
+# File sent to message author when post is accepted to list but author
+# is not a subscriber.
+# Example: outside-file = text/outside.txt
+#
+# outside-file = text/outside.txt
+
+# paranoia
+# Are the various list config files allowed to be edited remotely for
+# this list.
+# Example: paranoia = yes
+#
+# paranoia = false
+
+# no-loose-domain-match
+# Should the server treat users of a subdomain as users of the domain
+# for validation purposes.
+# Example: no-loose-domain-match = on
+#
+# no-loose-domain-match = false
+
+# rfc2369-list-help
+# URL to use in the RFC 2369 List-help: header.
+# Example: rfc2369-list-help = http://www.mydom.com/list/help.html
+#
+# rfc2369-list-help = 
+
+# precedence
+# The precedence header which will be included in all traffic to the
+# list.
+# Example: precedence = bulk
+#
+# precedence = bulk
+
+# no-dupes-forever
+# Should we never expire the Message-Id's.
+# Example: no-dupes-forever = yes
+#
+# no-dupes-forever = false
+
+# blacklist-mask
+# Per-list file containing regular expressions for users who are not
+# allowed to subscribe to the list.
+# Example: blacklist-mask = blacklist
+#
+# blacklist-mask = blacklist
+
+# modpost-expiration-time
+# How long until a moderated post cookie expires.
+# Example: modpost-expiration-time = 2 h
+#
+# modpost-expiration-time = 
+
+# subscribe-mode
+# Subscription mode for the list.
+# Example: subscribe-mode = open
+#
+subscribe-mode = confirm
+
+# unsubscription-expiration-time
+# How long until unsubscription verification cookies expire.
+# Example: unsubscription-expiration-time = 5 d
+#
+# unsubscription-expiration-time = 
+
+# list-owner
+# Defines an email address to reach the list owner(s).
+# Example: list-owner = list2-admins@hostname.dom
+#
+list-owner = jtraub@dragoncat.net
+
+# rfc2369-post-address
+# The mailto to be used in the RFC 2369 List-post: header.   The special
+# value of 'closed' will show the list as closed in that header.
+# Example: rfc2369-post-address = myname@myhost.dom
+#
+rfc2369-post-address = sparkstest@lightlist.com
+
+# megalist
+# Should we process this list on-disk instead of in memory.
+# Example: megalist = true
+#
+# megalist = false
+
+# quoting-max-percent
+# If greater than 0 and quoting-limits is true, this is the maximum
+# percent of the message allowed to be quoted from a previous post.
+# Example: quoting-max-percent = 15
+#
+# quoting-max-percent = 0
+
+# rfc2369-headers
+# Should RFC 2369 headers be enabled for this list.
+# Example: rfc2369-headers = on
+#
+rfc2369-headers = yes
+
+# rfc2369-listname
+# The name of the list to use in the RFC 2369 List-name: header.
+# Example: rfc2369-listname = Mylist
+#
+# rfc2369-listname = 
+
+# subject-tag
+# Optional tag to be included in subject lines of posts sent to the
+# list.
+# Example: subject-tag = [MyList]
+#
+subject-tag = [Test]
+
+# password-failure-blackhole
+# If true, a post to a password list that doesn't have the correct
+# password will be eaten.  If false, it will be sent to the moderators.
+# Example: password-failure-blackhole = yes
+#
+# password-failure-blackhole = true
+
+# footer-file
+# Text to append to list messages.
+# Example: footer-file = text/reflector-footer.txt
+#
+# footer-file = text/reflector-footer.txt
+
+# post-password-reject-file
+# File sent to submitters to a password protected list if they don't
+# include the posting password header.
+# Example: post-password-reject-file = text/postpassword.txt
+#
+# post-password-reject-file = text/postpassword.txt
+
+# adminreq-expiration-time
+# How long until administrative request cookies expire.
+# Example: adminreq-expiration-time = 3 h
+#
+# adminreq-expiration-time = 
+
+# strip-mdn
+# If true, strip all read-reciept (mail delivery notification) headers
+# from mail before sending out.
+# Example: strip-mdn = on
+#
+# strip-mdn = true
+
+# rfc2369-archive-url
+# The URL for use in the List-archive: RFC 2369 header.
+# Example: rfc2369-archive-url = ftp://ftp.myhost.dom/lists
+#
+# rfc2369-archive-url = 
+
+# subscribe-acl-text-file
+# Textfile to be sent to a user who fails the ACL subscription check.
+#  Can be gotten with 'getconf acl-text'.
+# Example: subscribe-acl-text-file = text/subscribe-acl-deny.txt
+#
+# subscribe-acl-text-file = text/subscribe-acl-deny.txt
+
+# who-status
+# Who is allowed to view the list membership.
+# Example: who-status = admin
+#
+# who-status = private:|admin|private|public|
+
+# default-flags
+# Default flags given to a user when they are subscribed.
+# Example: default-flags = |NOPOST|DIGEST|
+#
+default-flags = |ECHOPOST|
+
+# humanize-quotedprintable
+# If set to true, attempt to remove any and all quoted printable characters
+# from subject and body replacing them with their actual character.
+# Example: humanize-quotedprintable = true
+#
+# humanize-quotedprintable = false
+
+# rfc2369-unsubscribe
+# If specified, this overrides the default generated RFC2369 List-unsubscribe
+# value.
+# Example: rfc2369-unsubscribe = mailto:ecartis@ecartis.org?subject=unsubscribe%20ecartis-support
+#
+# rfc2369-unsubscribe = 
+
+# password-implies-approved
+# If true, a correct use of X-posting-pass automatically preapproves
+# the message.  Useful if you want to have a moderated list and allow
+# preapproved functionality through the use of the password.
+# Example: password-implies-approved = yes
+#
+# password-implies-approved = false
+
+# tag-to-front
+# If set to true and there is a subject tag for the list, it will be
+# removed and moved to the beginning of the line (before any 'Re:'s).
+#  If not set, any duplicate Re:'s will still be removed, and the subject-tag
+# will be moved after the Re:.
+# Example: tag-to-front = no
+#
+# tag-to-front = true
+
+# cc-lists
+# A colon seperated list of local lists which recieve copies of all
+# posts to this list.
+# Example: cc-lists = mylist1:mylist2
+#
+# cc-lists = 
+
+# rfc2369-minimal
+# Should only the minimal set of RFC 2369 headers be emitted.
+# Example: rfc2369-minimal = true
+#
+rfc2369-minimal = no
+
+# description
+# Description of the list.
+# Example: description = This is my special list
+#
+description = Test mailing list, for testing Ecartis functionality
+
+# post-password
+# If specified, all incoming messages must have an X-posting-pass:
+# header with this password in it.
+# Example: post-password = NeverBeGuessed
+#
+# post-password = 
+
+# reply-to-sender
+# Forcibly set the Reply-To: header to be the address the mail came
+# from.
+# Example: reply-to-sender = false
+#
+# reply-to-sender = false
+
+# no-dupes
+# Should we track the Message-Id headers from incoming traffic to prevent
+# duplicate posts to the list.   Message-Id's expire after 1 day.
+# Example: no-dupes = off
+#
+no-dupes = true
+
+# send-as
+# Controls what the SMTP from is set to.
+# Example: send-as = list2-bounce@test2.dom
+#
+# send-as = 
+
+# quoting-line-reset
+# If quoting-limits is on, should the count of quoted lines be reset
+# if the user places their own text in the message? (This has the effect
+# of making it so that quoting-max-lines is the total number of lines
+# that can be quoted at once IN A BLOCK, instead of in the entire message.)
+# Example: quoting-line-reset = yes
+#
+# quoting-line-reset = true
+
+# subscribe-acl-file
+# File containing regular expressions against which a user's address
+# will be matched when they try to subscribe to a list.  If an address
+# does not match at least one, subscription is denied.  Can be gotten
+# with 'getconf acl'.
+# Example: subscribe-acl-file = subscribe-acl
+#
+# subscribe-acl-file = subscribe-acl
+
+# form-show-listname
+# Should we use the list name (or RFC2369 name) instead of the listserver-full-name
+# for forms on a per-list basis?  (Like admin wrappers and such.)
+# Example: form-show-listname = yes
+#
+# form-show-listname = false
+
+# closed-post
+# Is this list closed to posting from non-members.
+# Example: closed-post = true
+#
+closed-post = false
+
+# administrivia-include-requests
+# Should the mail which caused the (un)subscription action be included
+# in the message to the administrivia address.
+# Example: administrivia-include-requests = on
+#
+# administrivia-include-requests = false
+
+# submodes-file
+# File containing list specific customized subscription modes.
+# Example: submodes-file = submodes
+#
+# submodes-file = submodes
+
+# nopost-file
+# File sent to users flagged NOPOST if they submit a post to the list
+# Example: nopost-file = text/nopost.txt
+#
+# nopost-file = text/nopost.txt
+
+# blacklist-reject-file
+# File sent to a user when their subscription or post is rejected because
+# they are blacklisted.
+# Example: blacklist-reject-file = text/blacklist.txt
+#
+# blacklist-reject-file = text/blacklist.txt
+
+# subscription-expiration-time
+# How long until subscription verification cookies expire.
+# Example: subscription-expiration-time = 5 d
+#
+# subscription-expiration-time = 
+
+# moderator-welcome-file
+# File sent to a new moderator when they set MODERATOR.
+# Example: moderator-welcome-file = text/moderator.txt
+#
+# moderator-welcome-file = text/moderator.txt
+
+# admin-silent-subscribe
+# If set true, when an admin subscribes a user to a list they will
+# receive no subscription notification AND no welcome message.
+# Example: admin-silent-subscribe = no
+#
+# admin-silent-subscribe = false
+
+# filereq-expiration-time
+# How long until config file request cookies expire.
+# Example: filereq-expiration-time = 3 h
+#
+# filereq-expiration-time = 
+
+# approved-address
+# Address to which approved/rejected/modified moderated posts should
+# be sent.
+# Example: approved-address = mylist-repost@myhost.dom
+#
+# approved-address = <$list>-repost@<?hostname>
+
+# moderated
+# Is this list moderated.
+# Example: moderated = yes
+#
+moderated = false
+
+# humanize-mime
+# Should the server strip out non-text MIME attachments.
+# Example: humanize-mime = true
+#
+humanize-mime = true
+
+# header-file
+# Text to prepend to list messages.
+# Example: header-file = text/reflector-header.txt
+#
+# header-file = text/reflector-header.txt
+
+# closed-subscribe-file
+# Filename of file to be sent if a user tries to subscribe to a closed
+# subscription list.
+# Example: closed-subscribe-file = text/closed-subscribe.txt
+#
+# closed-subscribe-file = text/closed-subscribe.txt
+
+# goodbye-file
+# File sent to someone unsubscribing from a list.
+# Example: goodbye-file = text/goodbye.txt
+#
+# goodbye-file = text/goodbye.txt
+
+# overquote-file
+# Filename under the list directory of the file sent to a user who
+# fails an overquoting check.  (See 'quoting-limit'.)  This is the
+# file retrieved with 'getconf overquote'.
+# Example: overquote-file = text/overquote.txt
+#
+# overquote-file = text/overquote.txt
+
+# unsubscribe-mode
+# Unsubscription mode for the list.
+# Example: unsubscribe-mode = closed
+#
+# unsubscribe-mode = open:|closed|config|open|open-auto|
+
+# quoting-tolerance-lines
+# If greater than 0, this is the number of lines that must be exceeded
+# in the total message before the quoting percentage limit will be
+# applied.  It would be silly to have a 25% quoting limit and have
+# a three-line message be rejected because two lines were quoted.
+# Example: quoting-tolerance-lines = 7
+#
+# quoting-tolerance-lines = 7
+
+# admin-approvepost
+# Are posts by an administrator to a moderated list automatically approved.
+# Example: admin-approvepost = false
+#
+admin-approvepost = false
+
+# info-file
+# File on disk containing the list's info file.
+# Example: info-file = text/info.txt
+#
+# info-file = text/info.txt
+
+# welcome-file
+# File sent to new subscribers of a list.
+# Example: welcome-file = text/intro.txt
+#
+# welcome-file = text/intro.txt
+
+# allow-setaddy
+# Allow the use of the setaddy command to replace the subscribed address.
+# Example: allow-setaddy=no
+#
+# allow-setaddy = true
+
+# strip-headers
+# A colon seperated list of headers to remove from outgoing messages.
+# Example: strip-headers = X-pmrq:X-Reciept-To
+#
+strip-headers = List-name:List-software:List-subscribe:List-help:X-ecartis-version:X-list:X-approved-by:Delivered-To
+
+# reply-to
+# Address which will appear in the Reply-To: header.
+# Example: reply-to = list@myhost.dom
+#
+reply-to = Test List <test@dragoncat.net>
+
+# moderator-approvepost
+# Are posts by a moderator to a moderated list automatically approved.
+# Example: moderator-approvepost = false
+#
+# moderator-approvepost = true
+
+# verbose-moderate-fail
+# When a moderator approves a message but it is rejected, should the
+# message in question be included in the rejection note?
+# Example: verbose-moderate-fail = yes
+#
+# verbose-moderate-fail = true
+
+# subject-required
+# If set to true, then any post sent to the list without a subject
+# will be made moderated.
+# Example: subject-required = yes
+#
+# subject-required = false
+
+# rfc2369-subscribe
+# If specified, this overrides the default generated RFC2369 List-subscribe
+# value.
+# Example: rfc2369-subscribe = mailto:ecartis@ecartis.org?subject=subscribe%20ecartis-support
+#
+# rfc2369-subscribe = 
+
+# no-administrivia
+# Should the administrivia address be notified when a user subscribes
+# or unsubscribes.
+# Example: no-administrivia = on
+#
+# no-administrivia = false
+
+# closed-post-blackhole
+# Do messages submitted to a closed-post list by non-members get thrown
+# away.
+# Example: closed-post-blackhole = yes
+#
+# closed-post-blackhole = false
+
+##########
+# DIGEST #
+##########
+
+# digest-no-unmime
+# Should posts in the digest not be unmimed.
+# Example: digest-no-unmime = off
+#
+# digest-no-unmime = false
+
+# digest-transient
+# Are digests removed completely after they are sent.
+# Example: digest-transient = off
+#
+digest-transient = false
+
+# digest-footer-file
+# Filename for a footer file automatically included with every digest
+# Example: digest-footer-file = text/digest-footer.txt
+#
+# digest-footer-file = text/digest-footer.txt
+
+# no-digest
+# Should digesting be disabled for this list.
+# Example: no-digest = yes
+#
+# no-digest = false
+
+# digest-altertoc
+# Should this list use an alternate form for the digest Table of Contents.
+# Example: digest-altertoc = false
+#
+# digest-altertoc = false
+
+# digest-name
+# If digests are kept, what do we use as the name template for the
+# stored copy of the digest.
+# Example: digest-name = digests/%l/V%V.I%i
+#
+digest-name = lists/%l/digest/v%v.i%i
+
+# digest-max-time
+# Maximum age of a digest before it is sent automatically.
+# Example: digest-max-time = 24h
+#
+digest-max-time = 2 h
+
+# digest-to
+# Email addres used as the To: header when the digest is distributed.
+# Example: digest-to = listname@host.dom
+#
+# digest-to = 
+
+# digest-max-size
+# Maximum size a digest can reach before being automatically sent.
+# Example: digest-max-size = 40000
+#
+digest-max-size = 5000
+
+# digest-from
+# Email address used as the From: header when the digest is distributed.
+# Example: digest-from = listname@host.dom
+#
+# digest-from = 
+
+# digest-header-file
+# Filename for a header file automatically included with every digest
+# Example: digest-header-file = text/digest-header.txt
+#
+# digest-header-file = text/digest-header.txt
+
+# digest-transient-administrivia
+# Should the digest administrivia file be removed after the digest
+# is next sent.
+# Example: digest-transient-administrivia = true
+#
+# digest-transient-administrivia = false
+
+# digest-send-mode
+# Mode used when sending digests daily via a timed job (usually around
+# midnight of the host machine's time).  'procdigest' means that when
+# that happens, the digest will be sent regardless of your time and
+# size settings (which are still honored for normal posts).  Time and
+# size are self-explanatory; time means that it will only send if there's
+# been more than digest-max-time elapsed, while size will only send
+# if digest-max-size has been exceeded.  digest-max-size and digest-max-time
+# DO still apply when individual posts come across the list, even if
+# procdigest is set; having digest-max-size set to 50000 and this variable
+# to procdigest would mean that the digest would be sent when it exceeded
+# 50k, or during the midnight automated run (perhaps the day's digest
+# only reached 20k; it would still be sent).
+# Example: digest-send-mode = time
+#
+digest-send-mode = procdigest
+
+# digest-no-fork
+# Should digesting be done by forking a seperate process.
+# Example: digest-no-fork = true
+#
+# digest-no-fork = false
+
+# digest-administrivia-file
+# File on disk used to store digest administrative information.
+# Example: digest-administrivia-file = digest/administrivia
+#
+# digest-administrivia-file = digest/administrivia
+
+# digest-alter-datestamp
+# Should digests use a different datestamp format.
+# Example: digest-alter-datestamp = on
+#
+# digest-alter-datestamp = false
+
+# digest-strip-tags
+# Should subject lines of the messages in the digest have the list
+# subject-tag stripped.
+# Example: digest-strip-tags = on
+#
+digest-strip-tags = true
+
+# digest-no-toc
+# Should digests exclude the Table of Contents entirely.
+# Example: digest-no-toc = TRUE
+#
+# digest-no-toc = false
+
+#################
+# ADMINISTRIVIA #
+#################
+
+# administrivia-body-lines
+# How many lines of the body to check for commands.
+# Example: administrivia-body-lines = -1
+#
+# administrivia-body-lines = 6
+
+# administrivia-check
+# Should the administrivia check be enabled.
+# Example: administrivia-check = false
+#
+# administrivia-check = true
+
+# administrivia-regexp-file
+# File containing regexps used to detect if a user is sending list
+# commands to the list instead of the request address, and bounce those
+# messages to the moderator for handling.
+# Example: administrivia-regexp-file = admin-regexp
+#
+# administrivia-regexp-file = admin-regexp
+
+############
+# ANTISPAM #
+############
+
+# allow-spam
+# Should we disable the antispam check for this list.
+# Example: allow-spam = false
+#
+# allow-spam = false
+
+# antispam-blackhole
+# If we receive spam, should we simply eat it?  (If 'no', then it is
+# moderated.)
+# Example: antispam-blackhole = yes
+#
+# antispam-blackhole = false
+
+# spamfile
+# The file on disk which contains the regular expressions used to detect
+# if a given sender is a spammer.
+# Example: spamfile = spam-regexp
+#
+# spamfile = spam-regexp
+
+##########
+# BOUNCE #
+##########
+
+# bounce-always-unsub
+# Should the user be unsubscribed when more than max transient bounces
+# have occured.
+# Example: bounce-always-unsub = false
+#
+# bounce-always-unsub = false
+
+# bounce-max-fatal
+# Maximum number of fatal bounces before action is taken.
+# Example: bounce-max-fatal = 10
+#
+# bounce-max-fatal = 10
+
+# bounce-max-transient
+# Maximum number of transient bounces before action is taken.
+# Example: bounce-max-transient = 100
+#
+# bounce-max-transient = 30
+
+# bounce-never-unsub
+# Should the user be unsubscribed when more than max fatal bounces
+# have occured, or just set vacation.
+# Example: bounce-never-unsub = off
+#
+# bounce-never-unsub = false
+
+# bounce-never-vacation
+# Should the user ever be set vacation for exceeding the maximum number
+# of bounces.
+# Example: bounce-never-vacation = yes
+#
+# bounce-never-vacation = false
+
+# bounce-timeout-days
+# Length of time (in days) during which the maximum number of bounces
+# must not be exceeded.
+# Example: bounce-timeout-days = 7
+#
+# bounce-timeout-days = 7
+
+# bouncer-unsub-file
+# File under the list directory to send to a user when they are automatically
+# unsubscribed by the bouncer.
+# Example: bouncer-unsub-file = text/bounce-unsub.txt
+#
+# bouncer-unsub-file = text/bounce-unsub.txt
+
+# bouncer-vacation-file
+# File under the list directory to send to a user when they are automatically
+# set vacation by the bouncer.
+# Example: bouncer-vacation-file = text/bounce-vacation.txt
+#
+# bouncer-vacation-file = text/bounce-vacation.txt
+
+#######
+# CGI #
+#######
+
+# cgi-template-dir
+# Directory for CGI gateway templates.
+# Example: cgi-template-dir = <$listserver-data>/templates
+#
+# cgi-template-dir = <$listserver-data>/templates
+
+# lsg-cgi-url
+# URL to the CGI script for the web interface.
+# Example: lsg-cgi-url = http://www.mydom.com/listserver
+#
+# lsg-cgi-url = 
+
+#############
+# DEBUGGING #
+#############
+
+# debug
+# How much logging should be done.
+# Example: debug = 10
+#
+# debug = 0
+
+# preserve-queue
+# Controls whether to remove queue file after processing.
+# Example: preserve-queue = yes
+#
+# preserve-queue = false
+
+# validate-users
+# Perform a minimal validation of user@host.dom on all users in the
+# list's user file and log errors.
+# Example: validate-users = true
+#
+# validate-users = false
+
+###############
+# FILEARCHIVE #
+###############
+
+# file-archive-dir
+# Where are the archives for the list located.
+# Example: file-archive-dir = files
+#
+# file-archive-dir = 
+
+# file-archive-status
+# Who is allowed to retrieve the file archives.
+# Example: file-archive-status = admin
+#
+# file-archive-status = open
+
+###########
+# GENERAL #
+###########
+
+# error-include-queue
+# Should error reports contain the queue associated with that run
+# Example: error-include-queue = yes
+#
+# error-include-queue = true
+
+##########
+# GLOBAL #
+##########
+
+# deny-822-bounce
+# Should the RFC822 Resent-From: header be trusted for sender.
+# Example: deny-822-bounce = yes
+#
+# deny-822-bounce = false
+
+# deny-822-from
+# Should the RFC822 From: header be trusted for sender.
+# Example: deny-822-from = no
+#
+# deny-822-from = false
+
+# form-cc-address
+# Who should be cc'd on any tasks/forms that the server sends.
+# Example: form-cc-address = user2@host1.dom
+#
+# form-cc-address = 
+
+###############
+# LISTARCHIVE #
+###############
+
+# archive-world-readable
+# Should we make all archive files world-readable?
+# Example: archive-world-readable = yes
+#
+# archive-world-readable = true
+
+# mbox-archive-path
+# Path to where MBox format archives are stored.
+# Example: mbox-archive-path = archives/mylist/mbox
+#
+# mbox-archive-path = 
+
+# mh-archive-path
+# Path to where MH format archives are stored.
+# Example: mh-archive-path = archives/mylist/mh
+#
+# mh-archive-path = 
+
+########
+# MIME #
+########
+
+# humanize-html
+# Should HTML attachments be converted to plaintext
+# Example: humanize-html = no
+#
+# humanize-html = true
+
+# pantomime-dir
+# Directory on disk to store binary files placed on the web via PantoMIME.
+# Example: pantomime-dir = /var/www/ecartis/html/pantomime
+#
+# pantomime-dir = 
+
+# pantomime-url
+# URL corresponding to pantomime-dir
+# Example: pantomime-url = http://www.ecartis.org/pantomime
+#
+# pantomime-url = 
+
+# rabid-mime
+# Should ABSOLUTELY no attachments, EVEN text/plain, be allowed
+# Example: rabid-mime = no
+#
+# rabid-mime = false
+
+# unmime-forceweb
+# Should all attachments (even text/plain) be forced to the web (pantomime-dir
+# and pantomime-url must be set or all will be eaten)
+# Example: unmime-forceweb = yes
+#
+# unmime-forceweb = false
+
+# unmime-quiet
+# Should the listserver report when it strips MIME attachments.
+# Example: unmime-quiet = no
+#
+# unmime-quiet = false
+
+##############
+# MODERATION #
+##############
+
+# moderate-include-queue
+# Should moderated messages contain the full message that triggered
+# moderation?
+# Example: moderate-include-queue = yes
+#
+# moderate-include-queue = false
+
+# moderate-notify-nonsub
+# Should posts from non-subscribers be acked if they are moderated.
+# Example: moderate-notify-nonsub = true
+#
+# moderate-notify-nonsub = false
+
+# moderator
+# Address for the list moderator(s).
+# Example: moderator = foolist-moderators@hostname.dom
+#
+# moderator = 
+
+########
+# SMTP #
+########
+
+# full-bounce
+# Should bounces contain the full message or only the headers.
+# Example: full-bounce = false
+#
+# full-bounce = false
+
+# smtp-queue-chunk
+# Maximum recipients per message submitted to the mail server.  Larger
+# lists will be split into chunks of this size.
+# Example: smtp-queue-chunk = 25
+#
+# smtp-queue-chunk = 
+
+# sort-tolist
+# Should the recipients be sorted by domain before sending.   This
+# is memory expensive and is a bad idea if your SMTP server already
+# does this sorting.   If you SMTP server doesn't do this, it can really
+# improve outgoing mail performance.
+# Example: sort-tolist = off
+#
+# sort-tolist = true
+
+###########
+# TEMPBAN #
+###########
+
+# tempban-default-duration
+# If an administrator issues the tempban command without a duration,
+# this default will be used.
+# Example: tempban-default-duration = 7 d
+#
+# tempban-default-duration = 7 d
+
+# tempban-end-file
+# Filename of file to be sent to a user who was tempbanned when the
+# tempban expires.
+# Example: tempban-end-file = text/tempban-end.txt
+#
+# tempban-end-file = text/tempban-end.txt
+
+# tempban-file
+# Filename of file to be sent to a user when an admin issues the tempban
+# command on them.
+# Example: tempban-file = text/tempban.txt
+#
+# tempban-file = text/tempban.txt
+
+############
+# VACATION #
+############
+
+# vacation-default-duration
+# If a person sends the vacation command without a duration, how long
+# they will be set vacation.
+# Example: vacation-default-duration
+#
+# vacation-default-duration = 14 d
+
+
+
+# Miscellaneous Settings
+
+# task-no-footer
+#
+# task-no-footer = false
+

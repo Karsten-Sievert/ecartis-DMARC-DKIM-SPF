@@ -1,0 +1,123 @@
+README file for Ecartis
+-----------------------------------------------------------------------
+For now, this file assumes you have a modicum of unix experience, it will
+get better over time.  If you have questions about getting this code set
+up and installed on your machine, please feel free to subscribe to the
+ecartis-support@ecartis.org (send an email to
+ecartis-support-request@ecartis.org with the word 'subscribe' (no quotes) in
+the subject). 
+
+Edit the top level makefile to set up configuration settings for your
+machine.  I'm assuming some type of advanced makefile (ala GNU)
+
+After editing, perform a make in the top level.  This will create the
+modules and the ecartis executable.
+
+You probably want to create a ecartis user/group so that the program runs
+as an unpriveledged user.  Chmod the ecartis executable to this user and
+make sure this user is a trusted user of your sendmail program.  Also make
+sure all the list directories have the correct permissions and can be
+read/written by the ecartis user/group.
+
+You'll want to rename the ecartis.cfg.dist to ecartis.cfg, if this is a
+first time install.  The reason for the .dist extension is to prevent a
+user from accidentally unpacking over an existing installation and
+destroying their previous configurations.
+
+If you want to use the bounce-management on a nightly basis, just add
+'ecartis -procbounce' to your crontab.  Similarly, if you want to ensure
+the digest processing is handled at a certain time, add the command 
+'ecartis -procdigest' to your crontab.  Both CAN be omitted; Ecartis will
+then handle it automatically when something is posted to the list after
+too long has passed.  If you have virtual hosts set up, and choose to use
+the -procbounce feature, you will need to set a crontab line for each
+virtual host, with the appropriate -c parameter.
+
+To make new mailing lists, you will want to run Ecartis with the -newlist
+parameter.  Be sure to run Ecartis with the full path *as used by your mail
+aliases*, for example:
+
+/home/ecartis/ecartis -newlist mylist
+/etc/smrsh/ecartis -newlist mylist
+
+You can follow the instructions Ecartis will give you, and the list will be
+generated for you.  Ecartis will spit back the aliases on stdout, for
+sendmail-style aliases. Thus, you can do:
+
+/home/ecartis/ecartis -newlist mylist >> ecartis.aliases
+
+And the aliases will be in that textfile.  Once you have the aliases in a
+valid alias file for your mailserver, run newaliases (or your equivalent)
+and it should be ready.
+
+If you have qmail, and use dot-qmail aliases files as opposed to
+FastFoward, you can do:
+
+/home/ecartis/ecartis -qmail -newlist mylist
+
+Then, Ecartis will make a 'qmail-aliases' directory under the new list
+directory, containing the dot-qmail files (for example .qmail-mylist,
+.qmail-mylist-request, and so on).  You can copy those to the qmail
+aliases directory.
+
+If you have virtual hosts set up, you can pass in the host config file
+when doing newlist:
+
+/home/ecartis/ecartis -c virthost.cfg -newlist mylist
+
+*IMPORTANT*
+If your mail server runs smrsh (sendmail restricted shell), then you will get
+errors like the following when you try to send mail to a ecartis list.
+
+    "|/home/ecartis/ecartis -s alist" 
+          (expanded from: alist@some.machine.dom)
+    
+        ----- Transcript of session follows -----
+    sh: ecartis not available for sendmail programs
+    554 "|/home/ecartis/ecartis -s alist"... Service unavailable
+
+If this is the case, then you need to do some additional setup.
+First, find out where your mail server's smrsh directory is.   For RH 6.0,
+this is /etc/smrsh.   For other OS's and MTA's this may be different.  Ask
+your sysadmin (or if you are the sysadmin, ask the support people for your
+OS or MTA where it is).
+
+In that directory, create a shell script containing the following
+---->8---- cut here ---->8----
+#!/bin/sh
+/home/ecartis/ecartis $@
+----8<---- cut here ----8<----
+
+Of course you should use /your/path/to/ecartis instead of /home/ecartis.
+Then, all your Ecartis aliases should be set up as /etc/smrsh/ecartis (or
+whatever the path to the wrapper is) instead of the actual Ecartis path.
+
+This should be sufficient to make ecartis work with your MTA.
+
+You *should* now have an operational ecartis mailing list server.
+
+Please report any bugs to bugs@ecartis.org so that they can be fixed as
+soon as possible.  Posts to this address will automatically go into the
+Ecartis bug tracking system (http://bugs.ecartis.org/ecartis/).
+
+Please also feel free to submit changes, enhancements, and ideas for
+ecartis as well.  Feature requests can be mailed to bugs@ecartis.org for
+addition to the 'Wishlist' section of the Ecartis database.  Please note
+that it is a feature request in the message, though.  (Ideally, put
+SUGGESTION: or REQUEST: at the beginning of the subject line.)
+
+In addition to ecartis-support@ecartis.org (open subscription via
+ecartis-support-request@ecartis.org), there is also be an open mailing list
+for developers called ecartis-dev@ecartis.org (subscribe via
+ecartis-dev-request@ecartis.org) which can be used to discuss changes and
+implementations of various modules, extensions to existing modules, bug
+fixes and the like. 
+
+Thank you.
+Rachel Blackman  (Sparks)
+Joseph Traub     (JT)
+
+-----------------------------------------------------------------------
+As the authors, we'd really like to know about any improvements, fixes,
+changes and such that are made to this software so that we can incorporate
+them into future versions as well as improve the software over time.

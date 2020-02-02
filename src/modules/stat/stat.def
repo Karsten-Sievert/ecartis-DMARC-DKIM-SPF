@@ -1,0 +1,9 @@
+LIBRARY      "stat"
+DESCRIPTION  'Ecartis stat plugin'
+EXPORTS
+stat_load
+stat_switch_context
+stat_upgradelist
+stat_upgrade
+stat_init
+stat_unload

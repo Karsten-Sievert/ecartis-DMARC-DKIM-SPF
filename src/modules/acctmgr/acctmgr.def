@@ -1,0 +1,9 @@
+LIBRARY      "acctmgr"
+DESCRIPTION  'Ecartis ACCTMGR plugin'
+EXPORTS
+acctmgr_load
+acctmgr_switch_context
+acctmgr_upgradelist
+acctmgr_upgrade
+acctmgr_init
+acctmgr_unload

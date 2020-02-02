@@ -1,0 +1,9 @@
+LIBRARY      "admin"
+DESCRIPTION  'Ecartis ADMIN plugin'
+EXPORTS
+admin_load
+admin_switch_context
+admin_upgradelist
+admin_upgrade
+admin_init
+admin_unload

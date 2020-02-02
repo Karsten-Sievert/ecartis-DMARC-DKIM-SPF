@@ -1,0 +1,9 @@
+LIBRARY      "listarchive"
+DESCRIPTION  'Ecartis listarchive plugin'
+EXPORTS
+listarchive_load
+listarchive_switch_context
+listarchive_upgradelist
+listarchive_upgrade
+listarchive_init
+listarchive_unload

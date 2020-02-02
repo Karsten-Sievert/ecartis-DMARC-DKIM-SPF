@@ -1,0 +1,9 @@
+LIBRARY      "digest"
+DESCRIPTION  'Ecartis digest plugin'
+EXPORTS
+digest_load
+digest_switch_context
+digest_upgradelist
+digest_upgrade
+digest_init
+digest_unload

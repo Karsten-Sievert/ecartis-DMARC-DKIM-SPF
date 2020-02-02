@@ -1,0 +1,59 @@
+[08/14/2003] -- SPL
+-- patched for possible buffer overflows with patch provided by
+Timo Sirainen (tss@iki.fi) reported in 
+http://www.securityfocus.com/archive/1/333209/2003-08-11/2003-08-17/0
+
+[04/17/2003] -- SPL
+-- quick fix for buffer sizes for filenames in pantomime, which got
+partially screwed in the "fix all possible buffer overflow" period.
+
+[04/16/2003] -- SPL
+-- Added quick comment to ecartis.cfg.dist about LSG/2
+   configuration option.
+
+[04/04/2003] -- RCB
+-- Brought Windows port back up to date.  Yeek.  This is
+   TOTALLY untested, beyond the 'it compiles and I could
+   run some basic checks' level.
+
+[03/18/2003] -- RCB
+-- Moved antispam check to before closed-post check, to allow
+   for antispam on moderated submission lists.
+
+[03/11/2003] -- RCB
+-- Added -repost as an alias for -approve
+
+[03/09/2003] -- RCB
+-- Added some additional debugging output to LSG/2 and LCGI.
+-- Removed old debugging output from LSG/2.
+
+[03/03/2003] -- RCB
+-- Minor quirk in 'admin' mode for who-status with LSG/2 fixed.
+   Thanks to Chris Scott for finding and fixing this. :)
+
+[02/27/2003] -- RCB
+-- Fixed serious security flaw in LSG/2.   Guh.
+-- Since I'm back in the codebase, added 'moderate-verbose-subject'
+   to config variables, which allows you to see who a moderated
+   post is from in the subject line when it's sent to moderators.
+   This will help me stay sane on the 'ghiblink' mailing list. :)
+
+[02/10/2003] -- SPL
+-- commit another patch from Pavel Kolar that seems to fix the archiving
+   and union-lists.
+
+[02/07/2003] -- SPL
+-- commit patches by Pavel Kolar for fixing how Subject is parsed in
+   digest based on order in headers
+-- commit 2 patches from Tomas Ogren, one that fixes some issues with Quoted-Printable
+   and the other which prints which list a post was declined from.
+
+[01/23/2002] -- SPL
+-- committed fix for bug introduced by adi's prior patch, that made
+   headers appear after attachments in multipart messages with both
+   humanize-mime and humanize-html on.
+
+[01/15/2003] -- SPL
+-- added patch to fix the "First line always blank" problem, from adi
+   (thanks adi, again!)
+-- added another patch from adi to unmime.c to fix the "7BIT" bug

@@ -1,0 +1,9 @@
+LIBRARY      "administrivia"
+DESCRIPTION  'Ecartis administrivia plugin'
+EXPORTS
+administrivia_load
+administrivia_switch_context
+administrivia_upgradelist
+administrivia_upgrade
+administrivia_init
+administrivia_unload

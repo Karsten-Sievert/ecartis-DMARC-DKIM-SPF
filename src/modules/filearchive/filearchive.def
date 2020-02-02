@@ -1,0 +1,9 @@
+LIBRARY      "filearchive"
+DESCRIPTION  'Ecartis filearchive plugin'
+EXPORTS
+filearchive_load
+filearchive_switch_context
+filearchive_upgradelist
+filearchive_upgrade
+filearchive_init
+filearchive_unload

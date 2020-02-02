@@ -1,0 +1,9 @@
+LIBRARY      "send"
+DESCRIPTION  'Ecartis send plugin'
+EXPORTS
+send_load
+send_switch_context
+send_upgradelist
+send_upgrade
+send_init
+send_unload

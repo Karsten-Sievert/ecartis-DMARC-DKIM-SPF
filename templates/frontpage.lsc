@@ -1,0 +1,43 @@
+[?include templates/header.lsc]
+
+<font face="Verdana,Arial,Helvetica,Sans-Serif">
+<center><font size=+3><b>Mailing List Interface</b></font></center>
+<HR>
+[@MODEHEAD:login]
+[@CURLIST]
+<center>
+ <table width=70% border=0>
+  <tr>
+    <td colspan=2>
+      <P><font size=+2>Enter Login Info</font><BR>
+      If you are a new user, or do not have a password set for the
+      web-based mailing list interface, simply leave the password
+      blank.  You will be e-mailed an authorization string which you
+      will need to provide.</P>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>
+          <center>
+           <table>
+            <tr>
+              <td><font size=+1>E-mail Address:</font></td>
+              <td>[@EDITUSERNAME:32]</td>
+            </tr>
+            <tr>
+              <td><font size=+1>Password:</font></td>
+              <td>[@PASSWORD:32]</td>
+            </tr>
+           </table>
+          </center>
+    </td>
+    <td valign=bottom>
+        [@SUBMIT:Click here to Log In]
+    </td>
+  </tr>
+ </table>
+ [@MODEEND]
+ </center>
+</font>
+
+[?include templates/footer.lsc]

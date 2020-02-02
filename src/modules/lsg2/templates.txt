@@ -1,0 +1,54 @@
+frontpage
+  The 'welcome', front page.  Provided if you hit the CGI with no
+  parameters.  Probably should prompt for the user login.
+
+error
+  Called when there is an error.  The variable 'lcgi-error' contains
+  the error text.
+
+logincookie
+  Called when a cookie is mailed to the user due to the lack of a 
+  password in the initial login.  Should prompt for the cookie.
+
+mainmenu
+  Main menu command, after user's identity has been verified.
+
+listmenu
+  Menu after we have a user -and- a list.
+
+textfile
+  Displaying a textfile; used for displaying all textfiles generically.
+
+userlist
+  For displaying a list of users.
+
+userlist-deny
+  Displayed when access to the list of users for a list is denied.
+
+generic
+  A sort of 'generic' text message template.  tlcgi-generic-text will
+  contain the text.
+
+subscribe
+  Displayed after a successful subscription
+
+unsubscribe
+  Displayed after a successful unsubscription
+
+flagedit
+  Used for displaying flags and account settings for the end user to
+  edit.
+
+userinfo
+  Used to display the user's account information.
+
+adminmenu
+  The admin menu
+
+config
+  The 'configure list' screen
+
+fileedit
+  The screen for editing a list textfile
+
+

@@ -1,0 +1,9 @@
+LIBRARY      "peruser"
+DESCRIPTION  'Ecartis peruser plugin'
+EXPORTS
+peruser_load
+peruser_switch_context
+peruser_upgradelist
+peruser_upgrade
+peruser_init
+peruser_unload

@@ -1,0 +1,65 @@
+This code was originally developed by
+
+	Rachel (sparks@noderunner.net)
+	JT (jtraub@dragoncat.net)
+
+Ecartis is now maintained by the Ecartis -core members, which are (w/ 
+their Changelog IDs):
+
+	[RCB] Rachel Blackman (sparks@noderunner.net)
+	[JLT] JT Traub (jtraub@dragoncat.net)          
+	[PWL] Peter Losher (plosher+ecartis.org@plosh.net)
+	[SPL] Siobahn Patricia "Trish" Lynch
+	[   ] Nils Vogels
+
+Developers also include (w/ their Changelog ID's):
+
+	[JG ] John Goerzen (jgoerzen@complete.org)
+	[FCC] 
+
+The following people have graciously contributed patches (if your name
+isn't on here and you've sent a patch, let Rachel know):
+
+	Richard Stevenson
+		DEC Digital UNIX support, rfc2369 modifications,
+		static mod stuff
+	Oliver Wagner
+		tolist_cmp optimization
+	Johan Danielsson
+		variable initialization bugs
+	Jeff Johnson
+		OpenBSD support
+	Ian Justman
+		SMTP server multiline banner support
+	Vivek Khera
+		post-password functionality fix
+	Vadim Vygonets
+		hitchingpost style locking for listar on NFS partitions
+	franck@blancmange.com
+		A missed use of the digest-administrivia-file variable
+	Tomas Halvarsson
+		Patch for compilation under AIX
+	Alessandro Zummo
+		A patch for configuring unsub and subscribe confirmation messages
+	Francois Petillon
+		Many patches dealing with mime handling.
+	P. Y. Adi Prasaja
+		Patch fixing a crashing bug where a file got closed prematurely
+	Jouni Malinen
+		Multiple patches to bounce handling
+
+The following beta-testers have been invaluable in tracking down
+bugs, finding strange behavior, requesting new features, and generally
+making the developer's lives miserable.  They are by no means the only
+beta testers... merely the most vocal. :)
+
+	Michael Johnson
+	o L a
+	Ricardo Kleeman
+	Sean Goller
+	John Goerzen
+	John Price
+	Steve Lamb
+	Steven Richardson
+	Oliver Wagner
+

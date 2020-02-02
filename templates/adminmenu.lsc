@@ -1,0 +1,67 @@
+[?include templates/header.lsc]
+<HR>
+<font face="Verdana,Arial,Sans Serif">
+
+<center><font size=+1><b>Admin Options for [$lcgi-list]</b></font></center>
+<HR>
+<table width=100% border=0>
+<tr>
+<td valign=top align=center rowspan=2>
+<b>Current List Users</b>
+[@MODEHEADEX:admin_userfor_generic]
+[@ADMINUSERLISTBOX:10]
+<BR><BR>
+<input type=submit name=lcgipl-unsubscribe value=Unsubscribe>
+<BR>
+<input type=submit name=lcgipl-userinfo value="View User Info">
+<BR>
+<input type=submit name=lcgipl-usersetinfo value="User Options">
+[@MODEEND]
+</td>
+<td valign=top colspan=2 width=55%>
+[@MODEHEADEX:admin_subscribe]
+<center>
+<b>Users to Subscribe</b>
+<BR>
+<textarea rows=10 cols=40 wrap=none name=lcgipl-subscribe-userlist>
+</textarea>
+<BR><BR>
+[@SUBMIT:Subscribe Users]
+</center>
+[@MODEEND]
+</td>
+<td valign=top align=center>
+<b>Files Available to Edit</b>
+<BR>
+[@MODEHEADEX:getfile]
+[@ADMINFILELIST]
+<P>
+[@SUBMIT:Edit File]
+[@MODEEND]
+</td>
+</tr>
+<tr>
+<td valign=top>
+<center><b>Other Options</b></center>
+[@MODEHEADEX:config]
+[@SUBMIT:Edit List Config]
+[@MODEEND]
+[@MODEHEADEX:listmenu]
+[@SUBMIT:Back to List Menu]
+[@MODEEND]
+</td>
+<td colspan=2 valign=top align=center width=45%>
+<table border=1 bgcolor=#000088 cellspacing=2 cellpadding=2>
+<tr><td>
+To add users, simply enter them into the 'Users to Subscribe' box, one
+address per line, and click on 'Subscribe'.
+<BR><BR>
+Note that for operations on currently subscribed users, you cannot
+select more than one at a time.
+</td></tr></table>
+</td>
+</tr>
+</table>
+
+</font>
+[?include templates/footer.lsc]

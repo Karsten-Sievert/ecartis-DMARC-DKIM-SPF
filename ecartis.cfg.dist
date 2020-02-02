@@ -1,0 +1,220 @@
+# Global Ecartis configuration settings
+
+# mailserver: The outgoing SMTP mailserver.  Often the machine
+# Ecartis runs on.
+mailserver = localhost
+
+# Addresses
+# listserver-address: The e-mail address this copy of Ecartis runs as.
+# listserver-admin: The e-mail address for the local Ecartis admin.
+# listserver-full-name: The 'friendly name' that will show up on mail from
+#    ecartis.
+#
+listserver-address = ecartis@yourdomain.com
+listserver-admin = root@localhost
+# listserver-full-name = Ecartis
+
+# Meta directory information
+# listserver-root
+#    This is where the main ecartis executable is located on a default
+#    install.   Defaults to the path the program is executed from.   Not
+#    useful in it's own, but used to build the other variables defaults.
+#
+# listserver-conf
+#    This is where the config files (such as global blacklist, virtual host
+#    configs, etc are located.   Defaults to listserver-root.
+#
+# listserver-data
+#    This is where the writable data directories (lists, queue, archives, etc)
+#    live by default.  Defaults to listserver-root.
+#
+# listserver-modules
+#    This is where to load the Ecartis modules from.   Defaults to
+#    listserver-root/modules
+#
+# listserver-root = /home/ecartis
+# listserver-conf = /home/ecartis
+# listserver-data = /home/ecartis
+# listserver-modules = /home/ecartis/modules
+
+# List directory
+# In the situation where you are virtual hosting, you could in fact
+# store all the lists in seperate places.
+# If you do, you will need to run different copies with different config
+# files for things like procbounce or procdigest, but that's the price you
+# pay for virtual hosting
+lists-root = lists
+
+# Ecartis logfile location
+logfile = ./ecartis.log
+
+# Paranoia (boolean)
+# Are we a paranoid installation?  Paranoid installations only allow
+# admin functions to be done by hand.  Defaults to OFF if not specified.
+#paranoia = off
+
+# Do we refuse to parse RFC822 'From:' headers?  Otherwise RFC822 headers
+# can be used as the sender's address.
+deny-822-from = no
+
+# Define the debug level, ranging from 0 (no debug) to 10 (highest
+# currently defined).  Determines how much debugging info is written to
+# the logfile.  Default is 0.
+debug = 0
+
+# Change this to a valid email address at your site
+# Default, if list-owner isn't set.
+list-owner = root@localhost
+
+# sendmail-sleep should be set to yes to make Ecartis 'sleep' 5ms
+# after receiving a response from RCPT TO.  Some Sendmail servers
+# die if you don't delay.
+sendmail-sleep = no
+
+# sort-tolist is useful for sendmail installations, where the delivery
+# order is determined by the order of RCPT TO... it helps make the
+# delivery more efficient.  However, more 'intellegent' mailers like
+# Postfix and qmail do not really need this option, and it only wastes
+# a bit of RAM and processing time on a list send.
+#
+# Sendmail users would do well to leave it set to 'yes', qmail and
+# Postfix users, turn it off.
+sort-tolist = yes
+
+# task-no-footer: When set to yes, turns off the Ecartis version
+# tagline at the bottom of list results.
+# (Hint: Set to 'no' if the development team sends you a new
+# version every day. :-) )
+task-no-footer = no
+
+# Allow or disallow the 'setaddy' command.  Setaddy allows users
+# to modify their addresses.  This is primarily for users of
+# NetCom, for example, which sends the messages from
+# user@pop45.ix.netcom.com, and then bounces messages replied back
+# to this address.  Setaddy allows these users to specify their
+# send-to address as user@netcom.com and Ecartis will still accept
+# messages from their fudged-up address.
+allow-setaddy = yes
+
+# 'full-bounce' controls whether bounces contain the entire
+# message or just the headers.
+full-bounce = no
+
+# max-rcpt-tries defines the number of times to try getting
+# input from sendmail on 'RCPT-TO'.  Sometimes sendmail delays
+# and leaves the socket buffer empty.  Usually, you should never
+# need to set this.
+# max-rcpt-tries = 5
+
+# How long should cookies be kept before they're expired and
+# removed?  Defaults to 3 hours.
+# cookie-expiration-time = 2d
+
+# How long should the 'Expiry-Date' header field time be from now?
+# Mail programs that support this feature will automatically delete
+# mail older than this.  This is only used for generic command output,
+# for the message you get back from things like 'lists' and 'who' and
+# the output of setting your flags.  Files sent (closed-post notices,
+# etc.) are not given an Expiry-Date.  Defaults to 1 day if not set.
+# reply-expires-time = 4h
+
+# LSG2 Configuration
+# lsg2-cgi-url: The full URL of the location of the LSG/2 CGI, ie.
+# lsg2-cgi-url = http://full.url/cgi-bin/lsg2.cgi
+
+
+# GLOBAL FILES
+# global-blacklist: The filename containing the global blacklist for this
+#                   installation of Ecartis.  File is under Ecartis's base
+#                   directory.
+global-blacklist = banned
+
+
+# Files, used by individual lists
+###################################
+#
+# blacklist-file: The filename for the textfile sent to a user
+#                 when they fail a blacklist check.  Path is under
+#                 list directory.  This is the file you retrieve
+#                 with 'getconf blacklist-reject'.
+# blacklist-mask: The filename for the individual list blacklist
+#                 files.  Path is relative to list directory.
+#                 This is the file you retrieve with 'getconf
+#                 blacklist'.
+# welcome-file:   The filename for the textfile sent to a new user
+#                 when they first subscribe.  Path is under list
+#                 directory.  This is the file you retrieve with
+#                 'getconf welcome'.
+# header-file:    The filename for the textfile prepended to posts
+#                 for a list (if present).  Path is under list
+#                 directory.  This is the file you retrieve with
+#                 'getconf header'.
+# footer-file:    The filename for the textfile appended to posts
+#                 to a list (if present).  Path is under list
+#                 directory.  This is the file you retrieve with
+#                 'getconf footer'.
+# closed-file:    The filename for the textfile sent to someone
+#                 who sends mail to a closed list, but is not
+#                 subscribed to the list.  This is probably a good
+#                 place to explain what a mailing list is, and
+#                 subtly suggest they subscribe :-)
+#
+# The digest-header-file and digest-footer-file specified below
+# violates the RFC1153 standard for digested mailing lists.
+# However, they seem quite popular :-)
+#
+# digest-header-file:  The filename for the textfile prepended to
+#                      the head of digests when they're sent out.
+#                      Path is relative to list directory.  This
+#                      is the file you retrieve with 'getconf
+#                      digest-header'.
+# digest-footer-file:  The filename for the textfile appended to
+#                      the tail of digests when they're sent out.
+#                      Path is relative to list directory.  This
+#                      is the file you retrieve with 'getconf
+#                      digest-footer'.
+#
+# digest-administrivia-file: The filename for the textfile to be
+#                            placed in the 'Administrivia' section
+#                            of digests when they're assembled.
+#                            Path is relative to list directory.
+#                            This is the file you retrieve with
+#                            'getconf digest-administrivia'.
+#
+# nopost-file: The filename for the textfile to be sent to a user whose
+#              post was rejected because they were set nopost.  This is
+#              the file you retrieve with 'getconf nopost'.
+# 
+# spamfile: The filename of the textfile containing regexps, one per line,
+#           of patterns to try matching to block spam or unsolicited 
+#           commercial e-mail.  'getconf spamfile' gets this one.
+#
+# moderator-welcome-file: The filename of the textfile to be sent to a
+#                         user when they are set MODERATOR. This should
+#                         contain an introduction to moderating the
+#                         list, and serves as a welcome/intro to the
+#                         new responsibilities a user has.
+#
+# administrivia-regexp-file: The filename of the file containing regexps,
+#                            one per line of patterns to match when attempting
+#                            to determine if a users mail to the list
+#                            contains an admin request which should have gone
+#                            to <list>-request instead.  Retrieve with
+#                            'getconf administrivia-regexp'.
+#
+
+blacklist-file = text/blacklist.txt
+blacklist-mask = blacklist
+welcome-file = text/intro.txt
+header-file = text/reflector-header.txt
+footer-file = text/reflector-footer.txt
+closed-file = text/closed-post.txt
+nopost-file = text/nopost.txt
+post-password-file = text/postpassword.txt
+digest-header-file = text/digest-header.txt
+digest-footer-file = text/digest-footer.txt
+digest-administrivia-file = digest/administrivia
+spamfile = spam-regexp
+moderator-welcome-file = text/moderator.txt
+administrivia-regexp-file = admin-regexp
+

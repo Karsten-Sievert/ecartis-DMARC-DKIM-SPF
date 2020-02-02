@@ -1,0 +1,138 @@
+[12/16/2001] -- PWL
+  -- Updating the CHANGELOG, to force the creation of a new snapshot 
+     tonight.  Rachel fixed an compile bug in the per-user module that 
+     was blowing up compiles.
+
+[11/20/2001] -- RCB
+  -- Added Rik van Riel's 'antispam-checkbody' patch.  Set
+     antispam-checkbody to 'true' to check the body of mail as well as the
+     headers for spam patterns.
+  -- Added an option parameter to the extended listbox template parameter
+     for LSG/2: you can set the listbox size in rows.
+
+[11/16/2001] -- RCB
+  -- Added 'rfc2369-legacy-listid' to allow X-List-ID to still be added.
+     Defaults to 'true' for backwards compatibility.
+  -- Added 'use-rfc2919-listid-subdomain' to allow List-ID to add the
+     'list-id' portion of the suggested namespace into the List-ID field.
+     Defaults to 'false' for backwards compatibility.
+
+[11/15/2001] -- RCB
+  -- Changed X-List-ID header to List-ID header, since it's now more
+     widely accepted and used. :)
+
+[11/14/2001] -- RCB
+  -- Fixed LSG/2 to log when people are subscribed or unsubscribed to
+     lists by the web interface.  Whups!
+  -- Added 'per-user-list' to the per-user modification variables, which
+     is the list the user was added from, in the case of cc-lists
+     situations.  Makes it nice and easy to tell what list gave you
+     a message even for virtual cc-lists!
+  -- Applied 'kjh's patch to allow the userlist in LSG/2 to be sorted.
+     This patch was contributed back from FreeLists.org, courtesy of
+     John Madden.  I altered it, to make it optional; you can set
+     lsg2-sort-userlist off in order to disable it and use the old
+     behavior.
+
+[11/13/2001] -- RCB
+  -- Caught and fixed a bug with copy-requests-to that John Madden
+     pointed out.  WHUPS!
+
+[11/09/2001] -- JLT
+  -- Fixed a couple of compile errors under my linux box
+
+[11/08/2001] -- RCB
+  -- I hate my job.  Someone please shoot me, or find me a new job.
+  -- Pulled out the new MIME library due to some unforeseen problems.
+  -- Interim 1.0.0 release to revive code 'life' outside of my sandbox.
+  -- STILL PENDING PRIOR TO FULL 1.0.0 RELEASE:
+     + sorted userlists in LSG/2
+     + the new MIME library
+     + documentation!
+  -- Fixes to per-user code.
+
+[10/16/2001] -- RCB
+  -- Did rather extensive code-review, made some notes for redesign.
+     This is what took me the majority of the last two months.  I would
+     LOVE some help on this! :)
+  -- Added peruser module, which does per-user re-addressing and per-user
+     footers.  Per-user bounce detection is not in place yet because,
+     honestly, it'll be hard to do in a mailserver-agnostic way.
+  -- Added 'per-user-footer' file to the files list, for per-user footers.
+  -- Added 'per-user-rewrite-to' boolean variable, to toggle the
+     per-user To: field rewriting.
+  -- The to: field rewriting definitely needs more work; data could be
+     lost if multiple addresses are on that line.  This is a temporary
+     solution to make sure it works at all. :)
+
+[08/05/2001] -- RCB
+  -- Added new bounce handlers, for SMTPv, MMS Relay, and a few unknown
+     mailers.
+  -- First preliminary Ecartis checkin!  As far as I know, it will work,
+     but I have not yet had a chance to really test it as I am commiting
+     this during a brief free moment at work.  Here's hoping!
+
+[08/03/2001] -- RCB
+  -- Finally finished changing all 'Listar' references to 'Ecartis'...
+     I hope!
+  -- Made sure that all 'listar-*' config variables (which are just
+     internal aliases to 'listserver-*' anyway) are still supported,
+     so that config files do not need to change.
+  -- Added 'prevent-second-message' variable.  If this is set and the
+     welcome or goodbye files exist, the Ecartis command results
+     file will be eaten.  IF YOU HAVE OTHER COMMANDS IN A MAIL BEFORE
+     THE SUBSCRIBE COMMAND THEIR OUTPUT WILL GO AWAY.  Remember this
+     caveat. Anything after the subscribe will generate additional
+     command output, though.
+  -- Tweaked archive handling a bit.
+
+[07/25/2001] -- RCB
+  -- Applied Balu's patch for 'welcome-subject' and 'goodbye-subject'
+     modifications
+  -- Applied Mark Femal's patch for better admin subscribe/unsubscribe
+     handling.
+
+[06/07/2001] -- BALU
+  -- Added support for welcome-subject and goodbye-subject.
+
+[02/25/2001] -- RCB
+  -- Fixed a permissions bug in LSG/2 handling.
+
+[02/23/2001] -- RCB
+  -- Fixed the 'help' command to properly pull from 'listserver-data'
+     instead of 'listserver-conf'
+
+[02/22/2001] -- RCB
+  -- Added 'copy-requests-to', which if set will be the address all user
+     requests will be cc'd to.  This is useful for debugging, so you can 
+     see when users get errors on requests, but could also generate a
+     truly huge amount of spam.  USE WITH CAUTION!
+
+[02/19/2001] -- RCB
+  -- Added new 'public_file' and 'private_file' API calls, changed
+     PantoMIME to use public_file to make PantoMIME'd binary files 
+     world-readable always.
+
+[02/13/2001] -- RCB
+  -- Added a 'closed-post-subject' variable, which overrides the
+     "List 'listname' closed to public posts" subject for closed-post
+     file responses.
+
+[02/11/2001] -- RCB
+  -- Fixed the 1/26/2001 fix to not have a bug in it. :)
+
+[02/10/2001] -- RCB
+  -- Fixed LSG/2 cookies to expire again.  The bug was introduced when
+     site-specific information was added to the 'SITEDATA' subdirectory
+     and the cookie expiration routine wasn't updated.
+
+[02/08/2001] -- JLT
+  -- Fixed a bug referring to 'tempban-end-file' as 'tempban-off-file'.
+     (bug reported by Dave Olszewski <daveo@osdn.com>)
+
+[01/26/2001] -- RCB
+  -- Made LSG/2 username stuff case-insensitive.
+
+[01/11/2001] -- JLT
+  -- Fixed the variable hashing function so that it was case-insensitive
+

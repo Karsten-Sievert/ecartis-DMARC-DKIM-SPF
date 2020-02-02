@@ -1,0 +1,9 @@
+LIBRARY      "lsg2"
+DESCRIPTION  'Ecartis lsg2 plugin'
+EXPORTS
+lsg2_load
+lsg2_switch_context
+lsg2_upgradelist
+lsg2_upgrade
+lsg2_init
+lsg2_unload

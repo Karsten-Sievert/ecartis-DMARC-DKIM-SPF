@@ -1,0 +1,4 @@
+# Alter these for your configuration
+
+ecartis: "|/home/ecartis/ecartis"
+ecartis-owner: user@my.host.dom

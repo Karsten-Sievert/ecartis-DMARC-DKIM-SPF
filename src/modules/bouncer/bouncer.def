@@ -1,0 +1,9 @@
+LIBRARY      "bouncer"
+DESCRIPTION  'Ecartis bouncer plugin'
+EXPORTS
+bouncer_load
+bouncer_switch_context
+bouncer_upgradelist
+bouncer_upgrade
+bouncer_init
+bouncer_unload

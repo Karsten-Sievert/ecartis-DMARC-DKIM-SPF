@@ -1,0 +1,136 @@
+[10/13/2002] -- PWL
+  -- We now have actual documentation checked into CVS.  Thanks to Matt of 
+     the Long Red Hair for working on this.  The docs checked in are in 
+     Latex format, use Latex and the included makefile to generate the 
+     documentation in whichever format (ps, pdf, etc) you prefer.
+
+[10/09/2002] -- SPL
+  -- since its one of the more frequently asked questions, I added clarification
+     in the list configuration files about "double opt-in" silly change, but 
+     tired of answering the same question over and over :)
+
+[10/08/2002] -- SPL
+  -- Added Robert Waldner's patch to fix a bug in lsg2 that did not
+     allow users to view user when who-status=private
+
+[10/05/2002] -- PWL
+  -- Updated Chris Scott's prevent-second-message patch.
+  -- Applied patch submitted by Kathryn Hogg to fix truncated subjects in 
+     digest messages.
+  -- Updated Tru64 port - Found out that Tru64 5.1A is now more in line 
+     regarding usleep with the rest of the world, so I created a new 
+     #ifdef for older Tru64 boxes so they can still use the old 
+     workaround.
+  -- Applied patch submitted by P.Y. Adi Prasaja to fix modpost from 
+     eating 'F'rom's ;)
+
+[09/14/2002] -- FCC
+  -- Applied Tomas Ogren patch for Mime handling
+
+[08/12/2002] -- FCC
+  -- Second pass of cleanup and audit (sprinf, ...) and some changes
+     in some arrays sizes, as expected by some functions
+     New cleaning introducing sizeof() usage.
+
+[08/08/2002] -- SPL
+  -- Changed all List-ID: headers to be more in line with common usage
+     therefore being "against" the RFC (RFC2919) however submitted 
+     Errata to rfc-editor so that the RFC isn;t so confusing and List-Id:
+     is correct.
+
+[07/18/2002] -- PWL
+  -- Thanks to Chris Scott, setting 'prevent-second-message=yes'
+     really does work now!
+
+[07/03/2002] -- SPL
+  -- Imported Tomas Ogren's port of Mutt's rfc 2047 implementation
+     which should fix the Quoted Printable issues that we've been
+     having. <stric@ing.umu.se>
+
+[05/24/2002] -- SPL
+  -- Started work on next phase of audit and cleanup, eliminating 
+     sprintf, strcpy and strcats in modules. The honorable first
+     changes go to the lsg2 module.
+
+[05/14/2002] -- PWL
+  -- added support for Xmail bounces thanks to a patch submitted by
+     Davide Libenzi.
+  -- Updated support for bounces from Yahoo.
+
+[05/14/2002] -- SPL
+  -- Thank god I have Marcin proofreading for me! fixed another typo
+     that could lead to issues in core.c
+
+[05/13/2002] -- SPL
+  -- Marcin Deranek reported that I screwed up in core.c, I fixed it
+     its nice to actually have people checking these things for you,
+     eh?
+
+[05/08/2002] -- SPL
+  -- added John Goerzen's patch to identify machine FQDN if
+     resolver correctly configured.
+  -- more sprintf() fixes (ongoing) to non-module files.
+  -- WOO! non-module files now have no sprintf, strcpy, or
+     strcat's in them, which means we've now reached a
+     Milestone.
+  -- Added David P Terrell's patch from OpenBSD port to make the tolist sort correctly
+
+[05/01/2002] -- SPL
+  -- added Kathryn Hogg's patch to enable ecartis to handle NULL
+     mime headers in unmime.c
+
+[04/30/2002] -- SPL
+  -- fixed Olivier's patch for non-setuid/setgid lists-root patch by 
+     <Olivier@Pas-tres.net>
+
+[04/27/2002] -- SPL
+  -- Applied two of Olivier Poitrey's <Olivier@Pas-tres.net> patches
+     The first is to add a "lists-root" variable so that virtual domains can
+      have a separate list directory
+     The second makes the SMTP delivery RFC compliant with a \r\n instead
+      of just \n
+  -- Added line to Makefile.dist to allow for compiling with gdb symbols
+  -- backed out change to internal.c, I'm such a good FreeBSD style developer, 
+      breaking builds because FreeBSD 5 won't let me compile with -Werror
+      Sooner or later I'll get around to cleaning that up.
+
+[04/26/2002] -- SPL
+  -- more sprintf changes, also other issues, (strcpy to strncpy and strcat to s
+trncat) in everything except modules, which will be next.
+
+[03/25/2002] -- SPL
+  -- fixed mistake in not including mystring.h in cookie.c
+[03/24/2002] -- SPL
+  -- more sprint()'s changed - fileapi.c cookie.c and codes.c
+
+[03/14/2002] -- SPL
+  -- more sprintf() to buffer_printf() changes - specifically 
+     moderate.c and lcgi.c
+
+[01/22/2002] -- SPL
+  -- added patch for send.c to enforce overquoting with
+     HOOK_RESULT_STOP, similar to issue previously patched
+     with enforced-addressing-to. Patch submitted by
+     adi@acme.com
+
+[01/21/2002] -- SPL
+  -- fixed "typo" in send module, send.c as reported by
+     adi@acme.com (enforced-address-blackhole)
+
+[01/18/2002] -- PWL
+  -- Committed patch by adi@acme.com to fix enforce-addressing-to bug 
+     causing Ecartis to bounce the message to moderator, then defer
+     the process, causing the MTA to resubmit it when the queue is 
+     rescanned.
+  -- Rolled 2001 CHANGELOG entries into CHANGELOG.2001 - Busy commit day 
+     for me ;-)
+
+[01/09/2002] -- SPL
+  -- funkysh@kris.top.pl reported a security flaw/buffer overflow
+     in mystring.c, changed all sprintf's to buffer_printf's for now
+     in urgency, tested on FreeBSD and Linux.
+  -- fixed same issues in tolist.c (sprintf), doing it in all files
+     that Rachel hasn;t gotten yet.
+  -- changes to verious source files regarding above
+  -- please be patient as I mire my way through, getting re-aquainted.
+

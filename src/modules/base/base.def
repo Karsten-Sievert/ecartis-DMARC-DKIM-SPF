@@ -1,0 +1,9 @@
+LIBRARY      "base"
+DESCRIPTION  'Ecartis BASE plugin'
+EXPORTS
+base_load
+base_switch_context
+base_upgradelist
+base_upgrade
+base_init
+base_unload
