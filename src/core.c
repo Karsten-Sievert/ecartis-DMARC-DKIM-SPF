@@ -1110,13 +1110,13 @@ int flagged_send_textfile(const char *fromaddy, const char *list,
     listdir = list_directory(list);
 
     if (listdir) {
-       buffer_printf(buffer, sizeof(buffer) - 1, "%s/users", listdir);
-       userfile = open_file(buffer, "r");
-       free(listdir);
+        buffer_printf(buffer, sizeof(buffer) - 1, "%s/users", listdir);
+        userfile = open_file(buffer, "r");
+        free(listdir);
     } else userfile = NULL;
 
     if(!userfile) {
-       if(errfile) close_file(errfile);
+        if(errfile) close_file(errfile);
         log_printf(0, "Unable to open users file for list '%s'.", list);
         return 0;
     }
@@ -1136,7 +1136,7 @@ int flagged_send_textfile(const char *fromaddy, const char *list,
     count = 0;
     while(user_read(userfile, &user)) {
         if(user_hasflag(&user, flag) && 
-           (strcmp(flag,"VACATION") ? !user_hasflag(&user, "VACATION") : 1)) {
+                (strcmp(flag,"VACATION") ? !user_hasflag(&user, "VACATION") : 1)) {
             count++;
             if(!smtp_to(user.address) && errfile) {
                 errors++;
@@ -1167,12 +1167,12 @@ int flagged_send_textfile(const char *fromaddy, const char *list,
 
     if(!smtp_body_start())
         return 0;
-	if(get_var("hostname")) {
-		buffer_printf(hostname, sizeof(hostname) - 1, "%s", get_string("hostname"));
-	} else {
-		memset(hostname, 0, sizeof(hostname));
-		build_hostname(hostname, sizeof(hostname));
-	}
+    if(get_var("hostname")) {
+        buffer_printf(hostname, sizeof(hostname) - 1, "%s", get_string("hostname"));
+    } else {
+        memset(hostname, 0, sizeof(hostname));
+        build_hostname(hostname, sizeof(hostname));
+    }
     buffer_printf(buffer, sizeof(buffer) - 1, "Received: with %s (v%s); %s", SERVICE_NAME_MC,
             VER_PRODUCTVERSION_STR, datestr);
     smtp_body_line(buffer);
@@ -1181,7 +1181,7 @@ int flagged_send_textfile(const char *fromaddy, const char *list,
     buffer_printf(buffer, sizeof(buffer) - 1, "From: %s <%s>", fromname, get_string("listserver-address"));
     smtp_body_line(buffer);
     buffer_printf(buffer, sizeof(buffer) - 1, "To: Members flagged %s of list %s <%s>", flag, list, 
-       get_string("listserver-address"));
+            get_string("listserver-address"));
     smtp_body_line(buffer);
     buffer_printf(buffer, sizeof(buffer) - 1, "Subject: %s", subject);
     smtp_body_line(buffer);
@@ -1189,13 +1189,13 @@ int flagged_send_textfile(const char *fromaddy, const char *list,
     buffer_printf(buffer, sizeof(buffer) - 1, "%s-%s", SERVICE_NAME_LC, "%m%d%Y%H%M%S");
     strftime(datebuffer, sizeof(datebuffer) - 1, buffer, tm_now);
     buffer_printf(buffer, sizeof(buffer) - 1, "Message-ID: <%s.%d.%d@%s>", datebuffer, (int)getpid(),
-			messagecnt++, hostname);
+            messagecnt++, hostname);
     smtp_body_line(buffer);
     buffer_printf(buffer, sizeof(buffer) - 1, "X-%s-Version: %s v%s", SERVICE_NAME_MC, SERVICE_NAME_MC,
             VER_PRODUCTVERSION_STR);
     smtp_body_line(buffer);
     if (get_var("stocksend-extra-headers")) {
-       smtp_body_line(get_string("stocksend-extra-headers"));
+        smtp_body_line(get_string("stocksend-extra-headers"));
     }
     smtp_body_line(""); 
 
@@ -1204,11 +1204,11 @@ int flagged_send_textfile(const char *fromaddy, const char *list,
     }
 
     if (!get_bool("task-no-footer")) {
-       smtp_body_line("");
-       smtp_body_line("---");
-       buffer_printf(buffer, sizeof(buffer) - 1, "%s v%s - job execution complete.", SERVICE_NAME_MC,
-               VER_PRODUCTVERSION_STR);
-       smtp_body_line(buffer);
+        smtp_body_line("");
+        smtp_body_line("---");
+        buffer_printf(buffer, sizeof(buffer) - 1, "%s v%s - job execution complete.", SERVICE_NAME_MC,
+                VER_PRODUCTVERSION_STR);
+        smtp_body_line(buffer);
     }
 
     smtp_body_end();

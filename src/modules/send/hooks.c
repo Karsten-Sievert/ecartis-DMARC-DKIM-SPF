@@ -16,7 +16,7 @@
 
 int strip_reply(const char *orig, char *dest, int length)
 {
-    char *tptr=NULL, *tptr2, temp;
+    char *tptr=NULL, *tptr2;
     char tempbuf[BIG_BUF];
     int done, changed;
 
@@ -32,8 +32,6 @@ int strip_reply(const char *orig, char *dest, int length)
     tptr = tptr2;
 
     while(!done && *tptr2) {
-       temp = tolower(*tptr2);
-
        if (strncasecmp(tptr2,"re:",3) == 0) {
           tptr2 += 3;
           changed = 1;

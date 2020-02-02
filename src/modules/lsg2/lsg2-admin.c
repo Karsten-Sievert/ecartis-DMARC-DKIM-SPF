@@ -788,7 +788,6 @@ CGI_MODE(cgimode_admin_setflags)
    struct list_user user;
    const char *list, *fromaddy;
    struct listserver_flag *tflag;
-   int isadmin;
    char tbuf[BIG_BUF];
 
    if (!lsg2_admin_validate()) {
@@ -813,8 +812,6 @@ CGI_MODE(cgimode_admin_setflags)
 
       lsg2_internal_error(errbuf);
    }
-
-   isadmin = LMAPI->user_hasflag(&user,"ADMIN");
 
    tflag = LMAPI->get_flags();
    while (tflag) {
@@ -992,7 +989,7 @@ CGI_HANDLER(cgihook_admin_flaglist)
   struct listserver_flag *tflag;
   struct listserver_flag **flagarr;
   struct list_user user;
-  int isadmin, counter, i;
+  int counter, i;
 
   cols = 2;
 
@@ -1013,8 +1010,6 @@ CGI_HANDLER(cgihook_admin_flaglist)
      return 0;
   }
 
-  isadmin = LMAPI->user_hasflag(&user,"ADMIN");
-  
   printf("<table border=0 width=100%%>\n");
   printf(" <tr>\n");
 

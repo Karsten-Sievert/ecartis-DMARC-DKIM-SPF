@@ -202,7 +202,7 @@ char *exp;
 	register char *longest;
 	register int len;
 	int flags;
-	extern char *malloc();
+	extern char *malloc(size_t size);
 
 	if (exp == NULL)
 		FAIL("NULL argument");

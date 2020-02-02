@@ -149,7 +149,7 @@ HOOK_HANDLER(hook_preunsub_closed)
 HOOK_HANDLER(hook_preunsub_confirm)
 {
     const char *unsubscribemode;
-    const char *fromaddy, *listname;
+    const char *fromaddy;
 
     if (LMAPI->get_bool("adminmode"))
         return HOOK_RESULT_OK;
@@ -162,122 +162,121 @@ HOOK_HANDLER(hook_preunsub_confirm)
 
     /* Get our data */
     fromaddy = LMAPI->get_string("subscribe-me");
-    listname = LMAPI->get_string("list");
 
     /* Check mode equal to confirm, or the addresses not matching */
     if ((strcasecmp(unsubscribemode,"confirm") == 0) ||
-       (strcasecmp(fromaddy,LMAPI->get_string("fromaddress")) && 
-       (!LMAPI->get_bool("adminmode")) &&
-       (strcasecmp(unsubscribemode,"open-auto") != 0)))
+            (strcasecmp(fromaddy,LMAPI->get_string("fromaddress")) && 
+             (!LMAPI->get_bool("adminmode")) &&
+             (strcasecmp(unsubscribemode,"open-auto") != 0)))
     {
-       const char *adminaddy;
-       const char *sendas;
-       char cookie[BIG_BUF], cookiefile[BIG_BUF]; /* Changed cookiefile from SMALL_BUF to BIG_BUF due to listdir_file */
-       char cmdbuf[BIG_BUF];
-       char *cmdptr;
-	   int unsub_confirm_file_included = 0;
+        const char *adminaddy;
+        const char *sendas;
+        char cookie[BIG_BUF], cookiefile[BIG_BUF]; /* Changed cookiefile from SMALL_BUF to BIG_BUF due to listdir_file */
+        char cmdbuf[BIG_BUF];
+        char *cmdptr;
+        int unsub_confirm_file_included = 0;
 
-       adminaddy = LMAPI->get_var("administrivia-address");
-       if (!adminaddy) adminaddy = LMAPI->get_string("list-owner");
+        adminaddy = LMAPI->get_var("administrivia-address");
+        if (!adminaddy) adminaddy = LMAPI->get_string("list-owner");
 
-       LMAPI->listdir_file(cookiefile, LMAPI->get_string("list"), "cookies");
+        LMAPI->listdir_file(cookiefile, LMAPI->get_string("list"), "cookies");
 
-       LMAPI->set_var("cookie-for", LMAPI->get_string("list"), VAR_TEMP);
+        LMAPI->set_var("cookie-for", LMAPI->get_string("list"), VAR_TEMP);
 
-       /* Request our cookie */
-       if (!LMAPI->request_cookie(cookiefile,&cookie[0],'U',fromaddy)) {
-           LMAPI->spit_status("Unable to generate unsubscribe cookie!");
-           LMAPI->filesys_error(cookiefile);
-           return HOOK_RESULT_FAIL;
-       }
-       LMAPI->clean_var("cookie-for", VAR_TEMP);
+        /* Request our cookie */
+        if (!LMAPI->request_cookie(cookiefile,&cookie[0],'U',fromaddy)) {
+            LMAPI->spit_status("Unable to generate unsubscribe cookie!");
+            LMAPI->filesys_error(cookiefile);
+            return HOOK_RESULT_FAIL;
+        }
+        LMAPI->clean_var("cookie-for", VAR_TEMP);
 
-       /* Spit back the status */
-       LMAPI->spit_status("Subscription confirmation ticket sent to user being unsubscribed.");
-       sendas = LMAPI->get_var("send-as");
+        /* Spit back the status */
+        LMAPI->spit_status("Subscription confirmation ticket sent to user being unsubscribed.");
+        sendas = LMAPI->get_var("send-as");
 
-       /* And send the ticket */
-       if (!sendas) sendas = LMAPI->get_var("list-owner");
-       if (!sendas) sendas = LMAPI->get_var("listserver-address");
-       LMAPI->set_var("form-send-as", sendas, VAR_TEMP);
-       LMAPI->set_var("form-reply-to",
-			   LMAPI->get_string("listserver-address"), VAR_TEMP);
-	   LMAPI->set_var("task-form-subject",
-			   LMAPI->get_string("unsubscribe-confirm-subject"), VAR_TEMP);
+        /* And send the ticket */
+        if (!sendas) sendas = LMAPI->get_var("list-owner");
+        if (!sendas) sendas = LMAPI->get_var("listserver-address");
+        LMAPI->set_var("form-send-as", sendas, VAR_TEMP);
+        LMAPI->set_var("form-reply-to",
+                LMAPI->get_string("listserver-address"), VAR_TEMP);
+        LMAPI->set_var("task-form-subject",
+                LMAPI->get_string("unsubscribe-confirm-subject"), VAR_TEMP);
 
-       if(!LMAPI->task_heading(fromaddy))
-           return HOOK_RESULT_FAIL;
+        if(!LMAPI->task_heading(fromaddy))
+            return HOOK_RESULT_FAIL;
 
-	   if(LMAPI->get_var("unsubscribe-confirm-file")) {
-		   FILE *infile;
-		   char tempfilename[BIG_BUF]; /* Changed from SMALL_BUF to BIG_BUF due to listdir_file */
-		   LMAPI->listdir_file(tempfilename, LMAPI->get_string("list"),
-				   LMAPI->get_string("unsubscribe-confirm-file"));
+        if(LMAPI->get_var("unsubscribe-confirm-file")) {
+            FILE *infile;
+            char tempfilename[BIG_BUF]; /* Changed from SMALL_BUF to BIG_BUF due to listdir_file */
+            LMAPI->listdir_file(tempfilename, LMAPI->get_string("list"),
+                    LMAPI->get_string("unsubscribe-confirm-file"));
 
-		   if((infile = LMAPI->open_file(tempfilename, "r")) != NULL) {
-			   char inputbuffer[BIG_BUF];
-			   char linebuffer[BIG_BUF];
+            if((infile = LMAPI->open_file(tempfilename, "r")) != NULL) {
+                char inputbuffer[BIG_BUF];
+                char linebuffer[BIG_BUF];
 
-			   LMAPI->smtp_body_line("# ");
-			   while(LMAPI->read_file(inputbuffer, sizeof(inputbuffer), infile)) {
-				   LMAPI->buffer_printf(linebuffer, sizeof(linebuffer) - 1, "# %s",
-						   inputbuffer);
-				   LMAPI->smtp_body_text(linebuffer);
-			   }
-			   LMAPI->smtp_body_line("# ");
-			   LMAPI->close_file(infile);
+                LMAPI->smtp_body_line("# ");
+                while(LMAPI->read_file(inputbuffer, sizeof(inputbuffer), infile)) {
+                    LMAPI->buffer_printf(linebuffer, sizeof(linebuffer) - 1, "# %s",
+                            inputbuffer);
+                    LMAPI->smtp_body_text(linebuffer);
+                }
+                LMAPI->smtp_body_line("# ");
+                LMAPI->close_file(infile);
 
-			   unsub_confirm_file_included = 1;
-		   }
-	   }
-	   if(!unsub_confirm_file_included) {
-		   LMAPI->smtp_body_text("# ");
-		   LMAPI->smtp_body_text(LMAPI->get_string("fromaddress"));
-		   LMAPI->smtp_body_line(" has requested that you be unsubscribed");
-		   LMAPI->smtp_body_text("# from the ");
-		   LMAPI->smtp_body_text(LMAPI->get_string("list"));
-		   LMAPI->smtp_body_line(" mailing list.");
-		   LMAPI->smtp_body_line("# To unsubscribe, reply to this message leaving the message body");
-		   LMAPI->smtp_body_line("# intact, or send the following lines in e-mail to");
-		   LMAPI->smtp_body_text(LMAPI->get_string("listserver-address"));
-		   LMAPI->smtp_body_line(":\n");
-	   }
-	   LMAPI->smtp_body_line("// job");
+                unsub_confirm_file_included = 1;
+            }
+        }
+        if(!unsub_confirm_file_included) {
+            LMAPI->smtp_body_text("# ");
+            LMAPI->smtp_body_text(LMAPI->get_string("fromaddress"));
+            LMAPI->smtp_body_line(" has requested that you be unsubscribed");
+            LMAPI->smtp_body_text("# from the ");
+            LMAPI->smtp_body_text(LMAPI->get_string("list"));
+            LMAPI->smtp_body_line(" mailing list.");
+            LMAPI->smtp_body_line("# To unsubscribe, reply to this message leaving the message body");
+            LMAPI->smtp_body_line("# intact, or send the following lines in e-mail to");
+            LMAPI->smtp_body_text(LMAPI->get_string("listserver-address"));
+            LMAPI->smtp_body_line(":\n");
+        }
+        LMAPI->smtp_body_line("// job");
 
-       LMAPI->buffer_printf(cmdbuf, sizeof(cmdbuf) - 1, "appunsub %s %s %s",
-         LMAPI->get_string("list"), fromaddy, cookie);
-          
-       cmdptr = NULL;
-        
-       if (strlen(cmdbuf) > 60) {
-          cmdptr = strrchr(cmdbuf,' ');
-          *cmdptr++ = 0;
-       }
-          
-       LMAPI->smtp_body_text(cmdbuf);
-       if (cmdptr) {
-          LMAPI->smtp_body_line(" \\");
-          LMAPI->smtp_body_text(cmdptr);
-       }
-       LMAPI->smtp_body_line("");
+        LMAPI->buffer_printf(cmdbuf, sizeof(cmdbuf) - 1, "appunsub %s %s %s",
+                LMAPI->get_string("list"), fromaddy, cookie);
 
-       LMAPI->smtp_body_line("// eoj");
-       LMAPI->task_ending();
-       LMAPI->clean_var("form-send-as", VAR_TEMP);
-       LMAPI->clean_var("form-reply-to", VAR_TEMP);
-	   LMAPI->clean_var("task-form-subject", VAR_TEMP);
+        cmdptr = NULL;
 
-    /* If we have prevent-second-message set, eat the PERsonal Results output for this session so far. */ 
-    if (LMAPI->get_bool("prevent-second-message")) { 
-       char resultfile[BIG_BUF]; 
- 
-       LMAPI->buffer_printf(resultfile, sizeof(resultfile) - 1, 
-            "%s.perr", LMAPI->get_string("queuefile")); 
- 
-        LMAPI->unlink_file(resultfile); 
-    } 
-       
-       return HOOK_RESULT_FAIL;
+        if (strlen(cmdbuf) > 60) {
+            cmdptr = strrchr(cmdbuf,' ');
+            *cmdptr++ = 0;
+        }
+
+        LMAPI->smtp_body_text(cmdbuf);
+        if (cmdptr) {
+            LMAPI->smtp_body_line(" \\");
+            LMAPI->smtp_body_text(cmdptr);
+        }
+        LMAPI->smtp_body_line("");
+
+        LMAPI->smtp_body_line("// eoj");
+        LMAPI->task_ending();
+        LMAPI->clean_var("form-send-as", VAR_TEMP);
+        LMAPI->clean_var("form-reply-to", VAR_TEMP);
+        LMAPI->clean_var("task-form-subject", VAR_TEMP);
+
+        /* If we have prevent-second-message set, eat the PERsonal Results output for this session so far. */ 
+        if (LMAPI->get_bool("prevent-second-message")) { 
+            char resultfile[BIG_BUF]; 
+
+            LMAPI->buffer_printf(resultfile, sizeof(resultfile) - 1, 
+                    "%s.perr", LMAPI->get_string("queuefile")); 
+
+            LMAPI->unlink_file(resultfile); 
+        } 
+
+        return HOOK_RESULT_FAIL;
     }
 
     return HOOK_RESULT_OK;
