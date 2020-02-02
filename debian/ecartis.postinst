@@ -1,0 +1,65 @@
+#!/bin/sh
+
+# This script is a modified version of the one originally used by majordomo.
+
+# Allow this part to fail.
+
+set +e
+
+UNAME=ecartis
+HOMEDIR=/usr/lib/ecartis
+firstarg=$1
+
+if ! getent passwd ${UNAME} >/dev/null ; then
+    adduser --system --home $HOMEDIR --group --shell /bin/sh $UNAME
+
+    if ! getent passwd ${UNAME} >/dev/null ; then
+	echo Failed to create user $UNAME
+	exit 1
+    fi
+fi
+
+if ! getent group ${UNAME} >/dev/null; then
+  echo Failed to create group $UNAME
+  exit 1
+fi
+
+# Restore normal error checking
+
+set -e
+
+if [ `getent passwd $UNAME | cut -d: -f7` = '/bin/false' ] ; then
+	chsh -s /bin/sh $UNAME
+fi
+
+# Tag everything with proper permissions.
+
+touch /var/log/ecartis.log
+chown -R root:$UNAME /etc/ecartis
+chown -R $UNAME:$UNAME /var/lib/ecartis /var/log/ecartis.log
+
+if [ -x /usr/sbin/dpkg-statoverride ]
+then
+	if ! dpkg-statoverride --list /usr/lib/ecartis/ecartis > /dev/null
+	then
+		dpkg-statoverride --update --add $UNAME daemon 4755 \
+		  /usr/lib/ecartis/ecartis
+	fi
+else
+	chown $UNAME:daemon /usr/lib/ecartis/ecartis
+	chmod 4755 /usr/lib/ecartis/ecartis
+fi
+
+# clean up previous version error
+if [ -d /var/lib/ecartis/lists/queue ] ; then
+	rmdir /var/lib/ecartis/lists/queue || true
+fi
+
+chmod o-rwx /var/lib/ecartis/lists /var/lib/ecartis/queue
+
+if [ $firstarg = "configure" ] ; then
+	su $UNAME -s /bin/sh -c '/usr/lib/ecartis/ecartis -upgrade'
+fi
+
+
+#DEBHELPER#

@@ -1,0 +1,50 @@
+This package was debianized by John Goerzen jgoerzen@complete.org on
+Sun,  3 Jan 1999 23:10:12 -0600.
+
+Updated by Nils Vogels <nivo@is-root.com> on Sun Aug 5 2001
+
+In December 2002, Martin Loschwitz <madkiss@madkiss.org> took the
+maintainership for Ecartis over.
+
+Ecartis can be fetched from: ftp://ftp.ecartis.org/ (ftp)
+			     http://www.ecartis.org/ (http)
+
+CVS development tree is available via:
+			     :pserver:anonymous@cvs.ecartis.org:/usr/cvsroot
+			     modul name ecartis
+
+The original upstream copyright states:
+
+-- cut --
+
+All files within this package are
+   Copyright (c) 1998 by Rachel Blackman and Joseph Traub
+unless otherwise noted in the file itself.
+
+Joseph Traub can be reached at <jtraub@dragoncat.net>
+Rachel Blackman can be reached at <sparks@noderunner.net>
+
+-- cut --
+
+Copyright:
+
+   This package is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; version 2 dated June, 1991.
+
+   Additionally, the license of this program contains a special
+   exception which allows to distribute the program in binary form
+   when it is linked against OpenSSL.
+
+   This package is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this package; if not, write to the Free Software
+   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+   02111-1307, USA.
+
+On Debian systems, the complete text of the GNU General Public License
+can be found in `/usr/share/common-licenses/GPL'.

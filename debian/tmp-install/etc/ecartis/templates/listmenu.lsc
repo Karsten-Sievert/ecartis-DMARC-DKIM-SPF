@@ -1,0 +1,122 @@
+[?include templates/header.lsc]
+
+<font face="Verdana,Arial,Helvetica,Sans-Serif">
+<center>
+<font size=+2><b>[?if varset(rfc2369-listname)][$rfc2369-listname] [?endif]([$list]@[?hostname])</b></font>
+</center>
+<HR>
+
+<table border=0 width=100%>
+ <tr>
+  <td colspan=2 valign=top> 
+   [?if varset(description)]
+     <font size=+1><b>List description:</b></font>
+     <ul>[$description]</ul>
+   [?else]
+     &nbsp;
+   [?endif]
+  </td>
+  <td valign=top>
+   <font size=+1><b>User:</b></font>
+   [?if has_stat($lcgi-user,realname)]
+    [?userstat $lcgi-user,realname] &lt;[$lcgi-user]&gt;
+   [?else]
+    [$lcgi-user]
+   [?endif]
+   <BR>
+   <font size=+1><b>Site:</b></font> [$lcgi-remote-host]
+  </td>
+ </tr>
+ <tr><td colspan=3><HR></td></tr>
+ <tr>
+  <td valign=top>
+   <table align=center border=0>
+    <tr>
+     <td align=center><b>List Information</b></td>
+    </tr>
+    <tr><td><HR></td></tr>
+    <tr>
+     <td>
+      <table>
+       <tr>
+        <td><b>Subscription:</b></td>
+        <td>[$subscribe-mode]</td>
+       </tr>
+       <tr>
+        <td><b>Closed-post:</b></td>
+        <td>[$closed-post]</td>
+       </tr>
+       <tr>
+        <td><b>Moderated:</b></td>
+        <td>[$moderated]</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>
+  </td>
+  <td valign=top>
+   <table align=center border=0>
+    <tr>
+     <td><b>Available Textfiles</b></td>
+    </tr>
+    <tr><td><HR></td></tr>
+    <tr>
+     <td>
+      [@MODEHEADEX:displayfile]
+       <center>
+        [@WELCOME-BUTTON]&nbsp;
+        [@FAQ-BUTTON]&nbsp;
+        [@INFO-BUTTON]&nbsp;
+       </center>
+      [@MODEEND]
+     </td>
+    </tr>
+   </table>
+  </td>
+  <td valign=top>
+   <table align=center border=0>
+    <tr>
+     <td align=center colspan=2>
+      <b>Available Commands</b>
+     </td>
+    </tr>
+    <tr><td colspan=2><HR></td></tr>
+     <td valign=top>
+      [@MODEHEADEX:userlist]
+      [@SUBMIT:List Users]
+      [@MODEEND]
+      [?if subscribed($lcgi-user)]
+       [@MODEHEADEX:userinfo]
+       [@SUBMIT:View Settings]
+       [@MODEEND]
+       [@UNSUBSCRIBE]
+      [?else]
+       [@SUBSCRIBE]
+      [?endif]
+     </td>
+     <td valign=top align=right>
+      [@MODEHEAD:login]
+      [@USERNAME]
+      [@AUTHCOOKIE]
+      [@SUBMIT:Main Menu]
+      [@MODEEND]
+      [?if subscribed($lcgi-user)]
+       [@MODEHEADEX:flagedit]
+       [@SUBMIT:Change Settings]
+       [@MODEEND]
+       [?if and(hasflag($lcgi-user,ADMIN),not(eql($lsg2-paranoia,true)))]
+        [@MODEHEADEX:admin]
+        [@SUBMIT:Admin Menu]
+        [@MODEEND]
+       [?endif]
+      [?endif]
+     </td>
+    </tr>
+   </table>
+  </td>
+ </tr>
+</table>
+</font>
+
+[?include templates/footer.lsc]

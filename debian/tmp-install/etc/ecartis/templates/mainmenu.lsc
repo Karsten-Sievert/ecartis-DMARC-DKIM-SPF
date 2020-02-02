@@ -1,0 +1,70 @@
+[?include templates/header.lsc]
+
+<font face="Verdana,Arial,Helvetica,Sans-Serif">
+<P align=center><font size=+3><b>Main Menu</b></font></P>
+<HR>
+ <table align=center>
+  <tr>
+   <td valign=top rowspan=2>
+     <center><font size=+2><b>Lists</b></font></center>
+     [@MODEHEADEX:listmenu]
+     [@LISTSEX]<BR>
+     <center>[@SUBMIT:Select List]</center>
+     [@MODEEND]
+     <HR>
+     [@MODEHEADEX:logout]
+     <center>[@SUBMIT:Log Out]</center>
+     [@MODEEND]
+   </td>
+   <td width=5% rowspan=2>
+     &nbsp;<!-- Spacer -->
+   </td>
+   <td valign=top>
+     <BR>
+     <font size=+1><b>User:</b> [$lcgi-user]<BR>
+                   <b>Site:</b> [$lcgi-remote-host]</font>
+     <HR>
+     Please select a list from the listbox at left, and click on
+     the <b><i>Select List</i></b> button to continue.
+     <P>
+     That will take you to a menu where you will be able to subscribe,
+     unsubscribe, view information about the list, and change your
+     subscription options if you are a list subscriber.
+     </td>
+  </tr>
+  <tr>
+   <td>
+     <HR>
+     If you wish to set or change your password for future sessions,
+     enter it below and click the <b><i>Change Password</i></b>
+     button.
+     <P>
+     [@MODEHEADEX:passwd]
+     <table border=0>
+     <tr>
+      <td valign=top>
+       <b>Password:</b> 
+      </td>
+      <td valign=top>
+       [@PASSWORD]
+      </td>
+      <td valign=top rowspan=2>
+       [@SUBMIT:Change Password]
+      </td>
+     </tr>
+     <tr>
+      <td valign=top>
+       <b>Confirm:</b>
+      </td>
+      <td valign=top>
+       <input name="lcgi-pass-confirm" type=password>
+      </td>
+     </tr>
+     </table>
+     [@MODEEND]
+   </td>
+  </tr>
+ </table>
+</font>
+
+[?include templates/footer.lsc]

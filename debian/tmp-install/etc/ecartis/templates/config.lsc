@@ -1,0 +1,21 @@
+[?include templates/header.lsc]
+<HR>
+<font face="Verdana,Arial,Sans Serif">
+
+<center><font size=+1>Configuration for list [$lcgi-list]</font></center><BR>
+[@MODEHEADEX:setconfig]
+<table width=100% bgcolor=#ffffff>
+<tr>
+<td bgcolor=#000088>
+[@CONFIGFILE]
+</td>
+</tr>
+</table>
+[@SUBMIT:Save Configuration]
+[@MODEEND]
+[@MODEHEADEX:listmenu]
+[@SUBMIT:Back to List Menu]
+[@MODEEND]
+
+</font>
+[?include templates/footer.lsc]

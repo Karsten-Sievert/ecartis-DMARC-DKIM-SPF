@@ -1,0 +1,78 @@
+.TH ecartis 8 "16 November 2001"
+.SH NAME
+ecartis \- a mailinglist system
+.SH SYNOPSIS
+.B ecartis
+.RI [ options ] ...
+.SH DESCRIPTION
+The
+.B ecartis
+binary is only directly called by the ecartis user, either by the mail
+system or by the list administrator.
+.BR
+This manual page was written for the Debian GNU/Linux distribution.
+.PP
+.B ecartis
+handles mailinglists.
+.SH OPTIONS
+.\" base
+.TP
+.B \-help
+.\" internal
+.TP
+.B \-d, \-debug <level>
+.TP
+.B \-f, \-file <inputfile>
+.TP
+.B \-r, \-request <list>
+.TP
+.B \-s, \-send <list>
+.TP
+.B \-a, \-approved <list>
+.TP
+.B \-admins <list>
+.TP
+.B \-moderators <list>
+.TP
+.B \-c, \-config <conffile>
+.TP
+.B \-upgrade
+.TP
+.B \-cheatsheet <file>
+.\" bouncer
+.TP
+.B \-bounce <list>
+.TP
+.B \-procbounce
+.TP
+.B \-forcebounce
+.TP
+.B \-procdigest
+.\" lsg2
+.TP
+.B \-lsg2
+.\" send
+.TP
+.B \-priv
+.\" toolbox
+.TP
+.B \-checkusers
+.TP
+.B \-newlist <listname>
+.TP
+.B \-qmail
+.TP
+.B \-freshen <listname>
+.TP
+.B \-admin <e\-mail>
+.TP
+.B \-buildaliases
+
+.SH SEE ALSO
+.BR exim (8), sendmail (8)
+
+.SH AUTHOR
+This manual page was written by Teemu Hukkanen <tjhukkan@iki.fi>,
+for all systems where Debian is installed (but may be used by others).
+Changes were made in 2002 by Martin Loschwitz <madkiss@madkiss.org>,
+who took the maintainership for Ecartis over.

@@ -59,11 +59,6 @@
 extern void sock_init();
 #endif
 
-#ifdef _AIX
-extern int sys_nerr;
-extern char *sys_errlist[];
-#endif
-
 #ifdef DEC_UNIX_USLEEP
 /* We need to give a function definition for usleep, or else
  * DEC's compiler barfs.  This is the old (pre-ANSI) version */
@@ -1238,7 +1233,8 @@ const char *resolve_error(int error)
 {
    const char *tmp;
 
-   if (error > sys_nerr) tmp = &def_err[0]; else tmp = sys_errlist[error];
+   tmp = strerror(error);
+   if (tmp == 0) return &def_err[0];
 
    return tmp;
 }

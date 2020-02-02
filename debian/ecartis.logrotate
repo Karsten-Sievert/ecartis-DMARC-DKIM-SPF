@@ -1,0 +1,8 @@
+/var/log/ecartis.log {
+	weekly
+	rotate 7
+	compress
+	ifempty
+	create 0600 ecartis ecartis
+}
+

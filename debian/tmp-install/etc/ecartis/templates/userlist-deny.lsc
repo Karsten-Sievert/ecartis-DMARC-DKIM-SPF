@@ -1,0 +1,12 @@
+[?include templates/header.lsc]
+
+<font face="Verdana,Arial,Helvetica,Sans-Serif">
+<font size=+2>
+You do not have permission to view the list of users.
+</font>
+
+[@MODEHEADEX:listmenu]
+[@SUBMIT:Back]
+[@MODEEND]
+
+[?include templates/footer.lsc]

@@ -1,0 +1,24 @@
+[?include templates/header.lsc]
+<HR>
+<font face="Verdana,Arial,Sans Serif">
+<table align=right border=1 bgcolor=#000088 width=40%>
+<tr>
+ <td align=center><font size=+1><b>Flags Set On User</b></font></td>
+</tr>
+<tr>
+ <td>
+[@SHOWFLAGS:1,0]
+ </td>
+</tr>
+</table>
+<font size=+1><b>[?if has_stat($lcgi-user,realname)][?userstat $lcgi-user,realname] &lt;<$lcgi-user>&gt;[?else]<$lcgi-user>[?endif]</b></font> <P>
+<b>Posts:</b> [?if has_stat($lcgi-user,posts)][?userstat $lcgi-user,posts][?else]0[?endif]<BR>
+<b>Traffic: </b> [?if has_stat($lcgi-user,traffic)][?userstat $lcgi-user,traffic][?else]0[?endif]k
+<P>
+<HR>
+[@MODEHEADEX:listmenu]
+[@SUBMIT:Back to List Menu]
+[@MODEEND]
+
+</font>
+[?include templates/footer.lsc]

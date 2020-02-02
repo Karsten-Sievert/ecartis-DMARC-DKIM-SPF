@@ -1,0 +1,4 @@
+var/lib/ecartis/lists
+var/lib/ecartis/queue
+usr/lib/ecartis
+etc/ecartis

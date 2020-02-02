@@ -1,0 +1,419 @@
+ecartis (1.0.0+cvs.20030911-11) unstable; urgency=low
+
+  * Document that pantomime-dir could be taken advantage of by 
+    anyone to upload arbitrary web content, and should not be used
+    on unrestricted web pages in README.Debian.  See bug 348824.
+  * Sort README.Debian in reverse date order.
+
+ -- Blars Blarson <blarson@blars.org>  Fri, 14 Apr 2006 22:59:23 +0000
+
+ecartis (1.0.0+cvs.20030911-10) unstable; urgency=medium
+
+  * undo changes to ecartis-cgi templates that were only meant to be local
+    (closes: #290289)
+
+ -- Blars Blarson <blarson@blars.org>  Fri, 18 Feb 2005 21:31:50 -0800
+
+ecartis (1.0.0+cvs.20030911-9) unstable; urgency=low
+
+  * add ecartis.hlp link to /var/lib/ecartis (closes: #283236)
+  
+ -- Blars Blarson <blarson@blars.org>  Sat,  4 Dec 2004 21:53:45 -0800
+
+ecartis (1.0.0+cvs.20030911-8) unstable; urgency=high
+
+  * Fix loose domain maching to be off in cgi.
+    Fixes CAN-2004-0913
+
+ -- Blars Blarson <blarson@blars.org>  Mon, 11 Oct 2004 16:56:32 -0700
+
+ecartis (1.0.0+cvs.20030911-7) unstable; urgency=low
+
+  * add build-dependancy on tetex-extra
+
+ -- Blars Blarson <blarson@blars.org>  Tue,  3 Aug 2004 22:29:24 -0700
+
+ecartis (1.0.0+cvs.20030911-6) unstable; urgency=low
+
+  * Patch to ecartis.tex from <frank@debian.org> to fix pdf documentation
+    build.  (Closes: #147813 again)
+
+ -- Blars Blarson <blarson@blars.org>  Tue,  3 Aug 2004 01:27:09 -0700
+
+ecartis (1.0.0+cvs.20030911-5) unstable; urgency=low
+
+  * Disable the documentation build, even the pdf uses latex2html.
+    (Closes: #262630) (Reopens: #147813)
+
+ -- Blars Blarson <blarson@blars.org>  Sun,  1 Aug 2004 14:06:20 -0700
+
+ecartis (1.0.0+cvs.20030911-4) unstable; urgency=low
+
+  * Change exim dependancy to exim4 (Closes: #228580)
+  * Fixes to README.Debian and ecartis.aliases thanks to
+    Paul Slootman <paul@debian.org> (Closes: #232020)
+  * Build and include pdf version of documentation  (Closes: #147813)
+    Unfortunatly, the html version requires non-free latex2html
+  * fix bashism in debian/rules
+
+ -- Blars Blarson <blarson@blars.org>  Sat, 31 Jul 2004 04:30:31 -0700
+
+ecartis (1.0.0+cvs.20030911-3) unstable; urgency=low
+
+  * fix adduser command (closes: #227383)
+
+ -- Blars Blarson <blarson@blars.org>  Sat, 17 Jan 2004 16:08:33 -0800
+
+ecartis (1.0.0+cvs.20030911-2) unstable; urgency=low
+
+  * New maintainer
+  * explicity declare two arrays signed char  (closes #177391)
+  * don't create /var/lib/ecartis/lists/queue, and delete it in postinst
+    if it is an empty directory (closes #191629, #186117)
+  * fix path in lsg2.cgi (aka listargate.cgi) (closes: #183233)
+  * use : rather than . in chown commands
+  * make listar conflicts unversioned
+  * make /usr/lib/ecartis and /etc/ecartis owned by root (closes: #146671)
+  * apply patch to handle recent exim bounces better (closes: #139014)
+    Thanks for the patch Kaz Sasayama
+  * use strerror rather than sys_errlist in core.c
+  * fix debian/rules clean -- use -o in find not -a
+  * don't chown -R /usr/lib/ecartis in postinst.  This was messing
+    with the dpkg-statoverride permissions.  (closes: #219036)
+  
+ -- Blars Blarson <blarson@blars.org>  Sun, 21 Dec 2003 08:40:41 -0800
+
+ecartis (1.0.0+cvs.20030911-1) unstable; urgency=high
+
+  * New CVS export, mainly to fix security issues as reported in:
+    - Debian BTS Bug report #210444 (Closes: #210444)
+    - On the ecartis Website: http://www.ecartis.org/
+  * Bumped Standards-Version to 3.6.1
+
+ -- Martin Loschwitz <madkiss@debian.org>  Thu, 11 Sep 2003 17:08:00 +0200
+
+ecartis (1.0.0+cvs.20030321-1) unstable; urgency=low
+
+  * New CVS export for security fix (Closes: #182786)
+  
+ -- Martin Loschwitz <madkiss@debian.org>  Fri, 21 Mar 2003 16:34:00 +0100
+ 
+ecartis (1.0.0+cvs.20030226-1) unstable; urgency=low
+
+  * New upstream version (Using Ecartis CVS, 2003-02-26)
+  * debian/control: Changed Maintainer e-mail address
+  * debian/rules: Added support for DEB_BUILD_OPTIONS
+
+ -- Martin Loschwitz <madkiss@debian.org>  Wed, 26 Feb 2003 18:36:00 +0100
+
+ecartis (1.0.0+cvs.20021217-1) unstable; urgency=low
+
+  * New upstream release (Using Ecartis CVS, 2002-12-17)
+  * New Maintainer (Closes: #171621)
+  * Many clean-ups in debian/ subdir
+
+ -- Martin Loschwitz <madkiss@madkiss.org>  Thu, 17 Dec 2002 19:13:00 +0100
+
+ecartis (0.129a+1.0.0-snap20020514-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- John Goerzen <jgoerzen@complete.org>  Wed, 15 May 2002 09:31:20 -0500
+
+ecartis (0.129a+1.0.0-snap20020427-1) unstable; urgency=high
+
+  * New upstream release.  Fixes a argv security issue
+    that could lead unpriviledged local users to get access to the
+    Ecartis account.
+
+ -- John Goerzen <jgoerzen@complete.org>  Mon, 29 Apr 2002 09:16:40 -0500
+
+ecartis (0.129a+1.0.0-snap20020325-3) unstable; urgency=low
+
+  * Removed "yourdomain.com" stuff from listar.cfg.  Closes: #123381.
+    (Sorry, thought I had done this before already.)
+
+ -- John Goerzen <jgoerzen@complete.org>  Mon, 22 Apr 2002 13:56:11 -0500
+
+ecartis (0.129a+1.0.0-snap20020325-2) unstable; urgency=low
+
+  * Added conf far to ecartis.cfg.dist: who-status = private.
+    Closes: #103119.
+  * Old bugs closed.  Closes: #93317, #123381, #137983.
+  * Renamed smap regexp to spam regexp.  Closes: #142630.
+
+ -- John Goerzen <jgoerzen@complete.org>  Sat, 20 Apr 2002 12:46:48 -0500
+
+ecartis (0.129a+1.0.0-snap20020325-1) unstable; urgency=low
+
+  * New upstream release
+  * Changed lsg-cgi-url to lsg2-cgi-url in ecartis.cfg.dist.
+    Closes: #137938.
+  * Added a symlink from /var/lib/ecartis/ecartis.hlp to
+    /etc/ecartis/ecartis.hlp.  Closes: #139442.
+  * Removed DETECT_BROKEN_HOSTNAME.  Closes: #139444, #105711.
+  * Added var templates symlink.  closes: #137981.
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue,  9 Apr 2002 09:54:36 -0500
+
+ecartis (0.129a+1.0.0-snap20020125-1) unstable; urgency=low
+
+  * Also Closes: #126949.
+  * This release contains a bugfix for enforce-addressing-to.
+    Closes: #130121.
+  * Removed old debian diff files, but first applied them.
+  * New upstream release.  Thanks to
+    Teemu Hukkanen <tjhukkan@iki.fi> for doing a lot of work for
+    this release.
+  * Preliminary version, use at your own risk.
+  * This would Closes: #105747, #101108, #109871, #108355, #65799.
+  * Made more or less policy compliant. (Still need to check
+    build-depends)
+    - Changed to use logrotate
+  * Adapted Nils Vogels' modifications and John Goerzen's earlier
+    debian diffs.
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue, 19 Feb 2002 13:29:22 -0500
+
+listar (0.129a+1.0.0-snap20001201-2) unstable; urgency=low
+
+  * Added stdlib.h include to src/mysignal.c to correct hppa build
+    problem.  Closes: #104907.
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue, 17 Jul 2001 00:18:10 -0500
+
+listar (0.129a+1.0.0-snap20001201-1) unstable; urgency=low
+
+  * New upstream release.  Closes: #66149.
+  * Fixed Description in control file.  Closes: #74714.
+
+ -- John Goerzen <jgoerzen@complete.org>  Sun,  3 Dec 2000 16:59:13 -0500
+
+listar (0.129a-2) frozen unstable; urgency=low
+
+  * Update to use /bin/sh for the account.
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue, 13 Jun 2000 18:33:24 -0500
+
+listar (0.129a-1) frozen unstable; urgency=low
+
+  * New upstream release
+  * Updated debian/copyright with text from new COPYRIGHT file.
+  * Added a symlink for listargate.cgi to smooth upgrades.
+  * Added some documentation files from the website.
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue, 13 Jun 2000 13:39:02 -0500
+
+listar (0.128a.129a-snap-20000204-1) frozen unstable; urgency=low
+
+  * New upstream release
+    Closes: #50956.
+  * This release needs to go into frozen because it:
+    + fixes a nasty spinlock bug
+    + fixes a parse bug for config files
+    + fixes bugs with list generation
+    + authors suggest using this version in production instead of
+      0.128a.
+    + contains better defaults in listar.cfg
+    + contains corrected README.Debian
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue,  8 Feb 2000 20:20:14 -0600
+
+listar (0.128a-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- John Goerzen <jgoerzen@complete.org>  Fri, 12 Nov 1999 07:08:22 -0600
+
+listar (0.127a-2) unstable; urgency=low
+
+  * Applied the upstream's listar-0.127a-moderation.diff
+
+ -- John Goerzen <jgoerzen@complete.org>  Mon,  8 Nov 1999 22:52:38 -0600
+
+listar (0.127a-1) unstable; urgency=low
+
+  * New upstream release.  Closes: #49019
+  * Fixed a typo in the documentation examples (smap-regexp to
+    spam-regexp).  Closes: #49024
+
+ -- John Goerzen <jgoerzen@complete.org>  Sat,  6 Nov 1999 17:34:34 -0600
+
+listar (0.126a-1) unstable; urgency=low
+
+  * New upstream release.  Read the upstream changelog.
+  * Added README.126 (READ IT!)
+  * Auto-generate a /usr/share/doc/listar/variables.html file.
+  * Added Loki's fix for listargate pathname, and also added
+    it to CVS, so the patch will be in upstream by the next version.
+  * Closing fixed bugs.  Closes: #43977, #47427.
+
+ -- John Goerzen <jgoerzen@complete.org>  Mon, 18 Oct 1999 20:21:27 -0500
+
+listar (0.125a-2) unstable; urgency=low
+
+  * Explicitly use bash for debian/rules.  Closes: #45974.
+
+ -- John Goerzen <jgoerzen@complete.org>  Mon, 27 Sep 1999 11:06:15 -0500
+
+listar (0.125a-1) unstable; urgency=low
+
+  * New upstream release.  Closes: #42897, #42714
+  * Compiles with -O2.  Closes: #42889
+  * Updated to standards-version 3.0.1 (FHS).
+
+ -- John Goerzen <jgoerzen@complete.org>  Sat, 18 Sep 1999 14:17:43 -0500
+
+listar (0.123a-2) unstable; urgency=low
+
+  * Fixed an error in README.Debian, closes #37581.
+
+ -- John Goerzen <jgoerzen@complete.org>  Thu, 13 May 1999 06:30:23 -0500
+
+listar (0.123a-1) unstable; urgency=high
+
+  * New upstream release: fixes several potential buffer overflows
+
+ -- John Goerzen <jgoerzen@complete.org>  Wed, 12 May 1999 17:14:55 -0500
+
+listar (0.122a-2) unstable; urgency=low
+
+  * Added listar-cgi package
+  * listargate.lpm is now compiled and made a part of listar-cgi
+  * Updated documentation for this change
+  * Updated the copyright file for GPL status
+  * /usr/lib/listar/listar now 4755 for the sake of listargate.cgi
+  * Integrated security patch I added to upstream to listargatet.cgi
+  * debian/rules now strips *.lpm's manually since not all dh_strip
+    versions do.
+  * Remove gw permissions from some buried README files.
+
+ -- John Goerzen <jgoerzen@complete.org>  Mon, 26 Apr 1999 17:43:40 -0500
+
+listar (0.122a-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- John Goerzen <jgoerzen@complete.org>  Fri, 23 Apr 1999 12:57:28 -0500
+
+listar (0.121a-6) unstable; urgency=low
+
+  * Updated newlist.pl for new directory scheme
+
+ -- John Goerzen <jgoerzen@complete.org>  Sat, 27 Mar 1999 16:33:28 -0600
+
+listar (0.121a-5) unstable; urgency=low
+
+  * Added weekly /var/log/listar.log rotation
+  * Updated the documentation for this
+
+ -- John Goerzen <jgoerzen@complete.org>  Wed, 24 Mar 1999 12:22:55 -0600
+
+listar (0.121a-4) unstable; urgency=low
+
+  * Tweaked permissions on /var/lib/listar/{lists,queue} to remove
+    world-read/execute bits.
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue, 23 Mar 1999 16:45:14 -0600
+
+listar (0.121a-3) unstable; urgency=low
+
+  * Update the Debian-specific documentation
+  * Merge in some changes in preparation for upstream integration of
+    debian/ directory
+
+ -- John Goerzen <jgoerzen@complete.org>  Sun, 21 Mar 1999 12:08:19 -0600
+
+listar (0.121a-2) unstable; urgency=low
+
+  * Patch from author to fix path checking for vhosts
+
+ -- John Goerzen <jgoerzen@complete.org>  Wed, 17 Mar 1999 17:33:11 -0600
+
+listar (0.121a-1) unstable; urgency=low
+
+  * New upstream release
+  * Applied author's patch to speed up SMTP delivery
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue, 16 Mar 1999 12:04:31 -0600
+
+listar (0.120a-1) unstable; urgency=low
+
+  * New upstream release, which incorporates all the patches
+    that were applied to 0.119a, so:
+  * 0.119a patches backed out of Debian source
+
+ -- John Goerzen <jgoerzen@complete.org>  Mon, 15 Mar 1999 14:12:39 -0600
+
+listar (0.119a-2) unstable; urgency=medium
+
+  * Incorporates patches from authors for a problem with parsing
+    lists-root.  They've been really great with fixing bugs.
+  * Applied patch from authors to fileapi.c to fix a potential
+    coredump.
+  * Applied patch from authors to core.c to fix absolute path
+    for logfile.
+
+ -- John Goerzen <jgoerzen@complete.org>  Sun, 14 Mar 1999 22:01:53 -0600
+
+listar (0.119a-1) unstable; urgency=low
+
+  * New upstream release
+  * Removed symlinks that are no longer necessary
+  * Applied patch to core and stat from author to fix
+    the handling of the new no-symlink situation.
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue,  9 Mar 1999 13:42:45 -0600
+
+listar (0.118a-1) unstable; urgency=low
+
+  * New upstream release
+  * Removed patches for filearchive.c, archive.c, and module.c which have
+    now been integrated upstream.
+  * Applied patch to unsub.c from the Listar authors on the mailing list.
+
+ -- John Goerzen <jgoerzen@complete.org>  Mon, 15 Feb 1999 12:44:36 -0600
+
+listar (0.116a-4) unstable; urgency=low
+
+  * Applied patch to src/modules/filearchive/filearchive.c; it now has ability
+    to restrict  access to the file archives based on subscription status by
+    way of the "file-archive-status" per-list configuration directive.  This
+    option can be either "private" (only accessible by list members),
+    "admin" (only accessible by list admins).  If ommitted, anyone can
+    access the list files (current default behavior).
+
+ -- John Goerzen <jgoerzen@complete.org>  Mon,  1 Feb 1999 11:10:51 -0600
+
+listar (0.116a-3) unstable; urgency=low
+
+  * Added new archive.c, sent to me by the upstream authors,
+    to fix a few bugs in archiving.
+
+ -- John Goerzen <jgoerzen@complete.org>  Sun, 31 Jan 1999 19:01:20 -0600
+
+listar (0.116a-2) unstable; urgency=low
+
+  * Fixed a nasty typo in debian/dirs
+  * Changed some relative symlinks to absolute ones.
+
+ -- John Goerzen <jgoerzen@complete.org>  Sat, 30 Jan 1999 21:02:41 -0600
+
+listar (0.116a-1) unstable; urgency=low
+
+  * New upstream release.  Fixes #32405 and #31963.
+  * Note source location, closing #31642.
+  * Updated clean target for new version.
+  * Added #include <string.h> to src/module.c for correct
+    compilation.
+  * Added a dependency on `sendmail | mail-transport-agent'
+
+ -- John Goerzen <jgoerzen@complete.org>  Sat, 30 Jan 1999 20:22:35 -0600
+
+listar (0.115a-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- John Goerzen <jgoerzen@complete.org>  Sun,  3 Jan 1999 23:10:12 -0600
+
+

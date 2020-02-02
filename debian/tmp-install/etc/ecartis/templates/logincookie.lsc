@@ -1,0 +1,21 @@
+[?include templates/header.lsc]
+
+<font face="Verdana,Arial,Helvetica,Sans-Serif">
+<BR><BR>
+<P align=center><font size=+2>Authenticate your Identity</font></P>
+<HR>
+<font size=+1>
+To authenticate your identity, please provide the authorization string
+that was mailed to your address at [$lcgi-user].
+</font>
+      
+[@MODEHEADEX:[$lcgi-mode]]
+<font size=+1>
+Auth String: [@AUTHCOOKIE]
+</font>
+[@SUBMIT:Authorize]
+[@MODEEND]
+        
+</font>
+
+[?include templates/footer.lsc]

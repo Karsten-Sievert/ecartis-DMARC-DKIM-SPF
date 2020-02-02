@@ -1,6 +1,7 @@
 \documentclass{book}
 \usepackage{ecartis}
-\usepackage{hthtml}
+% \usepackage{hthtml}
+\usepackage{hyperref}
 \usepackage{verbatim}
 
 \begin{document}
@@ -28,8 +29,8 @@ development of the documentation to explain it; this is a shortcoming we are
 attempting to address.  
 
 Discussion of this documentation should be directed to the mailing list 
-\htmailto{ecartis-doc@ecartis.org}.  Subscription information for the list is
-available at \hturl{http://www.ecartis.org}.  Anyone who has submissions they
+\href{ecartis-doc@ecartis.org}{ecartis-doc@ecartis.org}.  Subscription information for the list is
+available at \href{http://www.ecartis.org}{http://www.ecartis.org}.  Anyone who has submissions they
 would like added to the documentation, or has suggestions for rewording,
 changes, etc. to the existing documentation should direct their comments to
 this list.
@@ -137,7 +138,7 @@ and are willing to learn Majordomo's source code.
 A good --- if somewhat biased --- summary of the history of MLMs is available
 online from Lyris Technologies (who are themselves the authors of a commercial
 MLM called Lyris, which is targeted specifically at business users) at
-\hturl{http://www.lyristechnologies.com/historyls.html}
+\href{http://www.lyristechnologies.com/historyls.html}{http://www.lyristechnologies.com/historyls.html}
    
 \section{History of Ecartis}
 \label{int:history:Ecartis}
@@ -276,7 +277,7 @@ cvs update -P -d
 \end{quote}
 
 For information on CVS and CVS servers, visit Cyclic Software, the authors of
-CVS, at \hturl{http://www.cyclic.com/} --- there are graphical CVS clients
+CVS, at \href{http://www.cyclic.com/}{http://www.cyclic.com/} --- there are graphical CVS clients
 available for several operating systems as well as binaries for various
 systems.
    
@@ -391,7 +392,7 @@ UNIX installations.
    
 There is also a commercially supported mailing list package for Windows which
 is based on Ecartis.  It is called SLList and is sold and supported by Seattle
-Lab, at \hturl{http://www.seattlelab.com/}.
+Lab, at \href{http://www.seattlelab.com/}{http://www.seattlelab.com/}.
 
 \chapter{Getting Started}
 \label{starting}
@@ -447,7 +448,7 @@ will be able to use the aliases that Ecartis generates directly.
 \subsection{Sendmail}
 \label{starting:filters:sendmail}
    
-Sendmail (\hturl{http://www.sendmail.org}) is perhaps the widest used mail
+Sendmail (\href{http://www.sendmail.org}{http://www.sendmail.org}) is perhaps the widest used mail
 server on the Internet, and comes preinstalled on most UNIX-type systems.
 Sendmail is extremely configurable --- almost too configurable, as it is
 possible to get lost in the configuration options --- and is more than capable
@@ -534,7 +535,7 @@ mylist:           |"/etc/smrsh/ecartis -s mylist"
 
 Exim is another of the mail servers out there, though it doesn't come
 preinstalled on many --- if any --- systems.  Information on it can be found
-at \hturl{http://www.exim.org/}.  Exim was developed at the University of
+at \href{http://www.exim.org/}{http://www.exim.org/}.  Exim was developed at the University of
 Cambridge over in England.  To make Ecartis work with Exim, you could take the
 simple approach like with Sendmail and paste the Ecartis aliases into the
 existing Exim aliases file, or you can go into exim.conf and add the following
@@ -559,7 +560,7 @@ Other than that, Ecartis should function correctly with Exim out-of-the-box.
 \subsection{Postfix}
 \label{starting:filters:postfix}
    
-Postfix (\hturl{http://www.postfix.org}) is another mail server, designed with
+Postfix (\href{http://www.postfix.org}{http://www.postfix.org}) is another mail server, designed with
 the goal of creating a package as secure and fast as sendmail, while still
 providing as much backwards compatibility as possible.  For Postfix
 installations, you can once again take the simple route and paste the Ecartis
@@ -585,7 +586,7 @@ path to where you keep your Ecartis aliases file.
 \subsection{qmail}
 \label{starting:filters:qmail}
 
-The qmail (\hturl{http://www.qmail.org}) program is perhaps the second most
+The qmail (\href{http://www.qmail.org}{http://www.qmail.org}) program is perhaps the second most
 widely used UNIX mail server on the Internet, being considered to be small,
 fast and secure.  However, the method of setting up qmail aliases is far
 different from setting up aliases under any other mail package.  Instead of a
@@ -656,7 +657,7 @@ creating a new list.
    
 It is also worth noting that there is an optional add-on package for qmail by
 Dan Bernstein called FastForward
-(\hturl{http://www.pobox.com/~djb/fastfoward.html}) which allows qmail to use
+(\href{http://www.pobox.com/~djb/fastfoward.html}{http://www.pobox.com/~djb/fastfoward.html}) which allows qmail to use
 /etc/aliases.
    
 \chapter{Configuring the Server}

@@ -134,7 +134,7 @@ void parse_exim_bounce(FILE *infile, FILE *outfile, const char *outfilename,
       if (buf[strlen(buf) - 1] == '\n')
           buf[strlen(buf) - 1] = 0;
  
-      if ((strncmp(buf,"  ",2) == 0) && strchr(buf,'@') && strchr(buf,':')) {
+      if ((strncmp(buf,"  ",2) == 0 && buf[2] != ' ' && strchr(buf,'@'))) {
          char *mptr;
 
          mptr = &(buf[0]);
@@ -142,7 +142,7 @@ void parse_exim_bounce(FILE *infile, FILE *outfile, const char *outfilename,
 
          LMAPI->buffer_printf(useraddy, sizeof(useraddy) - 1, "%s", mptr);
          mptr = strrchr(useraddy,':');
-         if (*mptr) *mptr = 0;
+         if (mptr) *mptr = 0;
 
          LMAPI->read_file(buf, sizeof(buf), infile);
 

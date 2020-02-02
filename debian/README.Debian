@@ -1,0 +1,83 @@
+pantomime-dir can be used by anyone that can mail to the list, even if
+their message gets held for moderation.  Spammers could use you to
+host their web pages if you make the pantomime-dir available on the
+web unrestricted.  Upstream is aware of the problem, and it may be
+fixed in a later version.
+
+ -- Blars Blarson <blarson@blars.org>  Fri, 14 Apr 2006 22:59:23 +0000
+
+If you are using ecartis with sendmail and have smrsh enabled, you will 
+need to put a shell script in /etc/mail/smrsh/ecartis:
+
+	#!/bin/sh
+	cd /usr/lib/ecartis
+	/usr/lib/ecartis/ecartis "$@"
+
+and use /etc/mail/smrsh/ecartis in the mail aliases.
+
+ -- Blars Blarson <blarson@blars.org>, Sat Jul 31 01:43:34 2004
+
+
+[ADDED on 2002-12-15 by Martin Loschwitz <madkiss@madkiss.org>]
+
+Please note that after installation, Ecartis is still not ready for use.
+You will need to do some configuration work before using It. This means
+mainly editing Ecartis's configuration files which you can find in the
+/etc/ecartis directory. You will also need to add things to /etc/aliases.
+Finally, you have to set up the mailing list you want to use. More details 
+can be found in /usr/share/doc/ecartis, especially the file README.Debian 
+in that directory.
+
+Please note that if you are upgrading and have virtual ecartis hosts set
+up, you will want to run this:
+
+su ecartis -c '/usr/lib/ecartis/ecartis -c vhost-cfg-file -upgrade'
+
+-- Martin Loschwitz <madkiss@madkiss.org>  Thu, 17 Dec 2002 20:33:00 +0100
+
+ecartis for DEBIAN
+---------------------
+
+Ecartis will not work until you configure it.  Please observe some things:
+
+1. There's a config file in /etc/ecartis.  Modify it as appropriate, taking
+   special note of domain stuff.
+
+2. Ecartis per-list info, configs, and defaults, are in /var/lib/ecartis.
+
+3. /usr/share/doc/ecartis/examples/lists has a sample config like you'd
+   find in /var/lib/ecartis/lists .
+
+4. Add the information from /usr/share/doc/ecartis/examples/ecartis.aliases
+   to your /etc/aliases file and run newaliases.
+
+Also, note:
+
+For the purposes of the ecartis documentation, the home directory for ecartis
+is /usr/lib/ecartis; this is where ecartis itself is.  The ecartis data
+directory, where all the list configuration files and data files reside, is
+/var/lib/ecartis.  /etc/ecartis contains global (site-wide) ecartis
+configuration information.
+
+Ecartis logs to /var/log/ecartis.log with its own devices.  It is now rotated
+weekly.
+
+There is a spam-regexp file in /usr/share/doc/ecartis/examples.  See the
+README.ANTISPAM file for details.  If you want to use anti-spam measures,
+use this file or something like it and stick it in the appropriate directory
+under /var/lib/ecartis.
+
+The ecartis CGI script can be found in the package ecartis-cgi.  Please
+look there if you want the CGI interface.
+
+John Goerzen <jgoerzen@complete.org>, Sun,  3 Jan 1999 23:10:12 -0600
+Second edition, March 21, 1999
+Further updates <blarson@blars.org>, Jul 31 2004
+
+Updated to Ecartis by Nils Vogels <nivo@is-root.com>, Sun, Aug 6 2001
+*STILL NEEDS VERIFICATION AND FURTHER ADOPTING*
+Listargate etc is still in here, when it has been superseded by LSG2.
+
+*NOTE*
+Needs automatic migration magic for listar -> ecartis change.
+  -- Teemu Hukkanen <tjhukkan@iki.fi>, Wed, 22 Aug 2001 01:18:16 +0300

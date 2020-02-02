@@ -1,0 +1,14 @@
+[?include templates/header.lsc]
+<HR>
+<font face="Verdana,Arial,Sans Serif">
+<center>
+<font size=+1>You have subscribed to [$lcgi-list].</font>
+</center>
+[@MODEHEADEX:displayfile]
+[@WELCOME-BUTTON:Show Welcome File]
+[@MODEEND]
+[@MODEHEADEX:listmenu]
+[@SUBMIT:Return to List Menu]
+[@MODEEND]
+</font>
+[?include templates/footer.lsc]

@@ -1,0 +1,21 @@
+[?include templates/header.lsc]
+
+<center>
+<table cellspacing=0 cellpadding=0>
+<td bgcolor=#ffffff>&nbsp;&nbsp;</td><td bgcolor=#ffffff>
+<font color=#000000><BR>
+[@DISPLAYFILE]
+<BR>
+</font></td><td bgcolor=#ffffff>&nbsp;&nbsp;</td></tr>
+</table>
+
+[?if varset(lcgi-lastmode)]
+[@MODEHEADEX:[$lcgi-lastmode]]
+[?else]
+[@MODEHEADEX:listmenu]
+[?endif]
+[@SUBMIT:Back]
+[@MODEEND]
+</center>
+
+[?include templates/footer.lsc]

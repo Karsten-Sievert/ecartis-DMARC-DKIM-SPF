@@ -1,0 +1,13 @@
+[?include templates/header.lsc]
+
+<font face="Verdana,Arial,Helvetica,Sans-Serif">
+ <P align=center><font size=+2><b>Error:</b> [$lcgi-error]</font></P>
+ <HR>
+ <font size=+1>
+   An error has occured in the processing of your request.  
+   <P>
+   Please report it to <a href="mailto:[$listserver-owner]">[$listserver-owner]</a>.
+ </font>
+</font>
+
+[?include templates/footer.lsc]

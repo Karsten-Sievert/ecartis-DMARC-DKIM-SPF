@@ -1,0 +1,28 @@
+[?include templates/header.lsc]
+<HR>
+<font face="Verdana,Arial,Sans Serif">
+<center>
+<font size=+1><b>Account Settings for [$lcgi-userfor] on
+[$lcgi-list]</b></font>
+<P>
+[@MODEHEADEX:admin_setname]
+<input type=hidden name=lcgi-userfor value=[$lcgi-userfor]>
+</b>Full Name:</b> [@ADMINSETNAME]
+[@SUBMIT:Set Full Name]
+[@MODEEND]
+</P>
+<font size=+1>Flags for [$lcgi-userfor] on [$lcgi-list]</font>
+</center>
+<P>
+[@MODEHEADEX:admin_setflags]
+<input type=hidden name=lcgi-userfor value=[$lcgi-userfor]>
+[@ADMINFLAGLIST]
+<center>
+[@SUBMIT:Set Flags]
+</center>
+[@MODEEND]
+[@MODEHEADEX:admin]
+[@SUBMIT:Back to Admin Menu]
+[@MODEEND]
+</font>
+[?include templates/footer.lsc]

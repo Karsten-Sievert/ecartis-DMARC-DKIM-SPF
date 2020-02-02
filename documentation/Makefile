@@ -1,23 +1,24 @@
 
+EXECPREFIX=
 # stuff for LaTeX 2e itself
 #
-LATEX = /usr/local/bin/latex
+LATEX = $(EXECPREFIX)latex
 
 # PDF macros
 #
-PDFLATEX = /usr/local/bin/pdflatex
+PDFLATEX = $(EXECPREFIX)pdflatex
 
 # PostScript macros
 #
-DVIPS = /usr/local/bin/dvips
+DVIPS = $(EXECPREFIX)dvips
 
 # TEXT macros
 #
-W3M = /usr/local/bin/w3m
+W3M = $(EXECPREFIX)w3m
 
 # HTML macros
 #
-LATEX2HTML = /usr/local/bin/latex2html
+LATEX2HTML = $(EXECPREFIX)latex2html
 # directories to contain HTML output
 HTMLSPLITDIR = html-split
 HTMLSINGLEDIR = html-single
@@ -49,7 +50,7 @@ ecartis.pdf:	ecartis.dvi
 
 ecartis.ps:	ecartis.dvi
 	${DVIPS} -o ecartis.ps ecartis
-	
+
 ecartis.txt:	${HTMLSINGLEDIR}/ecartis.html
 	${W3M} -dump ${HTMLSINGLEDIR}/ecartis.html > ecartis.txt
 

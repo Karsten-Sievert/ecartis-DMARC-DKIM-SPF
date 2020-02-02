@@ -1,0 +1,29 @@
+Source: ecartis
+Section: mail
+Priority: extra
+Maintainer: Blars Blarson <blarson@blars.org>
+Build-Depends: debhelper (>= 4.1.26), tetex-bin, tetex-extra
+Standards-Version: 3.6.1
+
+Package: ecartis
+Architecture: any
+Depends: ${shlibs:Depends}, exim4 | mail-transport-agent, logrotate
+Conflicts: listar, listar-cgi
+Suggests: ecartis-cgi, xpdf-reader
+Description: Fast, Flexible Mailing List Manager
+ Ecartis is a powerful mailing list manager in the tradition of listserv
+ but with an open architecture and free source (GPL license).  It
+ has some features not found in Majordomo.  One of the most interesting
+ things in Ecartis is plugin module system; many functions are
+ implemented as dynamically-loadable modules.
+ .
+ You may also want to check out the ecartis-cgi program, which provides
+ a web-based front-end for your Ecartis mailing lists.
+
+Package: ecartis-cgi
+Architecture: any
+Depends: ecartis (=${Source-Version}), apache | httpd | httpd-cgi
+Conflicts: listar, listar-cgi
+Description: CGI front-end for Ecartis
+ This is the experimental web-based front-end for the Ecartis
+ mailing list management program.

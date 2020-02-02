@@ -1,0 +1,19 @@
+#!/bin/sh
+
+if [ $1 = "purge" ]; then
+  if getent passwd ecartis >/dev/null; then
+    userdel -r ecartis || true
+  fi
+  if getent group ecartis >/dev/null; then
+    groupdel ecartis || true
+  fi
+fi
+
+if [ $1 = "remove" -o $1 = "purge" ]; then
+  if dpkg-statoverride --list /usr/lib/ecartis/ecartis > /dev/null
+  then
+    dpkg-statoverride --remove /usr/lib/ecartis/ecartis
+  fi
+fi
+
+#DEBHELPER#

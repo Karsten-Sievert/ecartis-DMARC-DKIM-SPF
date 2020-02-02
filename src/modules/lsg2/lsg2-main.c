@@ -180,6 +180,9 @@ MODE_HANDLER(mode_lsg2)
    struct listserver_cgi_mode *curmode;
    char *tbuf;
 
+   /* turn off loose host matching */
+   LMAPI->set_var("no-loose-domain-match", "yes", VAR_GLOBAL);
+
    /* Generic header */
 
    if (LMAPI->get_bool("lsg2-iis-support"))

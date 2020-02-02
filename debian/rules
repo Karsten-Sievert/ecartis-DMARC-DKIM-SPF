@@ -1,0 +1,132 @@
+#!/usr/bin/make -f
+
+export DH_COMPAT=4
+
+DESTDIR=`pwd`/debian/tmp-install
+ULIBDIR=$(DESTDIR)/usr/lib/ecartis
+VLIBDIR=$(DESTDIR)/var/lib/ecartis
+DOCDIR=$(DESTDIR)/usr/share/doc/ecartis
+ETCDIR=$(DESTDIR)/etc/ecartis
+
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+	CFLAGS += -O0
+endif
+
+ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+	INSTALL_PROGRAM += -s
+endif
+
+build: build-stamp
+build-stamp:
+
+	dh_testdir
+	cd src && $(MAKE) -f Makefile.dist WFLAGS=-Wall
+	cd documentation && $(MAKE) ecartis.pdf
+	touch build-stamp
+
+clean:
+
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp install-stamp
+
+	# Add here commands to clean up after the build process.
+	-cd src && $(MAKE) -f Makefile.dist clean
+	-cd documentation && $(MAKE) distclean
+
+	rm -f ecartis `find . -name "*.so" -o -name "*.o" -o -name "*.lpm" -o -name "*.inst" -o -name "*.pdf"` src/ecartis src/build/ecartis debian/tmp-install/usr/lib/ecartis/ecartis
+
+	dh_clean
+
+install: build
+
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+
+	# build ecartis package
+	install -D src/ecartis $(ULIBDIR)/ecartis
+
+	# example list
+	install -d $(DOCDIR)/examples/lists/
+	cp -ax lists/test/ $(DOCDIR)/examples/lists/
+
+	# install modules
+	install -d $(ULIBDIR)/modules/
+	cd src/modules/ && for a in `find -maxdepth 1 -mindepth 1`; do cp "$$a"/"$$a".lpm ../../debian/tmp-install/usr/lib/ecartis/modules/; done
+	cd src/build/ && find *.lpm | cpio -padmuv $(ULIBDIR)/modules/ 
+
+	# install some other files
+	install -d $(VLIBDIR)/
+	cp -ax queue/ $(VLIBDIR)/queue/
+	install -D scripts/lsg2.cgi.dist $(DESTDIR)/usr/lib/cgi-bin/lsg2.cgi
+	install -D banned $(ETCDIR)/banned
+	install -D `pwd`/debian/maintain/ecartis.cfg $(ETCDIR)/ecartis.cfg
+	install -D ecartis.hlp $(ETCDIR)/ecartis.hlp
+	install -D spam-regexp.sample $(DOCDIR)/examples/spam-regexp
+	sed -e 's,home/ecartis,usr/lib/ecartis,' <ecartis.aliases.dist >$(DOCDIR)/examples/ecartis.aliases
+	install -D src/build/ecartis $(ULIBDIR)/ecartis
+	cp -ax `pwd`/src/build/debian/tmp-install/usr/lib/ecartis/modules/lsg2.lpm `pwd`/debian/tmp-install/usr/lib/ecartis/modules/
+
+	# documentation
+	install -D documentation/ecartis.pdf $(DOCDIR)/ecartis.pdf
+	# ecartis-cgi
+	install -d $(DESTDIR)/etc/ecartis/
+	cp -ax templates/ $(DESTDIR)/etc/ecartis/
+
+	# create some standard directorys
+	install -d $(VLIBDIR)/lists/ $(VLIBDIR)/archives/
+
+	# finally, run dh_install
+	dh_install --list-missing --sourcedir=debian/tmp-install
+
+binary-indep: build install
+
+binary-arch: build install
+
+	dh_testdir
+	dh_testroot
+
+	# set some symlinks
+	dh_link -pecartis etc/ecartis/ecartis.cfg usr/lib/ecartis/ecartis.cfg
+	dh_link -pecartis etc/ecartis/ecartis.hlp usr/lib/ecartis/ecartis.hlp
+	dh_link -pecartis etc/ecartis/ecartis.hlp var/lib/ecartis/ecartis.hlp
+
+	# set some symlinks (ecartis-cgi)
+	dh_link -pecartis-cgi usr/lib/cgi-bin/lsg2.cgi usr/lib/cgi-bin/listargate.cgi
+	dh_link -pecartis-cgi etc/ecartis/templates usr/lib/ecartis/templates
+	dh_link -pecartis-cgi etc/ecartis/templates var/lib/ecartis/templates
+
+	dh_installdocs -A
+	dh_installchangelogs -A
+
+	dh_installlogrotate
+	dh_installman -pecartis debian/maintain/ecartis.8
+
+	dh_strip -A
+	strip --remove-section=.comment --remove-section=.note --strip-unneeded	`pwd`/debian/ecartis-cgi/usr/lib/ecartis/modules/lsg2.lpm
+
+	dh_compress -A
+	dh_fixperms -A
+
+	# don't make some files executable
+	chmod -x `pwd`/debian/ecartis/usr/lib/ecartis/modules/*
+	chmod -x `pwd`/debian/ecartis-cgi/usr/lib/ecartis/modules/*
+	chmod -x `pwd`/debian/ecartis/etc/ecartis/*
+	chmod -x `pwd`/debian/ecartis/usr/share/doc/ecartis/examples/ecartis.aliases
+	chmod -x `pwd`/debian/ecartis/usr/share/doc/ecartis/examples/spam-regexp
+
+	# delete empty file
+	rm -rf `pwd`/debian/ecartis/usr/share/doc/ecartis/examples/lists/test/cookies
+
+	# proceed with program
+	dh_installdeb -A
+	dh_shlibdeps -A
+	dh_gencontrol -A
+
+	dh_md5sums -A
+	dh_builddeb -A
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary

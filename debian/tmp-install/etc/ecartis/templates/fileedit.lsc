@@ -1,0 +1,39 @@
+[?include templates/header.lsc]
+<HR>
+<font face="Verdana,Arial,Sans Serif">
+<center>
+<font size=+1><b>File Edit Mode: '[$lcgi-adminfile]'</b></font>
+</center>
+<P>
+<table border=0 align=center>
+[?if varset(tlcgi-editfile-desc)]
+<tr>
+ <td colspan=2>
+   Description of file:
+   <ul>
+    [$tlcgi-editfile-desc]
+   </ul>
+ </td>
+</tr>
+[?endif]
+<tr>
+<td colspan=2 align=center>
+[@MODEHEADEX:putfile]
+<input type="hidden" name="lcgi-adminfile" value="[$lcgi-adminfile]">
+[@FILEEDIT]
+</td>
+</tr>
+<tr>
+<td width=50% align=right valign=top>
+[@SUBMIT:Save Changes]
+[@MODEEND]
+</td>
+<td width=50% align=left valign=top>
+[@MODEHEADEX:admin]
+[@SUBMIT:Cancel]
+[@MODEEND]
+</td></tr>
+</table>
+
+</font>
+[?include templates/footer.lsc]

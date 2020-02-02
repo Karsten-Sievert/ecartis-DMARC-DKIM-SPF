@@ -1,0 +1,24 @@
+[?include templates/header.lsc]
+<HR>
+<font face="Verdana,Arial,Sans Serif">
+<table align=right border=1 bgcolor=#000088 width=40%>
+<tr>
+ <td align=center><font size=+1><b>Flags Set On User</b></font></td>
+</tr>
+<tr>
+ <td>
+[@ADMINSHOWFLAGS:1,0]
+ </td>
+</tr>
+</table>
+<font size=+1><b>[?if has_stat($lcgi-userfor,realname)][?userstat $lcgi-userfor,realname] &lt;<$lcgi-userfor>&gt;[?else]<$lcgi-userfor>[?endif]</b></font> <P>
+<b>Posts:</b> [?if has_stat($lcgi-userfor,posts)][?userstat $lcgi-userfor,posts][?else]0[?endif]<BR>
+<b>Traffic: </b> [?if has_stat($lcgi-userfor,traffic)][?userstat $lcgi-userfor,traffic][?else]0[?endif]k
+<P>
+<HR>
+[@MODEHEADEX:admin]
+[@SUBMIT:Back to Admin Menu]
+[@MODEEND]
+
+</font>
+[?include templates/footer.lsc]
