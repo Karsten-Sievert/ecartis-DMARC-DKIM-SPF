@@ -11,10 +11,9 @@ CGI_MODE(cgimode_default)
 CGI_MODE(cgimode_login)
 {
    char cookiebuf[BIG_BUF];
-   const char *fromaddy, *pass;
+   const char *fromaddy;
 
    fromaddy = LMAPI->get_var("lcgi-user");
-   pass = LMAPI->get_var("lcgi-pass");
 
    if (!fromaddy) {
       lsg2_internal_error("No username provided!");
@@ -37,11 +36,10 @@ CGI_MODE(cgimode_login)
 
 CGI_MODE(cgimode_displayfile)
 {
-   const char *fromaddy, *pass, *list;
+   const char *fromaddy, *list;
    char cookiebuf[BIG_BUF];
 
    fromaddy = LMAPI->get_var("lcgi-user");
-   pass = LMAPI->get_var("lcgi-pass");
    list = LMAPI->get_var("list");
 
    if (!list) {
@@ -85,10 +83,9 @@ CGI_MODE(cgimode_displayfile)
 CGI_MODE(cgimode_listmenu)
 {
    char cookiebuf[BIG_BUF];
-   const char *fromaddy, *pass, *list;
+   const char *fromaddy, *list;
 
    fromaddy = LMAPI->get_var("lcgi-user");
-   pass = LMAPI->get_var("lcgi-pass");
    list = LMAPI->get_var("list");
 
    if (!list) {

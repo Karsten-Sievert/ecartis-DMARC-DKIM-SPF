@@ -330,7 +330,7 @@ HOOK_HANDLER(hook_presub_closed)
 HOOK_HANDLER(hook_presub_confirm)
 {
     const char *subscribemode;
-    const char *fromaddy, *listname;
+    const char *fromaddy;
 
     /* We ignore this if it's an admin-mode subscription force */
     if (LMAPI->get_bool("adminmode"))
@@ -339,7 +339,6 @@ HOOK_HANDLER(hook_presub_confirm)
     /* Get our data */
     subscribemode = LMAPI->get_var("subscribe-mode");
     fromaddy = LMAPI->get_string("subscribe-me");
-    listname = LMAPI->get_string("list");
 
     /* Check if the confirm mode is set, OR if the address 
      * doesn't match where the request came from. */

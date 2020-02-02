@@ -643,9 +643,7 @@ static int tolist_cmp(const void *e1, const void *e2)
     char *tptr1, *tptr2;
     char *cptr1, *cptr2;
     char *cbuf1, *cbuf2;
-    char *tcptr1, *tcptr2;
     int comparedat;
-    int countback;
 
     t1 = *(struct tolist **)e1;
     t2 = *(struct tolist **)e2;
@@ -705,29 +703,18 @@ static int tolist_cmp(const void *e1, const void *e2)
     }
 
     done = 0; comparedat = 0;
-    countback = 1;
     result = 0;
 
     cptr1 = cbuf1 + strlen(cbuf1);
     cptr2 = cbuf2 + strlen(cbuf2);
 
     while(done ? 0 : !strcasecmp(cptr1,cptr2)) {
-       char tchar1, tchar2;
-
-       tcptr1 = cptr1; tcptr2 = cptr2;
-
-       tchar1 = *cptr1;
-       tchar2 = *cptr2;
-
        *cptr1 = 0;       
        *cptr2 = 0;
 
        cptr1 = strrchr(cbuf1,'.');
        cptr2 = strrchr(cbuf2,'.');
-/*
-       *tcptr1 = tchar1;
-       *tcptr2 = tchar2;
- */
+
        if (!cptr1 || !cptr2)
        {
           if (!comparedat)

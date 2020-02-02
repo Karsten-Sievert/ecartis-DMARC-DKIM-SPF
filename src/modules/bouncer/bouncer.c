@@ -119,17 +119,16 @@ void process_watches(const char *listname, int automated)
    FILE *outfile, *logfile;
    char filename[SMALL_BUF], logfilename[SMALL_BUF], watchfile[BIG_BUF];  /* Changed watchfile from SMALL_BUF to BIG_BUF due to listdir_file */
    char buf[BIG_BUF], tuser[SMALL_BUF], lasterr[SMALL_BUF];
-   int  tcount, fcount, found, timestamp, ucount, notsub;
+   int  tcount, fcount, timestamp, ucount;
    time_t temptime; 
    struct tm *lttm;
    int  lasttime, firsttime;
    int  maxfatal, maxtrans, timeoutdays, neverunsub;
    int nevervacation;
 
-   found = 0;
    tcount = 0;
    fcount = 0;
-   ucount = 0; notsub = 0;
+   ucount = 0;
 
    maxfatal = LMAPI->get_number("bounce-max-fatal");
    maxtrans = LMAPI->get_number("bounce-max-transient");
@@ -319,7 +318,6 @@ void process_watches(const char *listname, int automated)
             }
          } else {
             LMAPI->buffer_printf(action, sizeof(action) - 1, "NotSub"); handled = 1;
-            notsub = 1;
          }
 
          if (!handled) {

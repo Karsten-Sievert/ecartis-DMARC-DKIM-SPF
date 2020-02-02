@@ -267,7 +267,6 @@ char *liscript_format_variable(const char *fmtstr, const char *varname)
 int liscript_parse_line(const char *inputline, char *outline, int bufferlen)
 {
    char tempchar, escape, parsemode, *bufptr = NULL;
-   int tagfmt;
    char buffer[BIG_BUF], fmtbuf[BIG_BUF];
    const char *inptr;
    char *outptr;
@@ -275,7 +274,7 @@ int liscript_parse_line(const char *inputline, char *outline, int bufferlen)
    char bounder = '\0';
 
    parsemode = LPARSE_NORMAL; done = 0;
-   escape = 0; tagfmt = 0;
+   escape = 0;
 
    inptr = inputline;
    outptr = outline;
@@ -313,7 +312,6 @@ int liscript_parse_line(const char *inputline, char *outline, int bufferlen)
              bufptr = &buffer[0];
              if (tempchar == '$') {
                 parsemode = LPARSE_SIMPLE;
-                tagfmt = 0;
                 memset(fmtbuf, 0, sizeof(fmtbuf));
              } else 
              if (tempchar == '#') parsemode = LPARSE_COMMENT; else
@@ -511,12 +509,12 @@ int liscript_parse_logic(FILE *outfile, int level,
 int parse_until_endif(FILE *infile, FILE *outfile, int level)
 {
    char tempchar, escape, parsemode, startline, *bufptr=NULL;
-   int value, tagfmt;
+   int value;
    char buffer[BIG_BUF], fmtbuf[BIG_BUF];
    char bounder = '\0';
 
    parsemode = 0;
-   escape = 0; tagfmt = 0;
+   escape = 0;
    startline = 1;
 
    while((value = fgetc(infile)) != EOF) {
@@ -540,7 +538,6 @@ int parse_until_endif(FILE *infile, FILE *outfile, int level)
              bufptr = &buffer[0];
              if (tempchar == '$') {
                 parsemode = LPARSE_SIMPLE;
-                tagfmt = 0;
                 memset(fmtbuf, 0, sizeof(fmtbuf));
              } else 
              if (tempchar == '#') parsemode = LPARSE_COMMENT; else
@@ -692,12 +689,12 @@ int parse_until_endif(FILE *infile, FILE *outfile, int level)
 int skip_until_else_endif(FILE *infile, FILE *outfile, int level)
 {
    char tempchar, escape, parsemode, startline, *bufptr=NULL;
-   int value, tagfmt;
+   int value;
    char buffer[BIG_BUF], fmtbuf[BIG_BUF];
    char bounder = '\0';
 
    parsemode = 0;
-   escape = 0; tagfmt = 0;
+   escape = 0;
    startline = 1;
 
    while((value = fgetc(infile)) != EOF) {
@@ -720,7 +717,6 @@ int skip_until_else_endif(FILE *infile, FILE *outfile, int level)
              bufptr = &buffer[0];
              if (tempchar == '$') {
                 parsemode = LPARSE_SIMPLE;
-                tagfmt = 0;
                 memset(fmtbuf, 0, sizeof(fmtbuf));
              } else 
              if (tempchar == '#') parsemode = LPARSE_COMMENT; else
@@ -848,12 +844,12 @@ int skip_until_else_endif(FILE *infile, FILE *outfile, int level)
 int skip_until_endif(FILE *infile, FILE *outfile, int level)
 {
    char tempchar, escape, parsemode, startline, *bufptr=NULL;
-   int value, tagfmt;
+   int value;
    char buffer[BIG_BUF], fmtbuf[BIG_BUF];
    char bounder = '\0';
 
    parsemode = 0;
-   escape = 0; tagfmt = 0;
+   escape = 0;
    startline = 1;
 
    while((value = fgetc(infile)) != EOF) {
@@ -876,7 +872,6 @@ int skip_until_endif(FILE *infile, FILE *outfile, int level)
              bufptr = &buffer[0];
              if (tempchar == '$') {
                 parsemode = LPARSE_SIMPLE;
-                tagfmt = 0;
                 memset(fmtbuf, 0, sizeof(fmtbuf));
              } else 
              if (tempchar == '#') parsemode = LPARSE_COMMENT; else
@@ -1003,12 +998,12 @@ int skip_until_endif(FILE *infile, FILE *outfile, int level)
 int parse_until_else_endif(FILE *infile, FILE *outfile, int level)
 {
    char tempchar, escape, parsemode, startline, *bufptr=NULL;
-   int value, tagfmt;
+   int value;
    char buffer[BIG_BUF], fmtbuf[BIG_BUF];
    char bounder = '\0';
 
    parsemode = 0;
-   escape = 0; tagfmt = 0;
+   escape = 0;
    startline = 1;
 
    while((value = fgetc(infile)) != EOF) {
@@ -1032,7 +1027,6 @@ int parse_until_else_endif(FILE *infile, FILE *outfile, int level)
              bufptr = &buffer[0];
              if (tempchar == '$') {
                 parsemode = LPARSE_SIMPLE;
-                tagfmt = 0;
                 memset(fmtbuf, 0, sizeof(fmtbuf));
              } else 
              if (tempchar == '#') parsemode = LPARSE_COMMENT; else
@@ -1185,14 +1179,12 @@ int parse_until_else_endif(FILE *infile, FILE *outfile, int level)
 int liscript_parse_file_lowlevel(FILE *infile, FILE *outfile, int level)
 {
    char tempchar, escape, parsemode, startline, *bufptr=NULL;
-   int value, tagfmt, swapped;
+   int value;
    char buffer[BIG_BUF], fmtbuf[BIG_BUF];
    char bounder = '\0';
 
    parsemode = 0;
-   escape = 0; tagfmt = 0;
-
-   swapped = 0;
+   escape = 0;
 
    startline = 1;
 
@@ -1225,7 +1217,6 @@ int liscript_parse_file_lowlevel(FILE *infile, FILE *outfile, int level)
              bufptr = &buffer[0];
              if (tempchar == '$') {
                 parsemode = LPARSE_SIMPLE;
-                tagfmt = 0;
                 memset(fmtbuf, 0, sizeof(fmtbuf));
              } else 
              if (tempchar == '#') parsemode = LPARSE_COMMENT; else
