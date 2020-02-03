@@ -62,9 +62,9 @@ HOOK_HANDLER(hook_presend_check_administrivia)
    FILE *infile;
    FILE *exps;
    struct list_user user;
-   int inbody, numlines, count = 0;
+   int inbody, count = 0;
 
-   numlines = 0; inbody = 0;
+   inbody = 0;
 
    /* Allow a variable to turn off administrivia checking */
    if (!LMAPI->get_bool("administrivia-check")) return HOOK_RESULT_OK;
