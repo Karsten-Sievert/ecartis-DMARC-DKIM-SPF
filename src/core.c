@@ -92,13 +92,13 @@ void build_hostname(char *buffer, int len)
   }
 
   buffer_printf(buffer, len - 1, "%s", hostnameholder);
-  free(hostnameholder);
 
-  if (strchr(hostnameholder, 'n')) {
+  if (strchr(hostnameholder, '.')) {
     /* Looks FQDN already; just return. */
     return;
   }
   he = gethostbyname(hostnameholder);
+  free(hostnameholder);
   if (!he) {
     /* Couldn't look it up; do a best guess. */
     return;
