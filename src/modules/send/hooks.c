@@ -32,7 +32,10 @@ int strip_reply(const char *orig, char *dest, int length)
     tptr = tptr2;
 
     while(!done && *tptr2) {
-       if (strncasecmp(tptr2,"re:",3) == 0) {
+       if (strncasecmp(tptr2,"re:",3) == 0
+               || strncasecmp(tptr2,"wg:",3) == 0
+          )
+       {
           tptr2 += 3;
           changed = 1;
        } else if (isspace((int)*tptr2)) {
@@ -588,8 +591,35 @@ HOOK_HANDLER(hook_send_forcefrom)
     while(LMAPI->read_file(buf, sizeof(buf), infile)) {
         if (buf[0] == '\n') donefile = 1;
         if (!strncmp(buf,"From:",5) && !donefile) {
+            char from_buf[SMALL_BUF];
+            const char *force_from_address = LMAPI->get_string("force-from-address");
+            if (LMAPI->get_bool("dkim-from-rewrite")) {
+                /* Use the original From: address to form the display
+                 * name dor the rewritten sender address;
+                 * "John Doe" <john@aol.com>
+                 *     --> "John Doe via [LIST]" <force_from_address>
+                 * "john@aol.com"
+                 *    --> "john aol.com via [LIST]" <force_from_address>
+                 */
+                const char *subjecttag;
+                char* from_addr = buf + 5;
+                while(isspace(*from_addr) || *from_addr == '"')
+                    ++from_addr;
+                char* p = strchr(from_addr, '<');
+                while (p > from_addr && (isspace(*(p-1)) || *(p-1) == '"'))
+                    --p;
+                if (p)
+                    *p = '\0';
+                p = strchr(from_addr, '@');
+                if (p)
+                    *p = ' ';
+                subjecttag = LMAPI->get_var("subject-tag");
+                LMAPI->buffer_printf(from_buf, sizeof(from_buf) - 1, "\"%s via %s\" <%s>",
+                        from_addr, subjecttag, force_from_address);
+                force_from_address = from_buf;
+            }
            LMAPI->write_file(outfile, "From: %s\n",
-               LMAPI->get_string("force-from-address"));
+               force_from_address);
         } else LMAPI->write_file(outfile,"%s",buf);
     }
 

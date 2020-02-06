@@ -130,6 +130,9 @@ void send_load(struct LPMAPI *api)
                         "If specified, this will be used as the RFC 822 From: address.",
                         "force-from-address = list-admins@myhost.dom",
                         VAR_STRING, VAR_ALL);
+    LMAPI->register_var("dkim-from-rewrite", "no", "Misc",
+                        "Should the server use the DMARC/DKIM suggested From: rewrite 'clearName via <force-from-address>.",
+                        "dkim-from-rewrite", VAR_BOOL, VAR_ALL);
     LMAPI->register_var("precedence", "bulk", "Misc",
                         "The precedence header which will be included in all traffic to the list.",
                         "precedence = bulk", VAR_STRING, VAR_ALL);

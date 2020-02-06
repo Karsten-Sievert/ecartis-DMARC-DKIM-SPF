@@ -29,6 +29,18 @@
 #
 # force-from-address = 
 
+# dkim-from-rewrite
+# Should the server use the DMARC/DKIM suggested From: rewrite
+# 'clearName via <force-from-address>."
+# Example: dkim-from-rewrite = yes
+# 
+# NOTE:  To be DKIM conform, set:
+#     force-from-address = list@myhost.dom
+#     dkim-from-rewrite = yes
+#     strip-headers = DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Google-Smtp-Source
+#
+# dkim-from-rewrite = yes
+
 # header-max-size
 # Posts with headers larger than this in bytes will be moderated.
 # Example: header-max-size = 2000
