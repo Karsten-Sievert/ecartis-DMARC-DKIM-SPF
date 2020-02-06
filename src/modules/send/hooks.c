@@ -608,18 +608,33 @@ HOOK_HANDLER(hook_send_forcefrom)
                 char* p = strchr(from_addr, '<');
                 while (p > from_addr && (isspace(*(p-1)) || *(p-1) == '"'))
                     --p;
-                if (p)
-                    *p = '\0';
-                p = strchr(from_addr, '@');
-                if (p)
-                    *p = ' ';
+                if (p > from_addr) /* if we have like 'name<a@b.c>', then p>from_addr */
+                    *p = '\0';     /* *p is just behind 'name' */
+                else {
+                    /* we have either <a@b.c> or just a@b.c possibbly
+                     * enclosed in whitespace
+                     */
+                    p = strchr(from_addr, '@');
+                    if (p)
+                        *p = ' ';
+                    p = strchr(from_addr, '>');
+                    if (!p) {
+                        p = from_addr + strlen(from_addr);
+                        while (p > from_addr && (isspace(*(p-1)) || *(p-1) == '"'))
+                            --p;
+                    }
+                    if (p)
+                        *p = '\0';
+                }
+                while (isspace(*from_addr) || *from_addr == '<')
+                    ++from_addr;  /* remove ws before name or a@b.c */
                 subjecttag = LMAPI->get_var("subject-tag");
                 LMAPI->buffer_printf(from_buf, sizeof(from_buf) - 1, "\"%s via %s\" <%s>",
                         from_addr, subjecttag, force_from_address);
                 force_from_address = from_buf;
             }
-           LMAPI->write_file(outfile, "From: %s\n",
-               force_from_address);
+            LMAPI->write_file(outfile, "From: %s\n",
+                    force_from_address);
         } else LMAPI->write_file(outfile,"%s",buf);
     }
 
