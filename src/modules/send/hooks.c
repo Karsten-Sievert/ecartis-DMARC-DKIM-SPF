@@ -635,7 +635,32 @@ HOOK_HANDLER(hook_send_forcefrom)
             }
             LMAPI->write_file(outfile, "From: %s\n",
                     force_from_address);
-        } else LMAPI->write_file(outfile,"%s",buf);
+        } else if(!strncmp(buf,"To:",3) && !donefile) {
+            char* addr = buf + 3;
+            while(isspace(*addr))
+                ++addr;
+            if (LMAPI->get_bool("dkim-from-rewrite")) {
+                const char *force_from_address = LMAPI->get_string("force-from-address");
+                char* to_addr = strstr(addr, force_from_address);
+                if (to_addr && (to_addr > addr) && (*(to_addr-1) == '<')) {
+                    *(to_addr-1) = '\0';
+                    char* start = strrchr(addr, ',');
+                    if (start)
+                        ++start;
+                    else
+                        start = addr;
+                    *(to_addr-1) = '<';
+
+                    const char* end =  strchr(to_addr, '>');
+                    if (start && to_addr && end && start < to_addr && to_addr < end) {
+                        memmove(start, to_addr, end - to_addr);
+                        memmove(start + (end - to_addr), end + 1, strlen(end + 1) + 1);
+                    }
+                }
+            }
+            LMAPI->write_file(outfile,"%s",buf);
+        } else
+            LMAPI->write_file(outfile,"%s",buf);
     }
 
     LMAPI->close_file(outfile);
