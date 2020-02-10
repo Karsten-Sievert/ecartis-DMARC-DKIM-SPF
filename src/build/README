@@ -1,2 +1,5 @@
 This is where the binaries are stored when they are built, before you
 do a 'make install'.
+
+Check if you have to set a sticky bit (chmod u+s ecartis) on your system.
+This may be necessary if you use Ecartis on a shared host.
